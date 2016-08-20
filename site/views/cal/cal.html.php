@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_helloworld
+ * @subpackage  com_cal
  *
  * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -11,11 +11,11 @@
 defined('_JEXEC') or die('Restricted access');
  
 /**
- * HTML View class for the HelloWorld Component
+ * HTML View class for the Cal Component
  *
  * @since  0.0.1
  */
-class HelloWorldViewHelloWorld extends JViewLegacy
+class CalViewCal extends JViewLegacy
 {
 	/**
 	 * Display the Hello World view

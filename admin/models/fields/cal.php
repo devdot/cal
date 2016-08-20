@@ -1,9 +1,9 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_helloworld
+ * @subpackage  com_cal
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
  
@@ -13,18 +13,18 @@ defined('_JEXEC') or die('Restricted access');
 JFormHelper::loadFieldClass('list');
  
 /**
- * HelloWorld Form Field class for the HelloWorld component
+ * Cal Form Field class for the Cal component
  *
  * @since  0.0.1
  */
-class JFormFieldHelloWorld extends JFormFieldList
+class JFormFieldCal extends JFormFieldList
 {
 	/**
 	 * The field type.
 	 *
 	 * @var         string
 	 */
-	protected $type = 'HelloWorld';
+	protected $type = 'Cal';
  
 	/**
 	 * Method to get a list of options for a list input.

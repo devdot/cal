@@ -1,9 +1,9 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_helloworld
+ * @subpackage  com_cal
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
  
@@ -11,11 +11,11 @@
 defined('_JEXEC') or die('Restricted access');
  
 /**
- * HelloWorld Model
+ * Cal Model
  *
  * @since  0.0.1
  */
-class HelloWorldModelHelloWorld extends JModelItem
+class CalModelCal extends JModelItem
 {
 	/**
 	 * @var array messages
@@ -33,7 +33,7 @@ class HelloWorldModelHelloWorld extends JModelItem
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'HelloWorld', $prefix = 'HelloWorldTable', $config = array())
+	public function getTable($type = 'Cal', $prefix = 'CalTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -58,7 +58,7 @@ class HelloWorldModelHelloWorld extends JModelItem
 			$jinput = JFactory::getApplication()->input;
 			$id     = $jinput->get('id', 1, 'INT');
  
-			// Get a TableHelloWorld instance
+			// Get a TableCal instance
 			$table = $this->getTable();
  
 			// Load the message
