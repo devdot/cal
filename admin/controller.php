@@ -25,5 +25,5 @@ class CalController extends JControllerLegacy
 	 * @var string
 	 * @since 12.2
 	 */
-	protected $default_view = 'cal';
+	protected $default_view = 'Cal';
 }
