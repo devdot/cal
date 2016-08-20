@@ -3,7 +3,7 @@
            version="3.6.0"
            method="upgrade">
 
-	<name>Calendar</name>
+	<name>Cal</name>
 	<!-- The following elements are optional and free of formatting constraints -->
 	<creationDate>August 2016</creationDate>
 	<author>Thomas Schaller</author>
@@ -46,7 +46,7 @@
 
 	<administration>
 		<!-- Administration Menu Section -->
-		<menu link='index.php?option=com_cal'>cal</menu>
+		<menu link='index.php?option=com_cal'>Cal</menu>
 		<!-- Administration Main File Copy Section -->
 		<!-- Note the folder attribute: This attribute describes the folder
 				to copy FROM in the package to install therefore files copied
