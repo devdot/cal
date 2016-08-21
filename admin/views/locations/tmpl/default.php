@@ -70,7 +70,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							</div>
 						</td>
                         <td class="hidden-phone">
-                            <a href="<?php echo JRoute::_('index.php?option=com_cal&task=location.edit&id=' . (int) $item->ID); ?>"><?php echo $item->name; ?></a>
+                            <a href="<?php echo JRoute::_('index.php?option=com_cal&task=location.edit&ID=' . (int) $item->ID); ?>"><?php echo $item->name; ?></a>
 						</td>
 						<td class="hidden-phone">
 							<?php echo $item->addrStreet; ?>
