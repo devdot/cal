@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fieldset>
+
+		<field
+			name="ID"
+			type="text"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description="JGLOBAL_FIELD_ID_DESC"
+			default="0"
+			class="readonly"
+			size="10"
+			readonly="true"
+		/>
+
+		<field
+			name="name"
+			type="text"
+			label="COM_CAL_FIELD_NAME_LABEL"
+			description="COM_CAL_FIELD_NAME_DESC"
+			class="input-xxlarge input-large-text"
+			size="32"
+			required="true"
+		 />
+        <field
+			name="addrStreet"
+			type="text"
+			label="COM_CAL_FIELD_STREET_LABEL"
+			description="COM_CAL_FIELD_STREET_DESC"
+			size="32"
+		 />
+        <field
+			name="addrZip"
+			type="text"
+			label="COM_CAL_FIELD_ZIP_LABEL"
+			description="COM_CAL_FIELD_ZIP_DESC"
+			size="5"
+		 />
+        <field
+			name="addrCity"
+			type="text"
+			label="COM_CAL_FIELD_CITY_LABEL"
+			description="COM_CAL_FIELD_CITY_DESC"
+			size="32"
+		 />
+        <field
+			name="addrCity"
+			type="text"
+			label="COM_CAL_FIELD_COUNTRY_LABEL"
+			description="COM_CAL_FIELD_COUNTRY_DESC"
+			size="32"
+            default="Deutschland"
+		 />
+        <field
+			name="addrCountry"
+			type="text"
+			label="COM_CAL_FIELD_COUNTRY_LABEL"
+			description="COM_CAL_FIELD_COUNTRY_DESC"
+			size="32"
+            default="Deutschland"
+		 />
+        <field
+			name="geoX"
+			type="text"
+			label="COM_CAL_FIELD_GEOX_LABEL"
+			description="COM_CAL_FIELD_GEOX_DESC"
+			size="16"
+		 />
+        <field
+			name="geoY"
+			type="text"
+			label="COM_CAL_FIELD_GEOY_LABEL"
+			description="COM_CAL_FIELD_GEOY_DESC"
+			size="16"
+		 />
+        <field
+			name="link"
+			type="text"
+			label="COM_CAL_FIELD_LINK_LABEL"
+			description="COM_CAL_FIELD_LINK_DESC"
+			size="16"
+		 />
+
+
+		<field
+			name="published"
+			type="list"
+			label="JSTATUS"
+			description="JFIELD_PUBLISHED_DESC"
+			default="1"
+			id="published"
+			class="chzn-color-state"
+			size="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+
+		</field>
+
+		<field
+			name="desc"
+			type="editor"
+			label="COM_CAL_FIELD_DESC_LABEL"
+			description="COM_CAL_FIELD_DESC_DESC"
+			filter="JComponentHelper::filterText"
+			buttons="true"
+			hide="readmore,pagebreak"
+		/>
+
+	</fieldset>
+</form>

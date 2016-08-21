@@ -30,27 +30,25 @@ class CalModelLocation extends JModelAdmin {
 		{
 			return false;
 		}
-
-		// Modify the form based on access controls.
-		if (!$this->canEditState((object) $data))
-		{
-			// Disable fields for display.
-			$form->setFieldAttribute('featured', 'disabled', 'true');
-			$form->setFieldAttribute('ordering', 'disabled', 'true');
-			$form->setFieldAttribute('published', 'disabled', 'true');
-
-			// Disable fields while saving.
-			// The controller has already verified this is a record you can edit.
-			$form->setFieldAttribute('featured', 'filter', 'unset');
-			$form->setFieldAttribute('ordering', 'filter', 'unset');
-			$form->setFieldAttribute('published', 'filter', 'unset');
-		}
-
+		
 		return $form;
 	}
 	
 	public function getTable($type = 'Location', $prefix = 'CalTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);
+	}
+	
+	protected function loadFormData() {
+		$app = JFactory::getApplication();
+
+		// Check the session for previously entered form data.
+		$data = $app->getUserState('com_cal.edit.location.data', array());
+
+		if (empty($data)) {
+			$data = $this->getItem();
+		}
+
+		return $data;
 	}
 	
 	
