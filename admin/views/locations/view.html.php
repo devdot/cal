@@ -19,6 +19,11 @@ class calViewLocations extends JViewLegacy {
     
     protected $sidebar;
     
+    public $filterForm;
+    public $activeFilters;
+    public $state;
+    public $items;
+    
 	/**
 	 * Display the Hello World view
 	 *
@@ -31,12 +36,29 @@ class calViewLocations extends JViewLegacy {
 		// Get data from the model
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+        $this->filterForm   = $this->get('FilterForm');
+        $this->activeFilters= $this->get('ActiveFilters');
+        $this->state        = $this->get('State');
         
         JHtml::stylesheet("/administrator/components/com_cal/css/cal.css");
         
-        JToolbarHelper::title('Calendar', 'calendar');
+        JToolbarHelper::title('Calendar / Locations', 'calendar');
         //JToolbarHelper::preferences('com_cal');
+        JToolbarHelper::addNew();
+        JToolbarHelper::editList();
+        JToolbarHelper::publish();
+        JToolbarHelper::unpublish();
+        JToolbarHelper::trash();
         
+       
+        
+        JHtmlSidebar::addEntry("Overview", "?option=com_cal");
+        JHtmlSidebar::addEntry("Events", "?option=com_cal&view=events");
+        JHtmlSidebar::addEntry("Locations", "?option=com_cal&view=locations", true);
+        JHtmlSidebar::addEntry("Categories", "?option=com_cal&view=categories");
+        JHtmlSidebar::addEntry("Resources", "?option=com_cal&view=resources");
+        JHtmlSidebar::addEntry("Archive", "?option=com_cal&view=archive");
+        JHtmlSidebar::addEntry("Options", "?option=com_cal&view=options");
         
         
 		// Check for errors.

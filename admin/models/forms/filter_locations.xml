@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fields name="filter">
+
+		<field
+			name="search"
+			type="text"
+			label="COM_CONTACT_FILTER_SEARCH_LABEL"
+			description="COM_CONTACT_FILTER_SEARCH_DESC"
+			hint="JSEARCH_FILTER"
+		/>
+        
+        <field
+            name="state"
+            type="list"
+            label="COM_CONTENT_FILTER_PUBLISHED"
+            description="COM_CONTENT_FILTER_PUBLISHED_DESC"
+            onchange="this.form.submit();"
+            >
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+            <option value="1">COM_CAL_PUBLISH</option>
+            <option value="0">COM_CAL_UNPUBLISH</option>
+        </field>
+        
+        <field
+            name="hasGeoloc"
+            type="list"
+            label="COM_CONTENT_FILTER_PUBLISHED"
+            description="COM_CONTENT_FILTER_PUBLISHED_DESC"
+            onchange="this.form.submit();"
+            >
+            <option value="">COM_CAL_SELECT_HAS_GEOLOC</option>
+            <option value="1">COM_CAL_HAS_GEOLOC</option>
+            <option value="0">COM_CAL_HAS_NO_GEOLOC</option>
+        </field>
+
+	</fields>
+
+	<fields name="list">
+
+		<field
+			name="fullordering"
+			type="list"
+			label="COM_CONTACT_LIST_FULL_ORDERING"
+			description="COM_CONTACT_LIST_FULL_ORDERING_DESC"
+			default="name ASC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+            <option value="name ASC">Name ASC</option>
+			<option value="name DESC">Name DESC</option>
+            <option value="street ASC">Street ASC</option>
+			<option value="street DESC">Street DESC</option>
+            <option value="zip ASC">Zip ASC</option>
+			<option value="zip DESC">Zip DESC</option>
+			<option value="ID ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="ID DESC">JGRID_HEADING_ID_DESC</option>
+		</field>
+
+		<field
+			name="limit"
+			type="limitbox"
+			label="COM_CONTACT_LIST_LIMIT"
+			description="COM_CONTACT_LIST_LIMIT_DESC"
+			default="25"
+			class="input-mini"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

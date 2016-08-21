@@ -34,7 +34,7 @@ class CalController extends JControllerLegacy
 		$view   = $this->input->get('view', 'cal');
 		$layout = $this->input->get('layout', 'default');
 		$id     = $this->input->getInt('id');
-
+        
 		// Check for edit form.
 		//if ($view == 'contact' && $layout == 'edit' && !$this->checkEditId('com_contact.edit.contact', $id)) {
 			// Somehow the person just went to the form - we don't allow that.
