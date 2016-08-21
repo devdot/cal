@@ -65,11 +65,11 @@
 			<folder>tables</folder>
             <folder>css</folder>
             <folder>img</folder>
-            <languages folder="admin/language">
-                <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>                        
-                <language tag="en-GB">en-GB/en-GB.com_cal.sys.ini</language>		
-            </languages>
 		</files>
+        <languages folder="admin/language">
+            <language tag="en-GB">en-GB.com_cal.ini</language>                        
+            <language tag="en-GB">en-GB.com_cal.sys.ini</language>		
+        </languages>
 	</administration>
 
 </extension>
