@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('Restricted access');
  
 /**
- * Cal Model
+ * Cal Locations Model
  *
  * @since  0.0.1
  */
@@ -22,6 +22,8 @@ class CalModelLocations extends JModelList {
 	protected $messages;
  
     public function __construct($config = array()) {
+        //not quite sure what this is about, so....
+        //https://techjoomla.com/developers-blogs/joomla-development/joomla-using-jlayouts-search-tools-on-joomla-3-x-at-admin-backend-for-list-views.html
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
                 'ID', 'ID',
@@ -32,7 +34,7 @@ class CalModelLocations extends JModelList {
                 'name', 'name'
             );
         }
- 
+        //hand along to superclass constructor
         parent::__construct($config);
     }
     
@@ -42,6 +44,11 @@ class CalModelLocations extends JModelList {
  
         // Other code goes here
  
+        //take data from user requests and put it into the user state
+        //first param: state name (for accessing)
+        //second param: I don't really know
+        //third: default value, if first is empty
+        //fourth: filter for first param
         $published = $app->getUserStateFromRequest($this->context . 'filter.published', 'filter_published', '', 'string');
         $this->setState('filter.published', $published);
         
@@ -62,9 +69,13 @@ class CalModelLocations extends JModelList {
 		$query = $db->getQuery(true);
 		//$user = JFactory::getUser();
         
+        //only need those columns
         $query->select(array("ID", "name", "addrStreet", "addrZip", "published"));
         $query->from("#__cal_locations");
         
+        //the system takes care of limits, also putting the query together
+        
+        //if the filter is inactive, it's state is ''
         if(is_numeric($this->getState("filter.published"))) {
             if($this->getState("filter.published") === '0')
                 $query->where("published = 0");
