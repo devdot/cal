@@ -12,7 +12,7 @@
 		/>
         
         <field
-            name="state"
+            name="published"
             type="list"
             label="COM_CONTENT_FILTER_PUBLISHED"
             description="COM_CONTENT_FILTER_PUBLISHED_DESC"
@@ -50,10 +50,10 @@
 			<option value="">JGLOBAL_SORT_BY</option>
             <option value="name ASC">Name ASC</option>
 			<option value="name DESC">Name DESC</option>
-            <option value="street ASC">Street ASC</option>
-			<option value="street DESC">Street DESC</option>
-            <option value="zip ASC">Zip ASC</option>
-			<option value="zip DESC">Zip DESC</option>
+            <option value="addrStreet ASC">Street ASC</option>
+			<option value="addrStreet DESC">Street DESC</option>
+            <option value="addrZip ASC">Zip ASC</option>
+			<option value="addrZip DESC">Zip DESC</option>
 			<option value="ID ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="ID DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

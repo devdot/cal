@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted Access');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
-<form id="adminForm" action="?option=com_cal&view=location" method="post" name="adminForm">
+<form id="adminForm" action="?option=com_cal&view=locations" method="post" name="adminForm">
     <div id="j-sidebar-container" class="span2">
         <?php echo $this->sidebar; ?>
     </div>
@@ -38,10 +38,10 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							<?php echo JHtml::_('searchtools.sort', 'Name', 'name', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Street', 'street', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'Street', 'addrStreet', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'ZIP', 'zip', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'ZIP', 'addrZip', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'ID', $listDirn, $listOrder); ?>
