@@ -66,11 +66,11 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 						<td class="center">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->published, $i, 'cal.locations.', 'cb'); ?>
+								<?php echo JHtml::_('jgrid.published', $item->published, $i, 'location.', 'cb'); ?>
 							</div>
 						</td>
                         <td class="hidden-phone">
-							<?php echo $item->name; ?>
+                            <a href="<?php echo JRoute::_('index.php?option=com_cal&task=location.edit&id=' . (int) $item->ID); ?>"><?php echo $item->name; ?></a>
 						</td>
 						<td class="hidden-phone">
 							<?php echo $item->addrStreet; ?>

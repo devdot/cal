@@ -44,11 +44,11 @@ class calViewLocations extends JViewLegacy {
         
         JToolbarHelper::title('Calendar / Locations', 'calendar');
         //JToolbarHelper::preferences('com_cal');
-        JToolbarHelper::addNew();
-        JToolbarHelper::editList();
-        JToolbarHelper::publish();
-        JToolbarHelper::unpublish();
-        JToolbarHelper::trash();
+        JToolbarHelper::addNew('location.add');
+        JToolbarHelper::editList('location.edit');
+        JToolbarHelper::publish('location.publish');
+        JToolbarHelper::unpublish('location.unpublish');
+        JToolbarHelper::trash('location.trash');
         
        
         
