@@ -19,11 +19,13 @@ class CalModelLocation extends JModelAdmin {
 	
 	public function getForm($data = array(), $loadData = true) {
 		
-		JForm::addFieldPath('JPATH_ADMINISTRATOR/components/com_users/models/fields');
-
+		//do I need that? I'm not getting a field from there I guess...
+		//JForm::addFieldPath('JPATH_ADMINISTRATOR/components/com_users/models/fields');
+		
 		// Get the form.
-		$form = $this->loadForm('com_contact.contact', 'contact', array('control' => 'jform', 'load_data' => $loadData));
-
+		$form = $this->loadForm('com_cal.location', 'location', array('control' => 'jform', 'load_data' => $loadData));
+		
+		//I don't even know what the following does
 		if (empty($form))
 		{
 			return false;
