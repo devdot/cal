@@ -66,7 +66,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 						<td class="center">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->published, $i, 'location.', 'cb'); ?>
+								<?php echo JHtml::_('jgrid.published', $item->published, $i, 'locations.', 'cb'); ?>
 							</div>
 						</td>
                         <td class="hidden-phone">

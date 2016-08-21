@@ -46,9 +46,9 @@ class calViewLocations extends JViewLegacy {
         //JToolbarHelper::preferences('com_cal');
         JToolbarHelper::addNew('location.add');
         JToolbarHelper::editList('location.edit');
-        JToolbarHelper::publish('location.publish');
-        JToolbarHelper::unpublish('location.unpublish');
-        JToolbarHelper::trash('location.trash');
+        JToolbarHelper::publish('locations.publish');
+        JToolbarHelper::unpublish('locations.unpublish');
+        JToolbarHelper::trash('locations.trash');
         
        
         
