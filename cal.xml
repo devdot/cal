@@ -3,7 +3,7 @@
            version="3.6.0"
            method="upgrade">
 
-	<name>Cal</name>
+	<name>COM_CAL</name>
 	<!-- The following elements are optional and free of formatting constraints -->
 	<creationDate>August 2016</creationDate>
 	<author>Thomas Schaller</author>
@@ -14,7 +14,7 @@
 	<!--  The version string is recorded in the components table -->
 	<version>0.0.2</version>
 	<!-- The description is optional and defaults to the name -->
-	<description>A powerful calendar component for Joomla! 3</description>
+	<description>COM_CAL_DESCRIPTION</description>
 
 	<update> <!-- Runs on update; New in 2.5 -->
 		<schemas>
@@ -48,7 +48,7 @@
 
 	<administration>
 		<!-- Administration Menu Section -->
-		<menu link='index.php?option=com_cal'>Cal</menu>
+		<menu link='index.php?option=com_cal'>COM_CAL_MENU</menu>
 		<!-- Administration Main File Copy Section -->
 		<!-- Note the folder attribute: This attribute describes the folder
 				to copy FROM in the package to install therefore files copied
@@ -65,6 +65,10 @@
 			<folder>tables</folder>
             <folder>css</folder>
             <folder>img</folder>
+            <languages folder="admin/language">
+                <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>                        
+                <language tag="en-GB">en-GB/en-GB.com_cal.sys.ini</language>		
+            </languages>
 		</files>
 	</administration>
 
