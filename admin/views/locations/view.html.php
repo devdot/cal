@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class calViewLocations extends JViewLegacy {
+class CalViewLocations extends JViewLegacy {
     
     protected $sidebar;
     
