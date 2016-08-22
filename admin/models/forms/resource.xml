@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/administrator/components/com_categories/models/fields">
+		<field
+			name="id"
+			type="text"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description="JGLOBAL_FIELD_ID_DESC"
+			default="0"
+			class="readonly"
+			size="10"
+			readonly="true"
+		/>
+
+		<field
+			name="name"
+			type="text"
+			label="COM_CAL_FIELD_NAME_LABEL"
+			description="COM_CAL_FIELD_NAME_DESC"
+			class="input-xxlarge input-large-text"
+			size="32"
+			required="true"
+		 />
+        <field
+			name="catid"
+			type="categoryedit"
+			label="JCATEGORY"
+			description="JFIELD_CATEGORY_DESC"
+			extension="com_cal"
+			required="true"
+			default=""
+		/>
+        <field
+            name="type"
+            type="list"
+            label="COM_CAL_RESOURCE_TYPE"
+            description="COM_CAL_FILTER_TYPE_DESC"
+            default="0"
+			size="1"
+            required="true"
+            onchange="cal_resource_type()"
+            id="cal_resource_type_field"
+            >
+            <option value="0">COM_CAL_RESOURCE_TYPE_OBJECT</option>
+            <option value="1">COM_CAL_RESOURCE_TYPE_ROOM</option>
+            <option value="2">COM_CAL_RESOURCE_TYPE_SERVICE</option>
+            <option value="3">COM_CAL_RESOURCE_TYPE_USER</option>
+            <option value="4">COM_CAL_RESOURCE_TYPE_USERGROUP</option>
+        </field>
+        
+        <field
+			name="user_id"
+			type="user"
+			label="COM_CAL_FIELD_LINKED_USER_LABEL"
+			description="COM_CAL_FIELD_LINKED_USER_DESC"
+		/>
+        <field
+			name="usergroup_id"
+			type="usergrouplist"
+			label="COM_CAL_FIELD_LINKED_USER_LABEL"
+			description="COM_CAL_FIELD_LINKED_USER_DESC"
+		/>
+
+		<field
+			name="description"
+			type="editor"
+			label="COM_CAL_FIELD_DESC_LABEL"
+			description="COM_CAL_FIELD_DESC_DESC"
+			filter="JComponentHelper::filterText"
+			buttons="true"
+			hide="readmore,pagebreak"
+		/>
+
+	</fieldset>
+</form>
