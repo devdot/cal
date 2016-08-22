@@ -10,6 +10,9 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+//Get Helpers
+JLoader::register('CalHelper', JPATH_COMPONENT . '/helpers/cal.php');
+
 // Get an instance of the controller prefixed by cal
 $controller = JControllerLegacy::getInstance('cal');
 
