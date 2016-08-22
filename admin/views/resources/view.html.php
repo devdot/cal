@@ -17,7 +17,11 @@ defined('_JEXEC') or die('Restricted access');
  */
 class CalViewResources extends JViewLegacy {
     
-    protected $sidebar;
+	protected $sidebar;
+    public $filterForm;
+    public $activeFilters;
+    public $state;
+    public $items;
     
 	/**
 	 * Display the Resources View
@@ -31,10 +35,15 @@ class CalViewResources extends JViewLegacy {
 		// Get data from the model
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+        $this->filterForm   = $this->get('FilterForm');
+        $this->activeFilters= $this->get('ActiveFilters');
+        $this->state        = $this->get('State');
         
         JToolbarHelper::title('Calendar / Resources', 'calendar');
         //JToolbarHelper::preferences('com_cal');
         JToolbarHelper::addNew();
+		JToolbarHelper::editList();
+		JToolbarHelper::trash();
         
         CalHelper::addSubmenu('resources');
         
