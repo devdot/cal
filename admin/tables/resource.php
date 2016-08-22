@@ -72,8 +72,6 @@ class CalTableResource extends JTable {
 			$pks = array($pk);
 		}
 
-		$publishedField = $this->getColumnAlias('published');
-		$checkedOutField = $this->getColumnAlias('checked_out');
 
 		foreach ($pks as $pk)
 		{
