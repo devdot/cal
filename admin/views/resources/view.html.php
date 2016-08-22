@@ -15,12 +15,12 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class calViewResources extends JViewLegacy {
+class CalViewResources extends JViewLegacy {
     
     protected $sidebar;
     
 	/**
-	 * Display the Hello World view
+	 * Display the Resources View
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
@@ -32,11 +32,11 @@ class calViewResources extends JViewLegacy {
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
         
-        JHtml::stylesheet("/administrator/components/com_cal/css/cal.css");
-        
-        JToolbarHelper::title('Calendar', 'calendar');
+        JToolbarHelper::title('Calendar / Resources', 'calendar');
         //JToolbarHelper::preferences('com_cal');
+        JToolbarHelper::addNew();
         
+        CalHelper::addSubmenu('resources');
         
         
 		// Check for errors.
