@@ -44,7 +44,7 @@ class CalViewLocation extends JViewLegacy {
 			return false;
 		}
 		
-		//JFactory::getApplication()->input->set("hidemainmenu", true);
+		JFactory::getApplication()->input->set("hidemainmenu", true);
 		
 		JToolbarHelper::title('Calendar / Location', 'calendar');
 		
