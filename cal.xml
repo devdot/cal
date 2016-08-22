@@ -58,13 +58,15 @@
 			<filename>index.html</filename>
 			<filename>cal.php</filename>
 			<filename>controller.php</filename>
-			<!-- SQL files section -->
+            <filename>access.xml</filename>
+            
 			<folder>sql</folder>
 			<folder>views</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
             <folder>css</folder>
             <folder>img</folder>
+            <folder>helpers</folder>
 		</files>
         <languages folder="admin/language">
             <language tag="en-GB">en-GB.com_cal.ini</language>                        

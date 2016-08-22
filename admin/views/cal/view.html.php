@@ -38,13 +38,7 @@ class CalViewCal extends JViewLegacy {
         //JToolbarHelper::preferences('com_cal');
         JToolbarHelper::addNew();
         
-        JHtmlSidebar::addEntry("Overview", "?option=com_cal", true);
-        JHtmlSidebar::addEntry("Events", "?option=com_cal&view=events");
-        JHtmlSidebar::addEntry("Locations", "?option=com_cal&view=locations");
-        JHtmlSidebar::addEntry("Categories", "?option=com_cal&view=categories");
-        JHtmlSidebar::addEntry("Resources", "?option=com_cal&view=resources");
-        JHtmlSidebar::addEntry("Archive", "?option=com_cal&view=archive");
-        JHtmlSidebar::addEntry("Options", "?option=com_cal&view=options");
+        CalHelper::addSubmenu('cal');
         
         
 		// Check for errors.

@@ -52,13 +52,7 @@ class CalViewLocations extends JViewLegacy {
         
        
         
-        JHtmlSidebar::addEntry("Overview", "?option=com_cal");
-        JHtmlSidebar::addEntry("Events", "?option=com_cal&view=events");
-        JHtmlSidebar::addEntry("Locations", "?option=com_cal&view=locations", true);
-        JHtmlSidebar::addEntry("Categories", "?option=com_cal&view=categories");
-        JHtmlSidebar::addEntry("Resources", "?option=com_cal&view=resources");
-        JHtmlSidebar::addEntry("Archive", "?option=com_cal&view=archive");
-        JHtmlSidebar::addEntry("Options", "?option=com_cal&view=options");
+        CalHelper::addSubmenu('locations');
         
         
 		// Check for errors.
