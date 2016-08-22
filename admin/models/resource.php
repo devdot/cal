@@ -41,10 +41,32 @@ class CalModelResource extends JModelAdmin {
 		if (empty($data)) {
 			$data = $this->getItem();
 		}
-
+		
+		//split up type_id, depending on the type
+		//this is required to fill differnent field types but only use one db column
+		$type  = (int) $data->type;
+		if($type == 3)
+			$data->user_id = $data->type_id;
+		else if($type == 4)
+			$data->usergroup_id = $data->type_id;
+		
 		return $data;
 	}
 	
+	public function save($data) {
+		//convert the user_id and usergroup_id into type_id if either is needed
+		//and that depends on type, 3: user 4: usergroup
+		$type  = (int) $data['type'];
+		
+		if($type == 3)
+			$data['type_id'] = $data['user_id'];
+		else if($type == 4)
+			$data['type_id'] = $data['usergroup_id'];
+		else
+			$data['type_id'] = 0;
+		
+		return parent::save($data);
+	}
 	
 	
 }
