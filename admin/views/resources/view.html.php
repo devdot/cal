@@ -41,9 +41,9 @@ class CalViewResources extends JViewLegacy {
         
         JToolbarHelper::title('Calendar / Resources', 'calendar');
         //JToolbarHelper::preferences('com_cal');
-        JToolbarHelper::addNew();
-		JToolbarHelper::editList();
-		JToolbarHelper::trash();
+        JToolbarHelper::addNew('resource.add');
+		JToolbarHelper::editList('resource.edit');
+		JToolbarHelper::trash('resources.trash');
         
         CalHelper::addSubmenu('resources');
         
