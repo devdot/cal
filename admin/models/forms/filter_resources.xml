@@ -14,8 +14,8 @@
         <field
             name="type"
             type="list"
-            label="COM_CONTENT_FILTER_RESOURCE_TYPE"
-            description="COM_CONTENT_FILTER_RESOURCE_TYPE_DESC"
+            label="COM_CAL_FILTER_RESOURCE_TYPE"
+            description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
             onchange="this.form.submit();"
             >
             <option value="">COM_CAL_SELECT_RESOURCE_TYPE</option>
