@@ -69,8 +69,8 @@
             <folder>helpers</folder>
 		</files>
         <languages folder="admin/language">
-            <language tag="en-GB">en-GB.com_cal.ini</language>                        
-            <language tag="en-GB">en-GB.com_cal.sys.ini</language>		
+            <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>                        
+            <language tag="en-GB">en-GB/en-GB.com_cal.sys.ini</language>		
         </languages>
 	</administration>
 
