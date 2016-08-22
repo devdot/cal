@@ -6,8 +6,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_CONTACT_FILTER_SEARCH_LABEL"
-			description="COM_CONTACT_FILTER_SEARCH_DESC"
+			label="COM_CAL_FILTER_SEARCH_LABEL"
+			description="COM_CAL_FILTER_SEARCH_DESC"
 			hint="JSEARCH_FILTER"
 		/>
         
@@ -18,7 +18,7 @@
             description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
             onchange="this.form.submit();"
             >
-            <option value="">COM_CAL_SELECT_RESOURCE_TYPE</option>
+            <option value="">COM_CAL_RESOURCE_SELECT_TYPE</option>
             <option value="0">COM_CAL_RESOURCE_TYPE_OBJECT</option>
             <option value="1">COM_CAL_RESOURCE_TYPE_ROOM</option>
             <option value="2">COM_CAL_RESOURCE_TYPE_SERVICE</option>
@@ -39,12 +39,12 @@
 			onchange="this.form.submit();"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
-            <option value="name ASC">Name ASC</option>
-			<option value="name DESC">Name DESC</option>
-            <option value="cat_name ASC">Category ASC</option>
-			<option value="cat_name DESC">Category DESC</option>
-            <option value="type ASC">Type ASC</option>
-			<option value="type DESC">Type DESC</option>
+            <option value="name ASC">COM_CAL_SORT_BY_NAME_ASC</option>
+			<option value="name DESC">COM_CAL_SORT_BY_NAME_DESC</option>
+            <option value="cat_name ASC">COM_CAL_SORT_BY_CATEGORY_ASC</option>
+			<option value="cat_name DESC">COM_CAL_SORT_BY_CATEGORY_DESC</option>
+            <option value="type ASC">COM_CAL_SORT_BY_TYPE_ASC</option>
+			<option value="type DESC">COM_CAL_SORT_BY_TYPE_DESC</option>
 			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

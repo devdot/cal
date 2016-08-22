@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @param   string  $submenu  The name of the active view.
  *
- * @return  void
+ * @return =  void
  *
  * @since   1.6
  */
@@ -23,24 +23,24 @@ abstract class CalHelperResources {
 	/**
 	 * Configure the Linkbar.
 	 *
-	 * @return String if successful, false if failed
+	 * @return = String
 	 */
  
 	public static function type($type) {
+		$s = '';
 		switch((int) $type) {
 			case 0:
-				return 'COM_CAL_RESOURCE_TYPE_OBJECT';
+				$s = 'COM_CAL_RESOURCE_TYPE_OBJECT';
 			case 1:
-				return 'COM_CAL_RESOURCE_TYPE_ROOM';
+				$s = 'COM_CAL_RESOURCE_TYPE_ROOM';
 			case 2:
-				return 'COM_CAL_RESOURCE_TYPE_SERVICE';
+				$s = 'COM_CAL_RESOURCE_TYPE_SERVICE';
 			case 3:
-				return 'COM_CAL_RESOURCE_TYPE_USER';
+				$s = 'COM_CAL_RESOURCE_TYPE_USER';
 			case 4:
-				return 'COM_CAL_RESOURCE_TYPE_USERGROUP';
-			default:
-				return false;
+				$s = 'COM_CAL_RESOURCE_TYPE_USERGROUP';
 		}
+		return JText::_($s);
 	
 	}
 }

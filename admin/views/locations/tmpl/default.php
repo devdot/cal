@@ -35,13 +35,13 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 						</th>
 						<th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Name', 'name', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_NAME', 'name', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Street', 'addrStreet', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_STREET', 'addrStreet', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'ZIP', 'addrZip', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_ZIP', 'addrZip', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'ID', $listDirn, $listOrder); ?>

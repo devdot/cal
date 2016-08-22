@@ -35,13 +35,13 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							<?php echo JHtml::_('grid.checkall'); ?>
 						</th>
 						<th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Name', 'name', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_NAME', 'name', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Type', 'type', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_TYPE', 'type', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'Category', 'cat_name', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_CATEGORY', 'cat_name', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>

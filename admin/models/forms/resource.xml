@@ -33,8 +33,8 @@
         <field
             name="type"
             type="list"
-            label="COM_CAL_RESOURCE_TYPE"
-            description="COM_CAL_FILTER_TYPE_DESC"
+            label="COM_CAL_TYPE"
+            description="COM_CAL_RESOURCE_FILTER_DESC"
             default="0"
 			size="1"
             required="true"

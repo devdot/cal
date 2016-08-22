@@ -6,8 +6,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_CONTACT_FILTER_SEARCH_LABEL"
-			description="COM_CONTACT_FILTER_SEARCH_DESC"
+			label="COM_CAL_FILTER_SEARCH_LABEL"
+			description="COM_CAL_FILTER_SEARCH_DESC"
 			hint="JSEARCH_FILTER"
 		/>
         
@@ -19,8 +19,8 @@
             onchange="this.form.submit();"
             >
             <option value="">JOPTION_SELECT_PUBLISHED</option>
-            <option value="1">COM_CAL_PUBLISH</option>
-            <option value="0">COM_CAL_UNPUBLISH</option>
+            <option value="1">COM_CAL_PUBLISHED</option>
+            <option value="0">COM_CAL_UNPUBLISHED</option>
         </field>
         
         <field
@@ -48,12 +48,12 @@
 			onchange="this.form.submit();"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
-            <option value="name ASC">Name ASC</option>
-			<option value="name DESC">Name DESC</option>
-            <option value="addrStreet ASC">Street ASC</option>
-			<option value="addrStreet DESC">Street DESC</option>
-            <option value="addrZip ASC">Zip ASC</option>
-			<option value="addrZip DESC">Zip DESC</option>
+            <option value="name ASC">COM_CAL_SORT_BY_NAME_ASC</option>
+			<option value="name DESC">COM_CAL_SORT_BY_NAME_DESC</option>
+            <option value="addrStreet ASC">COM_CAL_SORT_BY_STREET_ASC</option>
+			<option value="addrStreet DESC">COM_CAL_SORT_BY_STREET_DESC</option>
+            <option value="addrZip ASC">COM_CAL_SORT_BY_ZIP_ASC</option>
+			<option value="addrZip DESC">COM_CAL_SORT_BY_ZIP_DESC</option>
 			<option value="ID ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="ID DESC">JGRID_HEADING_ID_DESC</option>
 		</field>

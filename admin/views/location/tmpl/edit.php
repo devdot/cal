@@ -62,7 +62,7 @@ JFactory::getDocument()->addScriptDeclaration('
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JGLOBAL_FIELDSET_MISCELLANEOUS')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_CAL_EDIT_MISC')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<?php echo $this->form->renderField('ID'); ?>
 			<div class="form-vertical">

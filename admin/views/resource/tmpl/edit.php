@@ -48,7 +48,7 @@ JFactory::getDocument()->addScriptDeclaration('
 	<div class="form-horizontal">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('COM_CAL_EDIT_RESOURCE')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('COM_CAL_RESOURCE_EDIT')); ?>
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="row-fluid form-horizontal-desktop">
@@ -70,7 +70,7 @@ JFactory::getDocument()->addScriptDeclaration('
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('JGLOBAL_FIELDSET_MISCELLANEOUS')); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'misc', JText::_('COM_CAL_EDIT_MISC')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<?php echo $this->form->renderField('id'); ?>
 			<div class="form-vertical">
