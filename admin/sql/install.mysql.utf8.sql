@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `#__cal_settings` ( `ID` INT NOT NULL AUTO_INCREMENT , `data` TEXT NOT NULL , PRIMARY KEY (`ID`) ) ENGINE = InnoDB;
+-- CREATE TABLE IF NOT EXISTS `#__cal_settings` ( `ID` INT NOT NULL AUTO_INCREMENT , `data` TEXT NOT NULL , PRIMARY KEY (`ID`) ) ENGINE = InnoDB;
 INSERT INTO `#__cal_settings` (`ID`, `data`) VALUES (NULL, '{}');
 
 CREATE TABLE IF NOT EXISTS `#__cal_locations` (
