@@ -15,28 +15,38 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class calViewEvents extends JViewLegacy {
+class CalViewEvents extends JViewLegacy {
     
     protected $sidebar;
+    public $filterForm;
+    public $activeFilters;
+    public $state;
+    public $items;
     
 	/**
-	 * Display the Hello World view
+	 * Display the Resources View
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 */
-	function display($tpl = null)
-	{
+	function display($tpl = null) {
 		// Get data from the model
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+        $this->filterForm   = $this->get('FilterForm');
+        $this->activeFilters= $this->get('ActiveFilters');
+        $this->state        = $this->get('State');
         
-        JHtml::stylesheet("/administrator/components/com_cal/css/cal.css");
+        JToolbarHelper::title('Calendar / Events', 'calendar');
+        JToolbarHelper::addNew('event.add');
+		JToolbarHelper::editList('event.edit');
+		JToolbarHelper::publish('events.publish');
+		JToolbarHelper::unpublish('events.unpublish');
+		JToolbarHelper::checkin('events.checkin');
+		JToolbarHelper::trash('events.trash');
         
-        JToolbarHelper::title('Calendar', 'calendar');
-        //JToolbarHelper::preferences('com_cal');
-        
+        CalHelper::addSubmenu('events');
         
         
 		// Check for errors.
