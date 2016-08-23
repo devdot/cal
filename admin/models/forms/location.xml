@@ -50,7 +50,6 @@
 			label="COM_CAL_FIELD_COUNTRY_LABEL"
 			description="COM_CAL_FIELD_COUNTRY_DESC"
 			size="32"
-            default="Deutschland"
 		 />
         <field
 			name="addrCountry"
@@ -58,7 +57,7 @@
 			label="COM_CAL_FIELD_COUNTRY_LABEL"
 			description="COM_CAL_FIELD_COUNTRY_DESC"
 			size="32"
-            default="Deutschland"
+            default="DE"
 		 />
         <field
 			name="geoX"
