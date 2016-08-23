@@ -45,8 +45,8 @@ class CalModelEvents extends JModelList {
         //second param: I don't really know
         //third: default value, if first is empty
         //fourth: filter for first param
-        $type = $app->getUserStateFromRequest($this->context . 'filter.type', 'filter_type', '', 'string');
-        $this->setState('filter.type', $type);
+        $type = $app->getUserStateFromRequest($this->context . 'filter.state', 'filter_type', '', 'string');
+        $this->setState('filter.state', $type);
         
         $this->setState('filter.name', 'ASC');
  
@@ -68,9 +68,12 @@ class CalModelEvents extends JModelList {
 		$query->leftJoin('#__categories AS b ON b.id = a.catid');
 		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
         
-		if(is_numeric($this->getState('filter.type'))) {
-			$type = (int) $this->getState('filter.type');
-			$query->where('a.type = '.$type);
+		if(is_numeric($this->getState('filter.state'))) {
+			$state = (int) $this->getState('filter.state');
+			$query->where('a.state = '.$state);
+		}
+		else {
+			$query->where('a.state >= 0');
 		}
 		
         //the system takes care of limits, also putting the query together

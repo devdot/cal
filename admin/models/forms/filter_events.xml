@@ -12,19 +12,39 @@
 		/>
         
         <field
-            name="type"
+            name="state"
             type="list"
-            label="COM_CAL_FILTER_RESOURCE_TYPE"
+            label="JOPTION_SELECT_PUBLISHED"
             description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
             onchange="this.form.submit();"
             >
-            <option value="">COM_CAL_RESOURCE_SELECT_TYPE</option>
-            <option value="0">COM_CAL_RESOURCE_TYPE_OBJECT</option>
-            <option value="1">COM_CAL_RESOURCE_TYPE_ROOM</option>
-            <option value="2">COM_CAL_RESOURCE_TYPE_SERVICE</option>
-            <option value="3">COM_CAL_RESOURCE_TYPE_USER</option>
-            <option value="4">COM_CAL_RESOURCE_TYPE_USERGROUP</option>
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+            <option value="1">COM_CAL_PUBLISHED</option>
+            <option value="0">COM_CAL_UNPUBLISHED</option>
+            <option value="-2">COM_CAL_TRASHED</option>
         </field>
+        
+        <field
+			name="catid"
+			type="category"
+			label="JOPTION_FILTER_CATEGORY"
+			description="JOPTION_FILTER_CATEGORY_DESC"
+			extension="com_cal"
+			published="0,1,2"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+
+		<field
+			name="access"
+			type="accesslevel"
+			label="JOPTION_FILTER_ACCESS"
+			description="JOPTION_FILTER_ACCESS_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_ACCESS</option>
+		</field>
 
 	</fields>
 
