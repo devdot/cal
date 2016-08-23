@@ -16,14 +16,14 @@ JHtml::_('formbehavior.chosen', 'select');
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task)
 	{
-		if (task == "contact.cancel" || document.formvalidator.isValid(document.getElementById("cal-location-form")))
+		if (task == "location.cancel" || document.formvalidator.isValid(document.getElementById("cal-location-form")))
 		{
 			' . $this->form->getField("desc")->save() . '
 			Joomla.submitform(task, document.getElementById("cal-location-form"));
 
-			if (task !== "contact.apply")
+			if (task !== "location.apply")
 			{
-				window.parent.jQuery("#contactEdit' . $this->item->ID . 'Modal").modal("hide");
+				window.parent.jQuery("#cal-location-form' . $this->item->ID . 'Modal").modal("hide");
 			}
 		}
 	};
