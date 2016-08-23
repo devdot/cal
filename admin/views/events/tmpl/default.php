@@ -38,7 +38,7 @@ $timezone = CalHelper::getTimeZone();
 							<?php echo JHtml::_('grid.checkall'); ?>
 						</th>
                         <th class="nowrap">
-							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'status', $listDirn, $listOrder); ?>
+							<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'state', $listDirn, $listOrder); ?>
 						</th>
                         <th class="nowrap">
 							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_NAME', 'name', $listDirn, $listOrder); ?>

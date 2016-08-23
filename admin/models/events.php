@@ -25,9 +25,14 @@ class CalModelEvents extends JModelList {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
                 'id', 
-                'type',
+                'state',
                 'cat_name',
-                'name'
+				'catid',
+                'name',
+				'start',
+				'end',
+				'access',
+				'location'
             );
         }
         //hand along to superclass constructor
@@ -47,13 +52,18 @@ class CalModelEvents extends JModelList {
         //fourth: filter for first param
         $type = $app->getUserStateFromRequest($this->context . 'filter.state', 'filter_type', '', 'string');
         $this->setState('filter.state', $type);
+		$catid = $app->getUserStateFromRequest($this->context . 'filter.catid', 'filter_type', '', 'string');
+        $this->setState('filter.catid', $catid);
+		$access = $app->getUserStateFromRequest($this->context . 'filter.access', 'filter_type', '', 'string');
+        $this->setState('filter.access', $access);
         
-        $this->setState('filter.name', 'ASC');
+		
+        $this->setState('filter.start', 'DESC');
  
         // Other code goes here
  
         // List state information.
-        parent::populateState('name', 'ASC');
+        parent::populateState('state', 'DESC');
     }
     
 	protected function getListQuery() {
@@ -74,6 +84,16 @@ class CalModelEvents extends JModelList {
 		}
 		else {
 			$query->where('a.state >= 0');
+		}
+		
+		if(is_numeric($this->getState('filter.catid'))) {
+			$catid = (int) $this->getState('filter.catid');
+			$query->where('a.catid = '.$catid);
+		}
+		
+		if(is_numeric($this->getState('filter.access'))) {
+			$access = (int) $this->getState('filter.access');
+			$query->where('a.access = '.$access);
 		}
 		
         //the system takes care of limits, also putting the query together

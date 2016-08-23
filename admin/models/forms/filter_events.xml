@@ -55,7 +55,7 @@
 			type="list"
 			label="COM_CONTACT_LIST_FULL_ORDERING"
 			description="COM_CONTACT_LIST_FULL_ORDERING_DESC"
-			default="name ASC"
+			default="start DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
@@ -63,8 +63,14 @@
 			<option value="name DESC">COM_CAL_SORT_BY_NAME_DESC</option>
             <option value="cat_name ASC">COM_CAL_SORT_BY_CATEGORY_ASC</option>
 			<option value="cat_name DESC">COM_CAL_SORT_BY_CATEGORY_DESC</option>
-            <option value="type ASC">COM_CAL_SORT_BY_TYPE_ASC</option>
-			<option value="type DESC">COM_CAL_SORT_BY_TYPE_DESC</option>
+            <option value="start ASC">COM_CAL_SORT_BY_START_ASC</option>
+			<option value="start DESC">COM_CAL_SORT_BY_START_DESC</option>
+            <option value="end ASC">COM_CAL_SORT_BY_END_ASC</option>
+			<option value="end DESC">COM_CAL_SORT_BY_END_DESC</option>
+            <option value="location_name ASC">COM_CAL_SORT_BY_LOCATION_ASC</option>
+			<option value="location_name DESC">COM_CAL_SORT_BY_LOCATION_DESC</option>
+            <option value="state ASC">COM_CAL_SORT_BY_STATE_ASC</option>
+			<option value="state DESC">COM_CAL_SORT_BY_STATE_DESC</option>
 			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>
