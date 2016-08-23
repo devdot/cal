@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fields name="filter">
+
+		<field
+			name="search"
+			type="text"
+			label="COM_CAL_FILTER_SEARCH_LABEL"
+			description="COM_CAL_FILTER_SEARCH_DESC"
+			hint="JSEARCH_FILTER"
+		/>
+        
+        <field
+            name="type"
+            type="list"
+            label="COM_CAL_FILTER_RESOURCE_TYPE"
+            description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
+            onchange="this.form.submit();"
+            >
+            <option value="">COM_CAL_RESOURCE_SELECT_TYPE</option>
+            <option value="0">COM_CAL_RESOURCE_TYPE_OBJECT</option>
+            <option value="1">COM_CAL_RESOURCE_TYPE_ROOM</option>
+            <option value="2">COM_CAL_RESOURCE_TYPE_SERVICE</option>
+            <option value="3">COM_CAL_RESOURCE_TYPE_USER</option>
+            <option value="4">COM_CAL_RESOURCE_TYPE_USERGROUP</option>
+        </field>
+
+	</fields>
+
+	<fields name="list">
+
+		<field
+			name="fullordering"
+			type="list"
+			label="COM_CONTACT_LIST_FULL_ORDERING"
+			description="COM_CONTACT_LIST_FULL_ORDERING_DESC"
+			default="name ASC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JGLOBAL_SORT_BY</option>
+            <option value="name ASC">COM_CAL_SORT_BY_NAME_ASC</option>
+			<option value="name DESC">COM_CAL_SORT_BY_NAME_DESC</option>
+            <option value="cat_name ASC">COM_CAL_SORT_BY_CATEGORY_ASC</option>
+			<option value="cat_name DESC">COM_CAL_SORT_BY_CATEGORY_DESC</option>
+            <option value="type ASC">COM_CAL_SORT_BY_TYPE_ASC</option>
+			<option value="type DESC">COM_CAL_SORT_BY_TYPE_DESC</option>
+			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="id DESC">JGRID_HEADING_ID_DESC</option>
+		</field>
+
+		<field
+			name="limit"
+			type="limitbox"
+			label="COM_CONTACT_LIST_LIMIT"
+			description="COM_CONTACT_LIST_LIMIT_DESC"
+			default="25"
+			class="input-mini"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>
