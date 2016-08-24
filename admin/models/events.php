@@ -75,13 +75,14 @@ class CalModelEvents extends JModelList {
         
         //only need those columns
         $query->select(array("a.id", "a.name", "a.state", 'a.catid', 'a.alias', 'a.location_id',
-			'a.checked_out', 'a.editor', 'a.checked_out_time', 'a.start', 'a.end',
+			'a.checked_out', 'a.editor', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id',
 			'c.name AS location_name',
 			'b.title AS cat_name, d.title AS access_name'));
 		$query->from("#__cal_events AS a");
 		$query->leftJoin('#__categories AS b ON b.id = a.catid');
 		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
 		$query->leftJoin('#__viewlevels AS d ON d.id = a.access');
+		$query->where('recurring_schedule = ""'); //only recurring heads have schedules
         
 		if(is_numeric($this->getState('filter.state'))) {
 			$state = (int) $this->getState('filter.state');

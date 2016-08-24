@@ -91,6 +91,9 @@ $timezone = CalHelper::getTimeZone();
 									<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'events.', true); ?>
 								<?php endif; ?>
 								<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
+								<?php if($item->recurring_id): ?>
+								<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->recurring_id); ?>"><span class="icon-loop"></span></a>
+								<?php endif; ?>
 								<span class="small break-word">
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
 								</span>
