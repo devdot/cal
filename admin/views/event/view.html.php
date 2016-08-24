@@ -11,32 +11,28 @@
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * Cals View
+ * View for editing a single event
  *
  * @since  0.0.1
  */
-class calViewEvent extends JViewLegacy {
+class CalViewEvent extends JViewLegacy {
     
-    protected $sidebar;
+    protected $form;
+	protected $item;
+	protected $state;
     
 	/**
-	 * Display the Hello World view
+	 * 
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 */
-	function display($tpl = null)
-	{
-		// Get data from the model
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
-        
-        JHtml::stylesheet("/administrator/components/com_cal/css/cal.css");
-        
-        JToolbarHelper::title('Calendar', 'calendar');
-        //JToolbarHelper::preferences('com_cal');
-        
+	function display($tpl = null) {
+		
+		$this->item  = $this->get('Item');
+		$this->form  = $this->get('Form');
+		$this->state = $this->get('State');
         
         
 		// Check for errors.
@@ -46,9 +42,22 @@ class calViewEvent extends JViewLegacy {
  
 			return false;
 		}
- 
-        
-        $this->sidebar = JHtmlSidebar::render();
+		
+		JFactory::getApplication()->input->set("hidemainmenu", true);
+		
+		JToolbarHelper::title('Calendar / Event', 'calendar');
+		
+		//toolbar elements
+		JToolbarHelper::apply('event.apply');
+		JToolbarHelper::save('event.save');
+		JToolbarHelper::save2new('event.save2new');
+		
+		//this isn't a new item, otherwise the id wouldn't be 0
+		if($this->item->id != 0) {
+			JToolbarHelper::save2copy('event.save2copy');
+		}
+		JToolbarHelper::cancel('event.cancel');
+		
 		// Display the template
 		parent::display($tpl);
 	}
