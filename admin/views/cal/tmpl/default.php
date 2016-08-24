@@ -10,6 +10,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted Access');
 
+$timezone = CalHelper::getTimeZone();
 ?>
 <form id="adminForm" action="?option=com_cal&view=event" method="post" name="adminForm">
     <div id="j-sidebar-container" class="span2">
@@ -17,11 +18,72 @@ defined('_JEXEC') or die('Restricted Access');
     </div>
     <div id="j-main-container" class="span10 j-toggle-main">
         <div class="span6">
-            <h2>Upcoming Events</h2>
+            <h2><?php echo JText::_('COM_CAL_QUICKACCESS'); ?></h2>
 
         </div>
         <div class="span6">
-            <h2>New Events</h2>
+            <h2><?php echo JText::_('COM_CAL_NEW_EVENTS'); ?></h2>
+			<table class="table table-striped" id="cal-locations">
+				<thead>
+					<tr>
+						<th class="nowrap">
+							<?php echo JText::_('COM_CAL_NAME'); ?>
+						</th>
+						<th class="nowrap">
+							<?php echo JText::_('COM_CAL_START'); ?>
+						</th>
+						<th class="nowrap">
+							<?php echo JText::_('COM_CAL_LOCATION'); ?>
+						</th>
+						<th class="nowrap">
+							<?php echo JText::_('COM_CAL_AUTHOR'); ?>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$n = count($this->items);
+				foreach ($this->items as $i => $item) :
+					?>
+					<tr class="row<?php echo $i % 2; ?>">
+						<td class="has-context">
+							<div class="pull-left break-word">
+								
+								<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
+								<?php if($item->recurring_id): ?>
+									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->recurring_id); ?>"><span class="icon-loop"></span></a>
+								<?php endif; ?>
+								<div class="small">
+									<?php echo JText::_('JCATEGORY') . ": "; ?>
+									<a href="<?php echo JRoute::_('index.php?option=com_categories&extension=com_cal&task=category.edit&id=' . (int) $item->catid); ?>">
+										<?php echo $this->escape($item->cat_name); ?>
+									</a>
+								</div>
+							</div>
+						</td>
+						<td>
+							<?php 
+							$date = new JDate($item->start);
+							$date->setTimezone($timezone);
+							echo $date->format('Y-m-d H:i'); 
+							?>
+						</td>
+						<td>
+							<?php if($item->location_id): ?>
+							<a href="<?php echo JRoute::_('index.php?option=com_cal&task=location.edit&ID=' . (int) $item->location_id); ?>">
+								<?php echo $this->escape($item->location_name); ?>
+							</a>
+							<?php endif; ?>
+						</td>
+						<td class="hidden-phone">
+							<?php if($item->user_name): ?>
+							<a href="?option=com_users&task=user.edit&id=<?php echo $item->created_by; ?>"><?php echo $item->user_name; ?></a>
+							<?php endif; ?>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
         </div>
     </div>
     <input name="task" value="" type="hidden">
