@@ -71,7 +71,9 @@
 			<option value="location_name DESC">COM_CAL_SORT_BY_LOCATION_DESC</option>
             <option value="state ASC">COM_CAL_SORT_BY_STATE_ASC</option>
 			<option value="state DESC">COM_CAL_SORT_BY_STATE_DESC</option>
-			<option value="id ASC">JGRID_HEADING_ID_ASC</option>
+			<option value="access_name ASC">COM_CAL_SORT_BY_ACCESS_DESC</option>
+			<option value="access_name DESC">COM_CAL_SORT_BY_ACCESS_DESC</option>
+            <option value="id ASC">JGRID_HEADING_ID_ASC</option>
 			<option value="id DESC">JGRID_HEADING_ID_DESC</option>
 		</field>
 

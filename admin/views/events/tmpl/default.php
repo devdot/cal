@@ -52,6 +52,9 @@ $timezone = CalHelper::getTimeZone();
 						<th class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_LOCATION', 'location_name', $listDirn, $listOrder); ?>
 						</th>
+						<th class="nowrap hidden-phone">
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_ACCESS', 'access_name', $listDirn, $listOrder); ?>
+						</th>
 						<th width="1%" class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
 						</th>
@@ -119,6 +122,9 @@ $timezone = CalHelper::getTimeZone();
 								<?php echo $this->escape($item->location_name); ?>
 							</a>
 							<?php endif; ?>
+						</td>
+						<td class="hidden-phone">
+							<?php echo $item->access_name; ?>
 						</td>
 						<td class="hidden-phone">
 							<?php echo $item->id; ?>
