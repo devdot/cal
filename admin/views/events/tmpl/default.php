@@ -53,6 +53,9 @@ $timezone = CalHelper::getTimeZone();
 							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_LOCATION', 'location_name', $listDirn, $listOrder); ?>
 						</th>
 						<th class="nowrap hidden-phone">
+							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_AUTHOR', 'user_name', $listDirn, $listOrder); ?>
+						</th>
+						<th class="nowrap hidden-phone">
 							<?php echo JHtml::_('searchtools.sort', 'COM_CAL_ACCESS', 'access_name', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
@@ -124,6 +127,11 @@ $timezone = CalHelper::getTimeZone();
 							<a href="<?php echo JRoute::_('index.php?option=com_cal&task=location.edit&ID=' . (int) $item->location_id); ?>">
 								<?php echo $this->escape($item->location_name); ?>
 							</a>
+							<?php endif; ?>
+						</td>
+						<td class="hidden-phone">
+							<?php if($item->user_name): ?>
+							<a href="?option=com_users&task=user.edit&id=<?php echo $item->created_by; ?>"><?php echo $item->user_name; ?></a>
 							<?php endif; ?>
 						</td>
 						<td class="hidden-phone">

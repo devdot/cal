@@ -33,6 +33,7 @@ class CalModelEvents extends JModelList {
 				'end',
 				'access',
 				'access_name',
+				'user_name',
 				'location'
             );
         }
@@ -77,11 +78,13 @@ class CalModelEvents extends JModelList {
         $query->select(array("a.id", "a.name", "a.state", 'a.catid', 'a.alias', 'a.location_id',
 			'a.checked_out', 'a.editor', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id',
 			'c.name AS location_name',
+			'e.name AS user_name, a.created_by',
 			'b.title AS cat_name, d.title AS access_name'));
 		$query->from("#__cal_events AS a");
 		$query->leftJoin('#__categories AS b ON b.id = a.catid');
 		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
 		$query->leftJoin('#__viewlevels AS d ON d.id = a.access');
+		$query->leftJoin('#__users AS e ON e.id = a.created_by');
 		$query->where('recurring_schedule = ""'); //only recurring heads have schedules
         
 		if(is_numeric($this->getState('filter.state'))) {
