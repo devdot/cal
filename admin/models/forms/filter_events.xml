@@ -25,6 +25,19 @@
         </field>
         
         <field
+            name="recurring"
+            type="list"
+            label="JOPTION_SELECT_RECURRING"
+            description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
+            onchange="this.form.submit();"
+            >
+            <option value="">COM_CAL_SELECT_RECURRING</option>
+            <option value="0">COM_CAL_SELECT_RECURRING_NOT</option>
+            <option value="1">COM_CAL_SELECT_RECURRING_PARENT</option>
+            <option value="2">COM_CAL_SELECT_RECURRING_CHILD</option>
+        </field>
+        
+        <field
 			name="catid"
 			type="category"
 			label="JOPTION_FILTER_CATEGORY"

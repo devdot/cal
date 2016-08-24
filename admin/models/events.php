@@ -52,8 +52,10 @@ class CalModelEvents extends JModelList {
         //second param: I don't really know
         //third: default value, if first is empty
         //fourth: filter for first param
-        $type = $app->getUserStateFromRequest($this->context . 'filter.state', 'filter_type', '', 'string');
-        $this->setState('filter.state', $type);
+        $state = $app->getUserStateFromRequest($this->context . 'filter.state', 'filter_type', '', 'string');
+        $this->setState('filter.state', $state);
+		$rec = $app->getUserStateFromRequest($this->context . 'filter.recurring', 'filter_type', '', 'string');
+        $this->setState('filter.recurring', $rec);
 		$catid = $app->getUserStateFromRequest($this->context . 'filter.catid', 'filter_type', '', 'string');
         $this->setState('filter.catid', $catid);
 		$access = $app->getUserStateFromRequest($this->context . 'filter.access', 'filter_type', '', 'string');
@@ -85,7 +87,6 @@ class CalModelEvents extends JModelList {
 		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
 		$query->leftJoin('#__viewlevels AS d ON d.id = a.access');
 		$query->leftJoin('#__users AS e ON e.id = a.created_by');
-		$query->where('recurring_schedule = ""'); //only recurring heads have schedules
         
 		if(is_numeric($this->getState('filter.state'))) {
 			$state = (int) $this->getState('filter.state');
@@ -94,6 +95,17 @@ class CalModelEvents extends JModelList {
 		else {
 			$query->where('a.state >= 0');
 		}
+		
+		if(is_numeric($this->getState('filter.recurring'))) {
+			$rec = (int) $this->getState('filter.recurring');
+			if($rec == 0)
+				$query->where('(recurring_id = 0 AND recurring_schedule = "")');
+			elseif($rec == 1)
+				$query->where('recurring_schedule != ""');
+			else
+				$query->where('(recurring_id != 0 AND recurring_schedule = "")');
+		} else
+			$query->where('recurring_schedule = ""'); //only recurring heads have schedules
 		
 		if(is_numeric($this->getState('filter.catid'))) {
 			$catid = (int) $this->getState('filter.catid');
