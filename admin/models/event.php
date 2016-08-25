@@ -41,6 +41,12 @@ class CalModelEvent extends JModelAdmin {
 			return false; //return false if loading the form has failed
 		}
 		
+		if($this->getItem()->recurring_id) {
+			//recurring child
+			$form->setFieldAttribute('start', 'readonly', 'true', $group = null);
+			$form->setFieldAttribute('end', 'readonly', 'true', $group = null);
+		}
+		
 		return $form;
 	}
 	
@@ -63,7 +69,7 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
-		$defaultSchedule = "asdflj";
+		$defaultSchedule = "[]";
 		
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
