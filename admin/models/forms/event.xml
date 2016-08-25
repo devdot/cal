@@ -44,6 +44,28 @@
             required="true"
             onchange="cal_resources_reload()"
 		/>
+        <field
+			name="start_"
+			type="calendar"
+			label="COM_CAL_START"
+			description="COM_CAL_START_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+            class="readonly"
+            readonly="true"
+		/>
+        <field
+			name="end_"
+			type="calendar"
+			label="COM_CAL_END"
+			description="COM_CAL_START_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+            class="readonly"
+            readonly="true"
+		/>
         
         <field
 			name="alias"
