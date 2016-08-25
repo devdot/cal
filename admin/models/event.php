@@ -64,13 +64,18 @@ class CalModelEvent extends JModelAdmin {
 			$data = $this->getItem();
 		}
 		
+		if(!$data->recurring_id && !empty($data->recurring_schedule)) {
+			//it's a parant
+			$schedule = json_decode($data->recurring_schedule);
+			$data->recurring_selector = $schedule->type; //put the type in for the selector
+		}
 		
 		return $data;
 	}
 	
 	public function save($data) {
 		$input  = JFactory::getApplication()->input;
-		$defaultSchedule = "[]";
+		$defaultSchedule = '{"type":0}';
 		
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
@@ -88,7 +93,7 @@ class CalModelEvent extends JModelAdmin {
 			$data['fulltext'] = $text[0];
 		}
 		
-		if((int) $data['make_recurring'] == 1) {
+		if(isset($data['make_recurring']) && (int) $data['make_recurring'] == 1) {
 			//user wants to make this recurring
 			if((int) $data['id'] == 0)
 				$data['recurring_schedule'] = $defaultSchedule;
@@ -114,7 +119,7 @@ class CalModelEvent extends JModelAdmin {
 				}
 			}
 		}
-		elseif((int) $data['stop_recurring'] == 1) {
+		elseif(isset($data['stop_recurring']) && (int) $data['stop_recurring'] == 1) {
 			//user wants to break out this event of a recurring series
 			//check if he can do that (only children can stop being part of recurrance)
 			$db = $this->getDbo();
@@ -159,6 +164,10 @@ class CalModelEvent extends JModelAdmin {
 			$data['state'] = 0;
 		}
 		
+		if(isset($data['recurring_selector'])) {
+			$type = (int) $data['recurring_selector'];
+			$data["recurring_schedule"] = json_encode(array("type" => $type));
+		}
 		
 		if(!parent::save($data)) {
 			//something above failed, don't even try now

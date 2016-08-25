@@ -192,6 +192,31 @@
             onchange="cal_recurring_stop()"
             filter="boolean" 
         />
+        
+        <field
+			name="recurring_id"
+			type="text"
+			label="COM_CAL_FIELD_RECURRING_ID"
+			description="COM_CAL_FIELD_RECURRING_ID_DESC"
+			default="0"
+			class="readonly"
+			size="10"
+			readonly="true"
+		/>
+        <field
+			name="recurring_selector"
+			type="list"
+			label="COM_CAL_FIELD_RECURRING_SELECTOR"
+			description="COM_CAL_FIELD_RECURRING_SELECTOR_DESC"
+			default="0"
+			size="1"
+		>
+			<option value="0">COM_CAL_RECURRING_WEEKLY</option>
+            <option value="1">COM_CAL_RECURRING_BIWEEKLY</option>
+            <option value="2">COM_CAL_RECURRING_MONTHLY_DATE</option>
+            <option value="3">COM_CAL_RECURRING_MONTHLY_WEEKDAY</option>
+
+		</field>
 
 	</fieldset>
      <fields name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">

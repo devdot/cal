@@ -101,7 +101,8 @@ JFactory::getDocument()->addScriptDeclaration('
 		echo JHtml::_('bootstrap.addTab', 'myTab', 'recurring', JText::_('COM_CAL_EDIT_RECURRING')); ?>
 		<div class="row-fluid form-vertical">
 			<div class="span6">
-				
+				<?php echo $this->form->renderField('recurring_selector'); ?>
+				<input type="hidden" name="jform[recurring_schedule]" value="<?php echo $this->item->recurring_schedule; ?>" />
 			</div>
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); 
@@ -118,7 +119,10 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_CAL_FIELDSET_PUBLISHING')); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+					<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this);
+						if($isChild)
+							echo $this->form->renderField('recurring_id');
+					?>
 				</div>
 				<div class="span6">
 					<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
