@@ -69,6 +69,7 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		$input  = JFactory::getApplication()->input;
 		$defaultSchedule = "[]";
 		
 		if(empty($data['alias'])) {
@@ -138,6 +139,27 @@ class CalModelEvent extends JModelAdmin {
 		}
 		
 		
+		// Alter the title for save as copy
+		if ($input->get('task') == 'save2copy') {
+			//copy-pasta from com_content
+			$origTable = clone $this->getTable();
+			$origTable->load($input->getInt('id'));
+			
+			if ($data['title'] == $origTable->title) {
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['title'] = $title;
+				$data['alias'] = $alias;
+			}
+			else {
+				if ($data['alias'] == $origTable->alias) {
+					$data['alias'] = '';
+				}
+			}
+
+			$data['state'] = 0;
+		}
+		
+		
 		if(!parent::save($data)) {
 			//something above failed, don't even try now
 			return false;
@@ -145,9 +167,6 @@ class CalModelEvent extends JModelAdmin {
 		
 		//save many-to-many relation of resources
 		$resources = json_decode($data['resources']);
-		
-		if(count($resources) == 0) //nothing to do anyways
-			return true;
 		
 		if($data['id'] != 0) { //its a new entry, no need to check existing relations
 			//first load the current relations
@@ -185,9 +204,9 @@ class CalModelEvent extends JModelAdmin {
 			$add = $resources; //add all
 			$remove = array(); //and remove none (because this is a new entry)
 		}
-		
+
 		$event_id = (int) $this->getItem()->get('id');
-		
+
 		//now work it
 		foreach($add as $resource_id) {
 			$db = $this->getDbo(); //first add them all
@@ -210,5 +229,74 @@ class CalModelEvent extends JModelAdmin {
 		return true;
 	}
 	
+	public function delete(&$pks) {
+		//so some checks for parents
+		$db = $this->getDbo();
+		$del = array();
+		foreach($pks as $pk) {
+			$query = $db->getQuery(true)
+				->select('recurring_schedule, recurring_id')
+				->from('#__cal_events')
+				->where('id = '.$pk);
+			$db->setQuery($query);
+			try {
+				$ret = $db->loadObjectList();
+			}
+			catch (RuntimeException $e) {
+				JError::raiseWarning(500, $e->getMessage());
+				return false;
+			}
+			
+			if((int) $ret[0]->recurring_id != 0) {
+				//we can't delete children
+				continue;
+			}
+			
+			if(!empty($ret[0]->resource_schedule)) {
+				//this is a parent, delete all children
+				$query = $db->getQuery(true)
+					->select('id')
+					->from('#__cal_events')
+					->where('recurring_id = '.$pk);
+				$db->setQuery($query);
+				try {
+					$ret = $db->loadObjectList();
+				}
+				catch (RuntimeException $e) {
+					JError::raiseWarning(500, $e->getMessage());
+					return false;
+				}
+				foreach($ret as $child) {
+					//put them all on the list
+					$del[] = (int) $child->id;
+				}
+			}
+			$del[] = $pk; //and put the parent on the list as well
+		}
+		$pks = $del;
+		
+		if(!parent::delete($pks)) {
+			//it failed  somewhere else
+			return false;
+		}
+		
+		//now onto resources: delete all associated resources
+		$query = $db->getQuery(true)
+			->delete('#__cal_events_resources');
+		$arr = array();
+		foreach($pks as $pk) {
+			$arr[] = 'event_id='.$pk; //just delete 'em all
+		}
+		$query->where(implode(" OR ", $arr)); //making it this way ensures good functionality
+		$db->setQuery($query);
+		try {
+			$db->execute();
+			return true;
+		}
+		catch (RuntimeException $e) {
+			JError::raiseWarning(500, $e->getMessage());
+			return false;
+		}
+	}
 	
 }

@@ -45,6 +45,10 @@ class CalViewEvents extends JViewLegacy {
 		JToolbarHelper::unpublish('events.unpublish');
 		JToolbarHelper::checkin('events.checkin');
 		JToolbarHelper::trash('events.trash');
+		
+		if ($this->state->get('filter.state') == -2){
+			JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'events.delete', 'JTOOLBAR_EMPTY_TRASH');
+		}
         
         CalHelper::addSubmenu('events');
         
