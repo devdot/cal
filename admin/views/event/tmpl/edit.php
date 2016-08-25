@@ -29,7 +29,25 @@ JFactory::getDocument()->addScriptDeclaration('
 			}
 		}
 	};
+	function cal_recurring_make() {
+		value = parseInt(document.getElementById("jform_make_recurring").value);
+		if(value == 1)
+			if(confirm("'.JText::_('COM_CAL_FIELD_MAKE_RECURRING_DESC').'"))
+				Joomla.submitbutton("event.apply");
+			else
+				document.getElementById("jform_make_recurring").checked = false;
+	}
+	function cal_recurring_stop() {
+		value = parseInt(document.getElementById("jform_stop_recurring").value);
+		if(value == 1)
+			if(confirm("'.JText::_('COM_CAL_FIELD_STOP_RECURRING_DESC').'"))
+				Joomla.submitbutton("event.apply");
+			else
+				document.getElementById("jform_stop_recurring").checked = false;
+	}
 ');
+
+//http://www.codingace.com/joomla-jform-field-types
 
 ?>
 
@@ -37,19 +55,19 @@ JFactory::getDocument()->addScriptDeclaration('
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
-	<p>
-	<?php if($this->item->id == 0): ?>
-	
-	<?php elseif($isChild):
+	<div class="form-horizontal">
+		<?php if($this->item->id == 0): 
+			echo $this->form->renderField('make_recurring');
+		elseif($isChild):
 			echo JText::_('COM_CAL_RECURRING_ISCHILD');
+			echo $this->form->renderField('stop_recurring');
 		elseif($isParent):
 			echo JText::_('COM_CAL_RECURRING_ISPARENT');
 		else:
 			echo JText::_('COM_CAL_RECURRING_ISNOT');
+			echo $this->form->renderField('make_recurring');
 		endif;
-	?>
-	</p>
-	<div class="form-horizontal">
+		?>
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('COM_CAL_EDIT_EVENT')); ?>

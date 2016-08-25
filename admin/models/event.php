@@ -63,6 +63,8 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		$defaultSchedule = "asdflj";
+		
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
 			$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
@@ -78,6 +80,57 @@ class CalModelEvent extends JModelAdmin {
 			$data['introtext'] = "";
 			$data['fulltext'] = $text[0];
 		}
+		
+		if((int) $data['make_recurring'] == 1) {
+			//user wants to make this recurring
+			if((int) $data['id'] == 0)
+				$data['recurring_schedule'] = $defaultSchedule;
+			else {
+				//check if he's allowed to make it recurring
+				//can't be a child nor be already recurring
+				$db = $this->getDbo();
+				$query = $db->getQuery(true)
+				->select('recurring_id, recurring_schedule')
+				->from('#__cal_events')
+				->where('id = '.$data['id']);
+				$db->setQuery($query);
+				$results = $db->loadObjectList();
+				
+				if($results[0]->recurring_id) {
+					//not 0, so it's a child
+					JError::raiseWarning(500, JText::_("COM_CAL_ERROR_MAKE_RECURRING_IS_CHILD"));
+					return false;
+				}
+				elseif(empty($results[0]->recurring_schedule)) {
+					//the schedule is empty, we can make it recurring parent by giving the default schedule
+					$data['recurring_schedule'] = $defaultSchedule;
+				}
+			}
+		}
+		elseif((int) $data['stop_recurring'] == 1) {
+			//user wants to break out this event of a recurring series
+			//check if he can do that (only children can stop being part of recurrance)
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+			->select('recurring_id, recurring_schedule')
+			->from('#__cal_events')
+			->where('id = '.$data['id']);
+			$db->setQuery($query);
+			$results = $db->loadObjectList();
+			
+			if(!empty($results[0]->recurring_schedule)) {
+				//only parents have a schedule
+				JError::raiseWarning(500, JText::_("COM_CAL_ERROR_STOP_RECURRING_IS_PARENT"));
+				return false;
+			}
+			elseif($results[0]->recurring_id) {
+				//recurring_id is not 0
+				$data['recurring_id'] = 0;
+				//TODO
+				//copy missing data from parent
+			}
+		}
+		
 		
 		if(!parent::save($data)) {
 			//something above failed, don't even try now

@@ -173,6 +173,25 @@
         <field name="articletext" type="editor"
 			label="COM_CONTENT_FIELD_ARTICLETEXT_LABEL" description="COM_CONTENT_FIELD_ARTICLETEXT_DESC"
 			filter="JComponentHelper::filterText" buttons="true" />
+        
+        <field 
+            name="make_recurring"
+            type="checkbox"
+            label="COM_CAL_FIELD_MAKE_RECURRING"
+            description="COM_CAL_FIELD_MAKE_RECURRING_DESC"
+            value="false"
+            onchange="cal_recurring_make()"
+            filter="boolean" 
+        />
+        <field 
+            name="stop_recurring"
+            type="checkbox"
+            label="COM_CAL_FIELD_STOP_RECURRING"
+            description="COM_CAL_FIELD_STOP_RECURRING_DESC"
+            value="false"
+            onchange="cal_recurring_stop()"
+            filter="boolean" 
+        />
 
 	</fieldset>
      <fields name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
