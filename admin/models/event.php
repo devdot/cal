@@ -47,6 +47,11 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		if(empty($data['alias'])) {
+			//create an alias for the lazy user
+			$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
+		}
+		
 		if(!parent::save($data)) {
 			//something above failed, don't even try now
 			return false;

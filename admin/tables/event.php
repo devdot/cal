@@ -27,4 +27,30 @@ class CalTableEvent extends JTable {
 			//might do that in the future though
 		return parent::publish($pks, $state, $userId);
 	}
+	
+	public function store($updateNulls = false) {
+		$date   = JFactory::getDate()->toSql();
+		$userId = JFactory::getUser()->id;
+
+		$this->modified = $date;
+		$this->modified_by = $userId;
+		
+		if($this->id == 0) {
+			//a new event
+			$this->created = $date;
+			$this->created_by = $userId;
+		}
+		
+		// Verify that the alias is unique
+		$table = JTable::getInstance('Event', 'CalTable');
+
+		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
+		{
+			$this->setError(JText::_('COM_CAL_ERROR_UNIQUE_ALIAS'));
+
+			return false;
+		}
+		
+		return parent::store($updateNulls);
+	}
 }
