@@ -17,6 +17,22 @@ defined('_JEXEC') or die;
 class CalModelEvent extends JModelAdmin {
 	public $typeAlias = 'com_cal.event';
 	
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer  $pk  The id of the primary key.
+	 *
+	 * @return  mixed  Object on success, false on failure.
+	 */
+	public function getItem($pk = null) {
+		if ($item = parent::getItem($pk)) { //articletext is a combination of fulltext and introtext
+			//two options: introtext and fulltext or fulltext alone
+			//introtext alone can't exists (technically you can still just put a &nbsp; there...)
+			$item->articletext = trim($item->fulltext) != '' ? $item->introtext . "<hr id=\"system-readmore\" />" . $item->fulltext : $item->introtext;
+		}
+		return $item;
+	}
+	
 	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
 		$form = $this->loadForm('com_cal.event', 'event', array('control' => 'jform', 'load_data' => $loadData));
@@ -50,6 +66,17 @@ class CalModelEvent extends JModelAdmin {
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
 			$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
+		}
+		
+		//split articletext into intro and fulltext
+		$text = split("<hr id=\"system-readmore\" />", $data['articletext'], 2); //only split once (in two elements)
+		if(count($text) == 2) {
+			$data['introtext'] = $text[0];
+			$data['fulltext'] = $text[1];
+		}
+		else {
+			$data['introtext'] = "";
+			$data['fulltext'] = $text[0];
 		}
 		
 		if(!parent::save($data)) {
