@@ -97,6 +97,16 @@ JFactory::getDocument()->addScriptDeclaration('
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+		<?php if($isParent): 
+		echo JHtml::_('bootstrap.addTab', 'myTab', 'recurring', JText::_('COM_CAL_EDIT_RECURRING')); ?>
+		<div class="row-fluid form-vertical">
+			<div class="span6">
+				
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); 
+		endif; ?>
+		
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'resources', JText::_('COM_CAL_EDIT_RESOURCES')); ?>
 		<div class="row-fluid form-vertical">
 			<div class="span6">
