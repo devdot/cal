@@ -78,15 +78,17 @@ class CalModelEvents extends JModelList {
         
         //only need those columns
         $query->select(array("a.id", "a.name", "a.state", 'a.catid', 'a.alias', 'a.location_id',
-			'a.checked_out', 'a.editor', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id',
+			'a.checked_out', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id',
 			'c.name AS location_name',
 			'e.name AS user_name, a.created_by',
+			'f.name AS editor',
 			'b.title AS cat_name, d.title AS access_name'));
 		$query->from("#__cal_events AS a");
 		$query->leftJoin('#__categories AS b ON b.id = a.catid');
 		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
 		$query->leftJoin('#__viewlevels AS d ON d.id = a.access');
 		$query->leftJoin('#__users AS e ON e.id = a.created_by');
+		$query->leftJoin('#__users AS f ON f.id = a.checked_out');
         
 		if(is_numeric($this->getState('filter.state'))) {
 			$state = (int) $this->getState('filter.state');
