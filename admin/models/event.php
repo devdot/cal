@@ -47,9 +47,76 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		if(!parent::save($data)) {
+			//something above failed, don't even try now
+			return false;
+		}
 		
+		//save many-to-many relation of resources
+		$resources = json_decode($data['resources']);
 		
-		return parent::save($data);
+		if(count($resources) == 0) //nothing to do anyways
+			return true;
+		
+		if($data['id'] != 0) { //its a new entry, no need to check existing relations
+			//first load the current relations
+			//we need to check which are new and which we need to delete or keep
+			$relations = array();
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select('id, resource_id')
+				->from('#__cal_events_resources')
+				->where('event_id = '.$data['id']);
+			$db->setQuery($query);
+			try {
+				$relations = $db->loadObjectList();
+			}
+			catch (RuntimeException $e) {
+				JError::raiseWarning(500, $e->getMessage());
+				return false;
+			}
+
+			$add = array(); //resource id
+			$keep = array(); //resource id
+			$remove = array(); //relation id
+			foreach($relations as $relation) { //check for each existing relation whether to keep it
+				if(in_array((int) $relation->resource_id, $resources))
+					$keep[] = $relation->resource_id;
+				else
+					$remove[] = (int) $relation->id;
+			}
+			foreach($resources as $resource) { //check which resources need to be added
+				if(!in_array($resource, $keep))
+						$add[] = $resource;
+			}
+		}
+		else {
+			$add = $resources; //add all
+			$remove = array(); //and remove none (because this is a new entry)
+		}
+		
+		$event_id = (int) $this->getItem()->get('id');
+		
+		//now work it
+		foreach($add as $resource_id) {
+			$db = $this->getDbo(); //first add them all
+			$query = $db->getQuery(true)
+			->insert('#__cal_events_resources')
+			->columns('resource_id, event_id')
+			->values($resource_id.','.$event_id);
+			$db->setQuery($query);
+			$db->execute();
+		}
+		foreach($remove as $relation_id) {
+			$db = $this->getDbo(); //and now delete it all
+			$query = $db->getQuery(true)
+			->delete('#__cal_events_resources')
+			->where('id = '.$relation_id);
+			$db->setQuery($query);
+			$db->execute();
+		}
+		
+		return true;
 	}
 	
 	

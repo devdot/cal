@@ -80,8 +80,10 @@ JFactory::getDocument()->addScriptDeclaration('
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'resources', JText::_('COM_CAL_EDIT_RESOURCES')); ?>
-		<div class="row-fluid form-horizontal-desktop">
-			
+		<div class="row-fluid form-vertical">
+			<div class="span6">
+				<?php echo $this->form->renderField('resources'); ?>
+			</div>
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 		
