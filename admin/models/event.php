@@ -58,8 +58,6 @@ class CalModelEvent extends JModelAdmin {
 			$data = $this->getItem();
 		}
 		
-		$data->start_ = $data->start;
-		$data->end_ = $data->end;
 		
 		return $data;
 	}
