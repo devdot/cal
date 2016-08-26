@@ -43,8 +43,10 @@ class CalModelEvent extends JModelAdmin {
 		
 		if($this->getItem()->recurring_id) {
 			//recurring child
+			$form->setFieldAttribute('name', 'readonly', 'true', $group = null);
 			$form->setFieldAttribute('start', 'readonly', 'true', $group = null);
 			$form->setFieldAttribute('end', 'readonly', 'true', $group = null);
+			$form->setFieldAttribute('catid', 'readonly', 'true', $group = null);
 		}
 		
 		return $form;
@@ -446,5 +448,90 @@ class CalModelEvent extends JModelAdmin {
 		$db->execute();
 		return true;
 	}
+	
+		
+	public function publish(&$pks, $value = 1) {
+		$dispatcher = JEventDispatcher::getInstance();
+		$user = JFactory::getUser();
+		$table = $this->getTable();
+		$pks = (array) $pks;
+
+		// Include the plugins for the change of state event.
+		JPluginHelper::importPlugin($this->events_map['change_state']);
+
+		// Access checks.
+		foreach ($pks as $i => $pk) {
+			$table->reset();
+
+			if ($table->load($pk)) {
+				if (!$this->canEditState($table)) {
+					// Prune items that you can't change.
+					unset($pks[$i]);
+
+					JLog::add(JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'), JLog::WARNING, 'jerror');
+
+					return false;
+				}
+
+				// If the table is checked out by another user, drop it and report to the user trying to change its state.
+				if (property_exists($table, 'checked_out') && $table->checked_out && ($table->checked_out != $user->id))
+				{
+					JLog::add(JText::_('JLIB_APPLICATION_ERROR_CHECKIN_USER_MISMATCH'), JLog::WARNING, 'jerror');
+
+					// Prune items that you can't change.
+					unset($pks[$i]);
+
+					return false;
+				}
+			}
+			
+			//check for special snowflake recurring parents
+			if(!empty($table->recurring_schedule)) {;
+				//get all children
+				$db = $this->getDbo();
+				$query = $db->getQuery(true)
+					->select('id')
+					->from('#__cal_events')
+					->where('recurring_id = '.$table->id);
+				$db->setQuery($query);
+				try {
+					$ret = $db->loadObjectList();
+				}
+				catch (RuntimeException $e) {
+					JError::raiseWarning(500, $e->getMessage());
+					return false;
+				}
+
+				//now just add them all
+				foreach($ret as $child) {
+					$pks[] = $child->id; //as easy as this
+				}
+			}
+		}
+		
+		// Attempt to change the state of the records.
+		if (!$table->publish($pks, $value, $user->get('id'))) {
+			$this->setError($table->getError());
+
+			return false;
+		}
+
+		$context = $this->option . '.' . $this->name;
+
+		// Trigger the change state event.
+		$result = $dispatcher->trigger($this->event_change_state, array($context, $pks, $value));
+
+		if (in_array(false, $result, true)) {
+			$this->setError($table->getError());
+
+			return false;
+		}
+
+		// Clear the component's cache
+		$this->cleanCache();
+
+		return true;
+	}
+	
 	
 }
