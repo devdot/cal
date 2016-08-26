@@ -255,7 +255,6 @@ class CalModelEvent extends JModelAdmin {
 				JError::raiseWarning(500, $e->getMessage());
 				return false;
 			}
-			
 			if((int) $ret[0]->recurring_id != 0) {
 				//we can't delete children
 				continue;
@@ -306,6 +305,121 @@ class CalModelEvent extends JModelAdmin {
 			JError::raiseWarning(500, $e->getMessage());
 			return false;
 		}
+	}
+	
+	public function recurring($id) {
+		$db = $this->getDbo();
+		
+		$user = JFactory::getUser();
+		
+		//make children for this recurring parent
+		$parent = $this->getTable();
+		$parent->load($id);	
+		
+		if((int) $parent->recurring_id != 0 || empty($parent->recurring_schedule)) {
+			JError::raiseWarning(500, 'COM_CAL_ERROR_RECURRING_IS_NO_PARENT');
+			return false;
+		}
+		$schedule = json_decode($parent->recurring_schedule);
+		
+		//THIS IS A CONSTANT
+		//there shouldn't be constants here but what ever
+		//somebody could make this more clean
+		//how long events will be forecast
+		$forecast = time() + 3600*24*31; //20 days
+		
+		$start	= new JDate($parent->start);
+		$end	= new JDate($parent->end);
+		$start_ = $start->toUnix();
+		$end_	= $end->toUnix();
+		$duration = $end_ - $start_;
+		
+		$dates = array(); //array of all events to make
+		
+		
+		//first get the last child
+		$query = $db->getQuery(true)
+			->select('id, start')
+			->from('#__cal_events')
+			->where('recurring_id = '.$id)
+			->order('start DESC')
+			->setLimit(1);
+		$db->setQuery($query);
+		try {
+			$ret = $db->loadObjectList();
+		}
+		catch (RuntimeException $e) {
+			JError::raiseWarning(500, $e->getMessage());
+			return false;
+		}
+		if(!empty($ret)) {
+			$latest = new JDate($ret[0]->start);
+			$latest_ = $latest->toUnix();
+		}
+		else {
+			//we at least should created one event child, there is none yet
+			$dates[] = clone $start;
+			$latest = clone $start;
+			$latest_ = $start_;
+		}
+		
+		if($forecast - $latest_ < 0 && empty($dates)) {
+			//the event is beyond forecast date in the future
+			//or has been forecast long enough
+			return 2;
+		}
+		
+		switch($schedule->type) {
+			case 0:
+				$interval = new DateInterval('P1W');
+			case 1:
+				if(!isset($interval))
+					$interval = new DateInterval('P2W');
+				
+				$date = clone $latest;
+				$date->add($interval);
+				while($date->toUnix() <= $forecast) {
+					$dates[] = clone $date;
+					$date->add($interval);
+				}
+				
+				break;
+		}
+		
+		if(empty($dates)) {
+			//no new dates to add
+			return 2;
+		}
+		
+		$query = $db->getQuery(true);
+		$query->insert("#__cal_events")
+				->columns('alias, start, end, name, state, catid, created, created_by, modified, modified_by, access, location_id, recurring_id');
+				//these are the columns controlled by the parent (or first time required like created)
+		
+		$arr = array('"'.$parent->name.'"',
+					$parent->state,
+					$parent->catid,
+					'NOW()',
+					$user->id,
+					'NOW()',
+					$user->id,
+					$parent->access,
+					$parent->location_id,
+					$parent->id);
+
+		$std = implode(',', $arr);
+		
+		// now go through all the dates and give them their start and end
+		//also make sure alias is always unique by putting the date into it
+		foreach($dates as $s) {
+			$e = new JDate($s->toUnix() + $duration);
+			
+			$alias = $parent->alias.'-'.JFilterOutput::stringURLSafe($s->format('Y-m-d'));
+			$query->values('"'.$alias.'","'.$s->toSql().'","'.$e->toSql().'",'.$std);
+		}
+		$db->setQuery($query);
+		$db->execute();
+		return true;
 	}
 	
 }

@@ -84,6 +84,7 @@ $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter
 						<td class="hidden-phone">
 							<div class="btn-group">
 								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'events.'); ?>
+								<a class="btn btn-micro" href="javascript: void(0);" onclick="return listItemTask('cb0','event.recurring')"><span class="icon-loop"></span></a>
 								<?php 
 									JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'events');
 									echo JHtml::_('actionsdropdown.render', $this->escape($item->name));
