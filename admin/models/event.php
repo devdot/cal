@@ -257,10 +257,11 @@ class CalModelEvent extends JModelAdmin {
 			}
 			if((int) $ret[0]->recurring_id != 0) {
 				//we can't delete children
+				JError::raiseWarning(500, 'COM_CAL_ERROR_RECURRING_CHILD');
 				continue;
 			}
 			
-			if(!empty($ret[0]->resource_schedule)) {
+			if(!empty($ret[0]->recurring_schedule)) {
 				//this is a parent, delete all children
 				$query = $db->getQuery(true)
 					->select('id')
@@ -288,22 +289,24 @@ class CalModelEvent extends JModelAdmin {
 			return false;
 		}
 		
-		//now onto resources: delete all associated resources
-		$query = $db->getQuery(true)
-			->delete('#__cal_events_resources');
-		$arr = array();
-		foreach($pks as $pk) {
-			$arr[] = 'event_id='.$pk; //just delete 'em all
-		}
-		$query->where(implode(" OR ", $arr)); //making it this way ensures good functionality
-		$db->setQuery($query);
-		try {
-			$db->execute();
-			return true;
-		}
-		catch (RuntimeException $e) {
-			JError::raiseWarning(500, $e->getMessage());
-			return false;
+		if(!empty($pks)) {
+			//now onto resources: delete all associated resources
+			$query = $db->getQuery(true)
+				->delete('#__cal_events_resources');
+			$arr = array();
+			foreach($pks as $pk) {
+				$arr[] = 'event_id='.$pk; //just delete 'em all
+			}
+			$query->where(implode(" OR ", $arr)); //making it this way ensures good functionality
+			$db->setQuery($query);
+			try {
+				$db->execute();
+				return true;
+			}
+			catch (RuntimeException $e) {
+				JError::raiseWarning(500, $e->getMessage());
+				return false;
+			}
 		}
 	}
 	
