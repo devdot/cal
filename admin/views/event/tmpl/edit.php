@@ -19,6 +19,14 @@ $isRecurring = $isChild || $isParent;
 
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task) {
+		if(task != "event.cancel") {
+			start = new Date(document.getElementById("jform_start").value);
+			end = new Date(document.getElementById("jform_end").value);
+			if(start.getTime() >= end.getTime()) {
+				alert("'.JText::_('COM_CAL_ERROR_START_AFTER_END').'");
+				return false;
+			}
+		}
 		if (task == "event.cancel" || document.formvalidator.isValid(document.getElementById("cal-event-form"))) {
 			jQuery("#permissions-sliders select").attr("disabled", "disabled");
 			' . $this->form->getField('articletext')->save() . '
@@ -125,7 +133,8 @@ JFactory::getDocument()->addScriptDeclaration('
 					?>
 				</div>
 				<div class="span6">
-					<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+					<?php echo $this->form->renderField('metakey');
+						echo $this->form->renderField('metadesc');?>
 				</div>
 			</div>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>

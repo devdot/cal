@@ -74,6 +74,15 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		//validation
+		$start = new JDate($data['start']);
+		$end = new JDate($data['end']);
+		if($start->toUnix() >= $end->toUnix()) {
+			//start must be before end
+			JError::raiseWarning(500, JText::_("COM_CAL_ERROR_START_AFTER_END"));
+			return false;
+		}
+		
 		$input  = JFactory::getApplication()->input;
 		$defaultSchedule = '{"type":0}';
 		
@@ -137,9 +146,22 @@ class CalModelEvent extends JModelAdmin {
 			}
 			elseif($results[0]->recurring_id) {
 				//recurring_id is not 0
-				$data['recurring_id'] = 0;
-				//TODO
-				//copy missing data from parent
+				$parent = $this->getTable();
+				$parent->load($results[0]->recurring_id);
+				
+				$data['recurring_id'] = 0; //set this to 0 to break off
+				
+				if(empty($data['introtext']))
+					$data['introtext'] = $parent->introtext;
+				if(empty($data['fulltext']))
+					$data['fulltext'] = $parent->fulltext;
+				if(empty($data['metakey']))
+					$data['metakey'] = $parent->metakey;
+				if(empty($data['metadesc']))
+					$data['metadesc'] = $parent->metadesc;
+				if(empty($data['link']))
+					$data['link'] = $parent->link;
+				
 			}
 		}
 		
