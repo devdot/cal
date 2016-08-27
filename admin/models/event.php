@@ -47,6 +47,7 @@ class CalModelEvent extends JModelAdmin {
 			$form->setFieldAttribute('start', 'readonly', 'true', $group = null);
 			$form->setFieldAttribute('end', 'readonly', 'true', $group = null);
 			$form->setFieldAttribute('catid', 'readonly', 'true', $group = null);
+			$form->setFieldAttribute('location_id', 'readonly', 'true', $group = null);
 		}
 		
 		return $form;
@@ -78,6 +79,12 @@ class CalModelEvent extends JModelAdmin {
 	public function save($data) {
 		//save many-to-many relation of resources
 		$resources = json_decode($data['resources']);
+		
+		//TODO: make things cleaner
+		//should use a table for loading the existing record
+		//also variables $isParent and $isChild for recurrance handling
+		//it's a bit of a mess right now
+		$db = $this->getDbo();
 		
 		//validation
 		$start = new JDate($data['start']);
@@ -114,7 +121,6 @@ class CalModelEvent extends JModelAdmin {
 			else {
 				//check if he's allowed to make it recurring
 				//can't be a child nor be already recurring
-				$db = $this->getDbo();
 				$query = $db->getQuery(true)
 				->select('recurring_id, recurring_schedule')
 				->from('#__cal_events')
@@ -136,7 +142,6 @@ class CalModelEvent extends JModelAdmin {
 		elseif(isset($data['stop_recurring']) && (int) $data['stop_recurring'] == 1) {
 			//user wants to break out this event of a recurring series
 			//check if he can do that (only children can stop being part of recurrance)
-			$db = $this->getDbo();
 			$query = $db->getQuery(true)
 			->select('recurring_id, recurring_schedule')
 			->from('#__cal_events')
@@ -169,7 +174,6 @@ class CalModelEvent extends JModelAdmin {
 				
 				
 				//now copy parent's resources
-				$db = $this->getDbo();
 				$query = $db->getQuery(true)
 					->select('resource_id')
 					->from('#__cal_events_resources')
@@ -212,8 +216,23 @@ class CalModelEvent extends JModelAdmin {
 		}
 		
 		if(isset($data['recurring_selector'])) {
+			//we got ourselves a recurring parent
 			$type = (int) $data['recurring_selector'];
 			$data["recurring_schedule"] = json_encode(array("type" => $type));
+			
+			//now update our children's data
+			$query = $db->getQuery(true)
+				->update("#__cal_events")
+				->set('name='.$db->quote($data['name']))
+				->set('location_id='.(int) $data['location_id'])
+				->set('catid='.(int) $data['catid'])
+				->where('recurring_id='.(int) $data['id']);
+			$db->setQuery($query);
+			$db->execute();
+			
+			//now call for rescheduling of our children
+			$this->recurring((int) $data['id']);
+			
 		}
 		
 		if(!parent::save($data)) {
@@ -225,7 +244,6 @@ class CalModelEvent extends JModelAdmin {
 			//first load the current relations
 			//we need to check which are new and which we need to delete or keep
 			$relations = array();
-			$db = $this->getDbo();
 			$query = $db->getQuery(true)
 				->select('id, resource_id')
 				->from('#__cal_events_resources')
@@ -262,7 +280,7 @@ class CalModelEvent extends JModelAdmin {
 
 		//now work it
 		foreach($add as $resource_id) {
-			$db = $this->getDbo(); //first add them all
+			//first add them all
 			$query = $db->getQuery(true)
 			->insert('#__cal_events_resources')
 			->columns('resource_id, event_id')
@@ -271,7 +289,7 @@ class CalModelEvent extends JModelAdmin {
 			$db->execute();
 		}
 		foreach($remove as $relation_id) {
-			$db = $this->getDbo(); //and now delete it all
+			//and now delete it all
 			$query = $db->getQuery(true)
 			->delete('#__cal_events_resources')
 			->where('id = '.$relation_id);
