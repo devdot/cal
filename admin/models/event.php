@@ -76,6 +76,9 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
+		//save many-to-many relation of resources
+		$resources = json_decode($data['resources']);
+		
 		//validation
 		$start = new JDate($data['start']);
 		$end = new JDate($data['end']);
@@ -164,6 +167,26 @@ class CalModelEvent extends JModelAdmin {
 				if(empty($data['link']))
 					$data['link'] = $parent->link;
 				
+				
+				//now copy parent's resources
+				$db = $this->getDbo();
+				$query = $db->getQuery(true)
+					->select('resource_id')
+					->from('#__cal_events_resources')
+					->where('event_id = '.$parent->id);
+				$db->setQuery($query);
+				try {
+					$relations = $db->loadObjectList();
+				}
+				catch (RuntimeException $e) {
+					JError::raiseWarning(500, $e->getMessage());
+					return false;
+				}
+				foreach($relations as $row) {
+					$resource = (int) $row->resource_id;
+					if(!in_array($resource, $resources))
+							$resources[] = $resource;
+				}
 			}
 		}
 		
@@ -197,9 +220,6 @@ class CalModelEvent extends JModelAdmin {
 			//something above failed, don't even try now
 			return false;
 		}
-		
-		//save many-to-many relation of resources
-		$resources = json_decode($data['resources']);
 		
 		if($data['id'] != 0) { //its a new entry, no need to check existing relations
 			//first load the current relations
