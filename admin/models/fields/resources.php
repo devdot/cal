@@ -64,6 +64,33 @@ class JFormFieldResources extends JFormFieldList
 		return $options;
 	}
 	
+	protected function getParentOptions() {
+		$parent_id = $this->form->getData()->get('recurring_id');
+		
+		$options = array();
+
+
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true)
+			->select('a.resource_id, b.name, b.type')
+			->from('#__cal_events_resources AS a')
+			->leftJoin('#__cal_resources AS b ON a.resource_id = b.id')
+			->where('a.event_id = '.(int)$parent_id)
+			->order('type ASC, name ASC');
+
+		// Get the options.
+		$db->setQuery($query);
+
+		try {
+			$options = $db->loadObjectList();
+		}
+		catch (RuntimeException $e) {
+			JError::raiseWarning(500, $e->getMessage());
+		}
+		
+		return $options;
+	}
+	
 	/**
 	 * Method for markup. Heavy customized so my stuff actually works.
 	 *
@@ -118,12 +145,20 @@ class JFormFieldResources extends JFormFieldList
 		//let's just render it all ourselves
 		$name = $this->element->attributes()->name->__toString();
 		$resources = $this->getOptions();
+		$pResources = $this->getParentOptions();
 		
 		$res = array();
 		foreach($resources as $r) {
 			$res[] = '['.$r->resource_id.',"'.CalHelperResources::type($r->type).'","'.$r->name.'"]';
 		}
 		$res = implode(',',$res);
+		
+		$pRes = array();
+		foreach($pResources as $r) {
+			$pRes[] = '['.$r->resource_id.',"'.CalHelperResources::type($r->type).'","'.$r->name.'"]';
+		}
+		$pRes = implode(',',$pRes);
+		
 		
 		//first, the upper input group
 		$str = '<div class="input-append" id="cal_resources_input_group">';
@@ -138,6 +173,7 @@ class JFormFieldResources extends JFormFieldList
 		
 		$str .= '<script>
 				var cal_resources = ['.$res.'];
+				var cal_pResources = ['.$pRes.'];
 				function cal_resources_add() {
 					id = document.getElementById("cal_resources_input_group").getElementsByTagName("select")[0].value;
 					if(id == "")
@@ -146,6 +182,10 @@ class JFormFieldResources extends JFormFieldList
 					
 					for(i in cal_resources) {
 						if(cal_resources[i][0] == id)
+							return false;
+					}
+					for(i in cal_pResources) {
+						if(cal_pResources[i][0] == id)
 							return false;
 					}
 					//not already in the list
@@ -180,6 +220,11 @@ class JFormFieldResources extends JFormFieldList
 				function cal_resources_show() {
 					str = "";
 					r = [];
+					for(i in cal_pResources) {
+						res = cal_pResources[i];
+						str += "<tr><td>"+res[1]+"</td><td>"+res[2]+"</td>";
+						str += "<td></tr>";
+					}
 					for(i in cal_resources) {
 						res = cal_resources[i];
 						str += "<tr><td>"+res[1]+"</td><td>"+res[2]+"</td>";
