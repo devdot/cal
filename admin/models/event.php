@@ -404,12 +404,15 @@ class CalModelEvent extends JModelAdmin {
 		$end_	= $end->toUnix();
 		$duration = $end_ - $start_;
 		
-		$stop	= new JDate($schedule->end);
+		if($schedule->end != "") {
+			$stop	= new JDate($schedule->end);	
+		}
+		else {
+			$stop = new JDate(0);
+		}
 		$stop_	= $stop->toUnix();
-		
 		$dates = array(); //array of all events to make
 		
-
 		if($stop_ > $start_ && $forecast > $stop_ ) {
 			//if stop is smaller than start, forecast for ever
 			//the event should not be forecast that far
@@ -448,22 +451,49 @@ class CalModelEvent extends JModelAdmin {
 			//or has been forecast long enough
 			return 2;
 		}
-		
-		switch($schedule->type) {
-			case 0:
-				$interval = new DateInterval('P1W');
-			case 1:
-				if(!isset($interval))
-					$interval = new DateInterval('P2W');
-				
-				$date = clone $latest;
+		if($schedule->type < 3) {
+			switch($schedule->type) {
+				case 0:
+					$interval = new DateInterval('P1W');
+				case 1:
+						$interval = new DateInterval('P2W');
+					break;	
+				case 2:
+					$interval = new DateInterval('P1M');
+					break;		
+			}
+			$date = clone $latest;
+			$date->add($interval);
+			while($date->toUnix() <= $forecast) {
+				$dates[] = clone $date;
 				$date->add($interval);
-				while($date->toUnix() <= $forecast) {
-					$dates[] = clone $date;
-					$date->add($interval);
+			}
+		}
+		else {
+			//weekday of the month
+			//relative date schedule
+			function weekOfMonth($date) {
+				//http://stackoverflow.com/questions/32615861/get-week-number-in-month-from-date-in-php
+				//Get the first day of the month.
+				$firstOfMonth = strtotime(date("Y-m-01", $date));
+				//Apply above formula.
+				return intval(date("W", $date)) - intval(date("W", $firstOfMonth)) + 1;
+			}
+			$week = weekOfMonth($start_);
+			$date = clone $latest;
+			$interval = new DateInterval('P1W');
+			
+			//so basically we add up one week until we hit forecast maximum
+			//if the interator dates' week is equal to starts' week,
+			//we found an actuall matching week
+			//NOTE: might skip February when there is no week 5 in Feb!!!
+			$date->add($interval);
+			while($date->toUnix() <= $forecast) {
+				if(weekofMonth($date->toUnix()) == $week) {
+					$dates[] = clone $date; //found one matching week
 				}
-				
-				break;
+				$date->add($interval);
+			}
 		}
 		
 		if(empty($dates)) {
