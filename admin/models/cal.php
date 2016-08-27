@@ -9,65 +9,35 @@
  
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
- 
+
 /**
  * Cal Model
  *
  * @since  0.0.1
  */
-class CalModelCal extends JModelItem
-{
-	/**
-	 * @var array messages
-	 */
-	protected $messages;
+class CalModelCal extends JModelList {
+
  
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'Cal', $prefix = 'CalTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
+	
+	protected function getListQuery() {
+		// Create a new query object.
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		//$user = JFactory::getUser();
+        
+        //only need those columns
+        $query->select(array("a.id", "a.name", 'a.start', 'a.recurring_id',
+			'b.name AS user_name', 'a.created_by', 
+			'c.name AS location_name', 'a.location_id',
+			'd.title AS cat_name', 'a.catid'));
+		$query->from("#__cal_events AS a");
+		$query->leftJoin('#__users AS b ON b.id = a.created_by');
+		$query->leftJoin('#__cal_locations AS c ON c.id = a.location_id');
+		$query->leftJoin('#__categories AS d ON d.id = a.catid');
+        $query->order('created DESC');
+		$query->setLimit(10);
+
+		return $query;
 	}
  
-	/**
-	 * Get the message
-	 *
-	 * @param   integer  $id  Greeting Id
-	 *
-	 * @return  string        Fetched String from Table for relevant Id
-	 */
-	public function getMsg($id = 1)
-	{
-		if (!is_array($this->messages))
-		{
-			$this->messages = array();
-		}
- 
-		if (!isset($this->messages[$id]))
-		{
-			// Request the selected id
-			$jinput = JFactory::getApplication()->input;
-			$id     = $jinput->get('id', 1, 'INT');
- 
-			// Get a TableCal instance
-			$table = $this->getTable();
- 
-			// Load the message
-			$table->load($id);
- 
-			// Assign the message
-			$this->messages[$id] = $table->greeting;
-		}
- 
-		return $this->messages[$id];
-	}
 }

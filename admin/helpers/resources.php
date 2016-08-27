@@ -31,14 +31,19 @@ abstract class CalHelperResources {
 		switch((int) $type) {
 			case 0:
 				$s = 'COM_CAL_RESOURCE_TYPE_OBJECT';
+				break;
 			case 1:
 				$s = 'COM_CAL_RESOURCE_TYPE_ROOM';
+				break;
 			case 2:
 				$s = 'COM_CAL_RESOURCE_TYPE_SERVICE';
+				break;
 			case 3:
 				$s = 'COM_CAL_RESOURCE_TYPE_USER';
+				break;
 			case 4:
 				$s = 'COM_CAL_RESOURCE_TYPE_USERGROUP';
+				break;
 		}
 		return JText::_($s);
 	

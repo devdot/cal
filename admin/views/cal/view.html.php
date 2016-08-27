@@ -18,25 +18,24 @@ defined('_JEXEC') or die('Restricted access');
 class CalViewCal extends JViewLegacy {
     
     protected $sidebar;
+    public $state;
+    public $items;
     
 	/**
-	 * Display the Hello World view
+	 * Display the Resources View
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  void
 	 */
-	function display($tpl = null)
-	{
+	function display($tpl = null) {
 		// Get data from the model
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
-        
-        JHtml::stylesheet("/administrator/components/com_cal/css/cal.css");
-        
+        $this->state        = $this->get('State');
+		
         JToolbarHelper::title('Calendar', 'calendar');
-        //JToolbarHelper::preferences('com_cal');
-        JToolbarHelper::addNew();
+        JToolbarHelper::addNew('event.add');
         
         CalHelper::addSubmenu('cal');
         

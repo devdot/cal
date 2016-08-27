@@ -36,4 +36,15 @@ abstract class CalHelper {
         JHtmlSidebar::addEntry("Options", "?option=com_cal&view=options", $submenu == 'options');
 	
 	}
+	
+	 public static function getTimeZone() {
+		 //first the user timezone
+		 //if there is no user-set timezone, use the server timezone
+        $userTz = JFactory::getUser()->getParam('timezone');
+        $timeZone = JFactory::getConfig()->get('offset');
+        if($userTz) {
+            $timeZone = $userTz;
+        }
+        return new DateTimeZone($timeZone);
+    }
 }
