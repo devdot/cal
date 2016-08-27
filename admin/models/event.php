@@ -71,6 +71,7 @@ class CalModelEvent extends JModelAdmin {
 			//it's a parant
 			$schedule = json_decode($data->recurring_schedule);
 			$data->recurring_selector = $schedule->type; //put the type in for the selector
+			$data->recurring_end = $schedule->end;
 		}
 		
 		return $data;
@@ -96,7 +97,7 @@ class CalModelEvent extends JModelAdmin {
 		}
 		
 		$input  = JFactory::getApplication()->input;
-		$defaultSchedule = '{"type":0}';
+		$defaultSchedule = '{"type":0,"end":""}';
 		
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
@@ -218,7 +219,7 @@ class CalModelEvent extends JModelAdmin {
 		if(isset($data['recurring_selector'])) {
 			//we got ourselves a recurring parent
 			$type = (int) $data['recurring_selector'];
-			$data["recurring_schedule"] = json_encode(array("type" => $type));
+			$data["recurring_schedule"] = json_encode(array("type" => $type, "end" => $data['recurring_end']));
 			
 			//now update our children's data
 			$query = $db->getQuery(true)
@@ -226,18 +227,22 @@ class CalModelEvent extends JModelAdmin {
 				->set('name='.$db->quote($data['name']))
 				->set('location_id='.(int) $data['location_id'])
 				->set('catid='.(int) $data['catid'])
+				->set('access='.(int) $data['access'])
+				->set('state='.(int) $data['state'])
 				->where('recurring_id='.(int) $data['id']);
 			$db->setQuery($query);
 			$db->execute();
-			
-			//now call for rescheduling of our children
-			$this->recurring((int) $data['id']);
-			
 		}
 		
 		if(!parent::save($data)) {
 			//something above failed, don't even try now
 			return false;
+		}
+		
+		if(isset($data['recurring_selector'])) {
+			//now call for rescheduling of our children
+			//must be after saving to parent so this function will actually work
+			$this->recurring((int) $data['id']);
 		}
 		
 		if($data['id'] != 0) { //its a new entry, no need to check existing relations
@@ -391,7 +396,7 @@ class CalModelEvent extends JModelAdmin {
 		//there shouldn't be constants here but what ever
 		//somebody could make this more clean
 		//how long events will be forecast
-		$forecast = time() + 3600*24*31; //20 days
+		$forecast = time() + 3600*24*100; //100 days
 		
 		$start	= new JDate($parent->start);
 		$end	= new JDate($parent->end);
@@ -399,8 +404,18 @@ class CalModelEvent extends JModelAdmin {
 		$end_	= $end->toUnix();
 		$duration = $end_ - $start_;
 		
+		$stop	= new JDate($schedule->end);
+		$stop_	= $stop->toUnix();
+		
 		$dates = array(); //array of all events to make
 		
+
+		if($stop_ > $start_ && $forecast > $stop_ ) {
+			//if stop is smaller than start, forecast for ever
+			//the event should not be forecast that far
+			$forecast = $stop_;
+			var_dump(date("Y-m-d", $forecast));
+		}
 		
 		//first get the last child
 		$query = $db->getQuery(true)

@@ -110,6 +110,7 @@ JFactory::getDocument()->addScriptDeclaration('
 		<div class="row-fluid form-vertical">
 			<div class="span6">
 				<?php echo $this->form->renderField('recurring_selector'); ?>
+				<?php echo $this->form->renderField('recurring_end'); ?>
 				<input type="hidden" name="jform[recurring_schedule]" value="<?php echo $this->item->recurring_schedule; ?>" />
 			</div>
 		</div>

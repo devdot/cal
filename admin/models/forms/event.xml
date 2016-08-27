@@ -215,7 +215,15 @@
             <option value="1">COM_CAL_RECURRING_BIWEEKLY</option>
             <option value="2">COM_CAL_RECURRING_MONTHLY_DATE</option>
             <option value="3">COM_CAL_RECURRING_MONTHLY_WEEKDAY</option>
-
+        <field
+			name="recurring_end"
+			type="calendar"
+			label="COM_CAL_END"
+			description="COM_CAL_RECURRING_END_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+		/>
 		</field>
         <fieldset name="jmetadata"
 			label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
