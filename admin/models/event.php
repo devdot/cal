@@ -105,7 +105,7 @@ class CalModelEvent extends JModelAdmin {
 		}
 		
 		//split articletext into intro and fulltext
-		$text = split("<hr id=\"system-readmore\" />", $data['articletext'], 2); //only split once (in two elements)
+		$text = explode("<hr id=\"system-readmore\" />", $data['articletext'], 2); //only split once (in two elements)
 		if(count($text) == 2) {
 			$data['introtext'] = $text[0];
 			$data['fulltext'] = $text[1];
