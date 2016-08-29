@@ -455,6 +455,7 @@ class CalModelEvent extends JModelAdmin {
 			switch($schedule->type) {
 				case 0:
 					$interval = new DateInterval('P1W');
+					break;
 				case 1:
 						$interval = new DateInterval('P2W');
 					break;	
