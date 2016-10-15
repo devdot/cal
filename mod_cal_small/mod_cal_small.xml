@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.6.0" client="site" method="upgrade">
+    <name>Cal Small</name>
+    <creationDate>2016-10-11</creationDate>
+	<author>Thomas Schaller</author>
+	<authorEmail>mail@thomasschaller.eu</authorEmail>
+	<authorUrl>http://thomasschaller.eu</authorUrl>
+	<copyright>Copyright Information</copyright>
+	<license>License Info</license>
+	<version>0.0.1</version>
+    <description>Module for Cal that shows a small calendar</description>
+	<files>
+        <filename>mod_cal_small.xml</filename>
+        <filename module="mod_cal_small">mod_cal_small.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+    <config>
+    </config>
+</extension>
