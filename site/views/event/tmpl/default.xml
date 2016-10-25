@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_CAL_MITEM_EVENT">
+		<message>COM_CAL_MITEM_EVENT_DESC</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request"
+			addfieldpath="/administrator/components/com_cal/models/fields">
+
+			<field name="id" type="modal_event"
+				label="COM_CAL_FIELD_SELECT_EVENT_LABEL"
+				required="true"
+				edit="true"
+				clear="false"
+				description="COM_CAL_FIELD_SELECT_EVENT_LABEL_DESC"
+			/>
+		</fieldset>
+	</fields>
+</metadata>
