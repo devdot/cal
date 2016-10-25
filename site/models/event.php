@@ -78,7 +78,7 @@ class CalModelEvent extends JModelForm
 	 *
 	 * @since   1.6.0
 	 */
-	public function &getItem($pk = null) {
+	public function &getItem($pk = null, $recursive = false) {
 		$pk = (!empty($pk)) ? $pk : (int) $this->getState('event.id');
 
 		if ($this->_item === null) {
@@ -88,10 +88,55 @@ class CalModelEvent extends JModelForm
 		if (!isset($this->_item[$pk])) {
 			try {
 				$db = $this->getDbo();
-				$query = $db->getQuery(true);
+				
+				$isParent = false;
+				$isChild = false;
+				$child;
+				$parent;
+				
+				if(!$recursive) {
+					//get a pre-query
+					$query = $db->getQuery(true);
+					$query->select(array("recurring_id", "recurring_schedule"))
+							->from('#__cal_events')
+							->where('id = '.$pk);
+					$db->setQuery($query);
+					$res = $db->loadObject();
+					
+					if (empty($res)) {
+						JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
+					}
 
+					//now check the items recurring status
+					if($res->recurring_id) {
+						//it's a child
+						//get additional information from parent
+						$isChild = true;
+						$parent = $this->getItem($res->recurring_id, true);
+					}
+					elseif($res->recurring_schedule) {
+						//it's a parent
+						//get the upcoming event of the child
+						$isParent = true;
+						
+						//ask the db
+						$query = $db->getQuery(true);
+						$query->select('id')
+								->from('#__cal_events')
+								->where('start > NOW()')
+								->order('start ASC');
+						$db->setQuery($query, 1);
+						$childId = $db->loadResult();
+						
+						$child = $this->getItem($childId, true);
+					}
+				
+				}
+				
+				$query = $db->getQuery(true);
+				
 				$query->select(array("a.id", "a.name", 'a.catid', 'a.alias', 'a.location_id', 'a.access',
-					'a.start', 'a.end', 'a.recurring_id', 'a.recurring_schedule',
+					'a.start', 'a.end', 'a.recurring_id',
 					'a.introtext', 'a.fulltext', 'a.metakey', 'a.metadesc', 'a.link',
 					'b.title AS category_title', 'b.alias AS category_alias', 'b.access AS category_access',
 					'c.name AS loc_name', 'c.ID AS loc_id', 'c.addrStreet', 'c.addrZip', 'c.addrCity', 'c.addrCountry', 'c.geoLoc', 'c.link AS loc_link', 'c.desc AS loc_desc'
@@ -127,6 +172,19 @@ class CalModelEvent extends JModelForm
 					}
 				}
 				
+				if($isParent) {
+					$data = CalModelEvent::recurringHelper($data, $child);
+				}
+				elseif($isChild) {
+					$data = CalModelEvent::recurringHelper($parent, $data);
+				}
+				
+				//all this data will get merged into data
+				$add = array('isParent' => $isParent, 'isChild' => $isChild);
+				
+				//add data from above to data
+				$data = (object) array_merge((array) $data, $add);
+				
 				$this->_item[$pk] = $data;
 			}
 			catch (Exception $e) {
@@ -152,5 +210,21 @@ class CalModelEvent extends JModelForm
 		$event = $this->_item[$id];
 
 		return $form;
+	}
+	
+	public static function recurringHelper($parent, $child) {
+		//basically overwrite every blank property of child with parent's property
+		if(!$child->introtext)
+			$child->introtext = $parent->introtext;
+		if(!$child->fulltext)
+			$child->fulltext = $parent->fulltext;
+		if(!$child->metakey)
+			$child->metakey = $parent->metakey;
+		if(!$child->metadesc)
+			$child->metadesc = $parent->metadesc;
+		if(!$child->link)
+			$child->link = $parent->link;
+		
+		return $child;
 	}
 }
