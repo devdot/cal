@@ -20,12 +20,16 @@ class CalViewEvent extends JViewLegacy {
 	public $state;
 	public $item;
 	public $params;
+	public $related;
 	
 	function display($tpl = null) {
 		// Assign data to the view
 		$this->state = $this->get('State');
 		$this->item = $this->get('Item'); 
 		$this->params = $this->state->get('params');
+		
+		if($tpl == null) //only load related events for the default view
+			$this->related = $this->get('RelatedEvents');
 		
 		$this->loadHelper('cal');
 

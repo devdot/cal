@@ -35,6 +35,11 @@ $oneDay = CalHelper::oneDay($start, $end);
 		<div class="cal-event-left col-md-6">
 			<h3>Details</h3>
 			<div class="cal-event-dates">
+				<?php if($this->item->link): ?>
+				<a href="<?php echo $this->item->link; ?>" class="cal-event-link btn" itemprop="url">
+					Zur Veranstaltung
+				</a>
+				<?php endif; ?>
 				<?php if($oneDay): ?>
 				<div class="cal-event-date">
 					<?php echo CalHelper::weekday($start).', '.$start->format('d.m.Y'); ?>
@@ -83,4 +88,33 @@ $oneDay = CalHelper::oneDay($start, $end);
 			</div>
 		</div>
 	</div>
+	<div class="cal-event-related">
+		<h3>Ähnliche Veranstaltungen</h3>
+		<table class="table">
+			<tbody>
+				<?php foreach($this->related as $event): 
+					$start = new JDate($event->start);
+					$end =   new JDate($event->end);
+					//check if this event is one day long or across multiple days
+					$oneDay = CalHelper::oneDay($start, $end);
+				?>
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
+					<td><?php echo $start->format("d.m.");?></td>
+					<td><?php echo $start->format('H:i').' &ndash; ';
+						echo $oneDay?'':$end->format('d.m. ');
+						echo $end->format('H:i') ?></td>
+					<td><?php echo $event->name; ?></td>
+				</tr>	
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		jQuery(document).ready(function($) {
+			$(".clickable-row").click(function() {
+				window.location = $(this).data("href");
+			});
+		});
+	</script>
 </div>

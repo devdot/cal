@@ -125,7 +125,7 @@ class CalModelEvent extends JModelForm
 								->from('#__cal_events')
 								->where('start > NOW()')
 								->order('start ASC');
-						$db->setQuery($query, 1);
+						$db->setQuery($query, 0, 1);
 						$childId = $db->loadResult();
 						
 						$child = $this->getItem($childId, true);
@@ -226,5 +226,96 @@ class CalModelEvent extends JModelForm
 			$child->link = $parent->link;
 		
 		return $child;
+	}
+	
+	public function getRelatedEvents($pk = null) {
+		$pk = (!empty($pk)) ? $pk : (int) $this->getState('event.id');
+		
+		$db = $this->getDbo();
+		
+		$item = $this->_item[$pk];
+		$recurring_id = 0;
+		//try to find a recurring id
+		if($item->isChild) {
+			$recurring_id = $item->recurring_id;
+		}
+		elseif($item->isParent) {
+			$recurring_id = $pk;
+		}
+		
+		//try to balance the amount of related events
+		$nRecurring = 2; //hardcoded
+		$nCategory = 2;
+		$nLocation = 2;
+		$nUpcoming = 2;
+		
+		$n = 0; //not static
+		
+		$evemts = array();
+		
+		//the common part of the query
+		$mQuery = $db->getQuery(true);
+		$mQuery->select(array('id', 'name', 'start', 'end'))
+				->from('#__cal_events')
+				->where('start > NOW()')
+				->where('recurring_schedule = ""')
+				->where('access = 1') //hardcoded access level
+				->where('id != '.$item->id) //also works when pk isParent because their item->id get overwritten by swapping in recurringHelper's params
+				->order('start ASC');
+		
+		//go through the 4 different kind of related events
+		if($recurring_id) {
+			$query = clone $mQuery;
+			$query->where('recurring_id = '.$recurring_id);
+			$db->setQuery($query, 0, $nRecurring);
+			$res = $db->loadObjectList();
+			$n = $nRecurring - count($res); //count up if it wasn't enough
+			
+			foreach($res as $event) {
+				$events[] = $event;
+				$mQuery->where('id != '.$event->id);
+			}
+			
+		}
+		else
+			$nCategory += $nRecurring;
+		//category
+		$query = clone $mQuery;
+		$query->where('catid = '.$item->catid);
+		$db->setQuery($query, 0, $nCategory + $n);
+		$res = $db->loadObjectList();
+		$n = $nCategory + $n - count($res);
+		
+		foreach($res as $event) {
+			$events[] = $event;
+			$mQuery->where('id != '.$event->id);
+		}
+		
+		//location
+		$query = clone $mQuery;
+		$query->where('location_id = '.$item->location_id);
+		$db->setQuery($query, 0, $nLocation + $n);
+		$res = $db->loadObjectList();
+		$n = $nLocation + $n - count($res);
+		
+		foreach($res as $event) {
+			$events[] = $event;
+			$mQuery->where('id != '.$event->id);
+		}
+		
+		//upcoming
+		$query = $mQuery; //dont need to clone here anymore
+		$db->setQuery($query, 0, $nUpcoming + $n);
+		$res = $db->loadObjectList();
+		
+		$events = array_merge($events, $res);
+		
+		//now sort them by start date
+		function sortHelper(&$a, &$b) {
+			return $a->start > $b->start; //I guess these date strings should be sortable as strings (if it gets weird it probably doesnt -> convert to UNIX and compare)
+		}
+		usort($events, 'sortHelper');
+		
+		return $events;
 	}
 }
