@@ -30,7 +30,7 @@ defined('_JEXEC') or die;?>
 					//check if this event is one day long or across multiple days
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr>
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td><?php echo $start->format("d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo $start->format('H:i').' &ndash; ';
@@ -55,7 +55,7 @@ defined('_JEXEC') or die;?>
 						//check if this event is one day long or across multiple days
 						$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr>
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td><?php echo $start->format("d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo $start->format('H:i').' &ndash; ';
@@ -73,7 +73,7 @@ defined('_JEXEC') or die;?>
 					//check if this event is one day long or across multiple days
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr>
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td><?php echo $start->format("d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo $start->format('H:i').' &ndash; ';
@@ -160,4 +160,10 @@ defined('_JEXEC') or die;?>
 	}
 	
 	mod_cal_small_update();
+	
+	jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
 </script>
