@@ -37,4 +37,8 @@ abstract class CalHelper {
         }
         return new DateTimeZone($timeZone);
     }
+	
+	public static function oneDay($start, $end) {
+		return ($start->day == $end->day && $start->month == $end->month);
+	}
 }
