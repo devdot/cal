@@ -26,6 +26,7 @@ abstract class CalHelper {
 	 * @return Bool
 	 */
 
+	public static $weekdays = array('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag');
 	
 	 public static function getTimeZone() {
 		 //first the user timezone
@@ -40,5 +41,9 @@ abstract class CalHelper {
 	
 	public static function oneDay($start, $end) {
 		return ($start->day == $end->day && $start->month == $end->month);
+	}
+	
+	public static function weekday($date) {
+		return CalHelper::$weekdays[$date->format('w')];
 	}
 }
