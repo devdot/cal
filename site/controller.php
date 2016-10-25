@@ -13,6 +13,8 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalController extends JControllerLegacy
-{
+class CalController extends JControllerLegacy {
+	function display() {
+		parent::display(true); //true asks for caching.
+	}
 }
