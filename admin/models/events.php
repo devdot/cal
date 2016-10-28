@@ -123,7 +123,7 @@ class CalModelEvents extends JModelList {
 		
         if(!empty($this->getState("filter.search"))) {
             $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($this->getState("filter.search")), true) . '%'));
-            $query->where('name LIKE '.$search);
+            $query->where('a.name LIKE '.$search);
         }
         
 		$order = $db->escape($this->getState('list.ordering', 'name'));
