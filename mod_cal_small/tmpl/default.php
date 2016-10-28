@@ -160,10 +160,4 @@ defined('_JEXEC') or die;?>
 	}
 	
 	mod_cal_small_update();
-	
-	jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
 </script>
