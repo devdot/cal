@@ -105,7 +105,6 @@ $oneDay = CalHelper::oneDay($start, $end);
 						echo $end->format('H:i') ?></td>
 					<td><?php echo $event->name; ?></td>
 				</tr>	
-				</tr>
 				<?php endforeach; ?>
 			</tbody>
 		</table>
