@@ -124,6 +124,7 @@ class CalModelEvent extends JModelForm
 						$query->select('id')
 								->from('#__cal_events')
 								->where('start > NOW()')
+								->where('recurring_id = '.$pk)
 								->order('start ASC');
 						$db->setQuery($query, 0, 1);
 						$childId = $db->loadResult();
