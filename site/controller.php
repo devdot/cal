@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
  * @since  0.0.1
  */
 class CalController extends JControllerLegacy {
-	function display() {
+	function display($cachable = false, $urlparams = array()) {
 		parent::display(true); //true asks for caching.
 	}
 }
