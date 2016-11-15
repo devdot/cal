@@ -52,7 +52,7 @@
 			<menu link='option=com_cal&amp;view=events'>COM_CAL_MENU_EVENTS</menu>
 			<menu link='option=com_cal&amp;view=locations'>COM_CAL_MENU_LOCATIONS</menu>
 			<menu link='option=com_cal&amp;view=resources'>COM_CAL_MENU_RESOURCES</menu>
-			<menu link='option=com_cal&amp;view=categories'>COM_CAL_MENU_CATEGORIES</menu>
+			<menu link='option=com_categories&amp;extension=com_cal'>COM_CAL_MENU_CATEGORIES</menu>
 			<menu link='option=com_cal&amp;view=archive'>COM_CAL_MENU_ARCHIVE</menu>
 		</submenu>
 		<files folder="admin">
