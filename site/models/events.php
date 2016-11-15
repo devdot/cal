@@ -40,12 +40,12 @@ class CalModelEvents extends JModelList {
 		
 		$catid = $app->getUserStateFromRequest($this->context . 'filter.catid', 'filter_type', '', 'string');
         $this->setState('filter.catid', $catid);
-        
- 
-        // Other code goes here
- 
-        // List state information.
-        parent::populateState(null, null);
+		
+		parent::populateState();
+		
+		$limitstart = $app->input->get('limitstart', 0, 'uint');
+		$this->setState('list.start', $limitstart); //need to put that here, normally this should be done inside parent but it's buggy
+		
     }
     
 	protected function getListQuery() {
