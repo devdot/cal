@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset
+		name="general"
+		label="COM_CAL_CONFIG_GENERAL_LABEL"
+		description="COM_CAL_CONFIG_GENERAL_DESC"
+	>
+		<field
+			name="forecast"
+			type="int"
+			label="COM_CAL_CONFIG_GENERAL_FORECAST_LABEL"
+			description="COM_CAL_CONFIG_GENERAL_FORECAST_DESC"
+			default="150"
+		>
+		</field>
+	</fieldset>
+	<fieldset
+		name="maps"
+		label="COM_CAL_CONFIG_MAPS_LABEL"
+		description="COM_CAL_CONFIG_MAPS_DESC"
+	>
+		<field
+			name="maps_use"
+			type="radio"
+			label="COM_CAL_CONFIG_MAPS_USE_LABEL"
+			description="COM_CAL_CONFIG_MAPS_USE_DESC"
+			default="1"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="maps_key"
+			type="text"
+			label="COM_CAL_CONFIG_MAPS_KEY_LABEL"
+			description="COM_CAL_CONFIG_MAPS_KEY_DESC"
+			default=""
+		>
+		</field>
+	</fieldset>
+</config>
