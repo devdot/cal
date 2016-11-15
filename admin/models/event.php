@@ -391,12 +391,9 @@ class CalModelEvent extends JModelAdmin {
 			return false;
 		}
 		$schedule = json_decode($parent->recurring_schedule);
-		
-		//THIS IS A CONSTANT
-		//there shouldn't be constants here but what ever
-		//somebody could make this more clean
+				
 		//how long events will be forecast
-		$forecast = time() + 3600*24*100; //100 days
+		$forecast = time() + 3600*24*JComponentHelper::getParams('com_cal')->get('forecast', 150);
 		
 		$start	= new JDate($parent->start);
 		$end	= new JDate($parent->end);
