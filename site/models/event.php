@@ -140,7 +140,7 @@ class CalModelEvent extends JModelForm
 					'a.start', 'a.end', 'a.recurring_id',
 					'a.introtext', 'a.fulltext', 'a.metakey', 'a.metadesc', 'a.link',
 					'b.title AS category_title', 'b.alias AS category_alias', 'b.access AS category_access',
-					'c.name AS loc_name', 'c.ID AS loc_id', 'c.addrStreet', 'c.addrZip', 'c.addrCity', 'c.addrCountry', 'c.geoLoc', 'c.link AS loc_link', 'c.desc AS loc_desc'
+					'c.name AS loc_name', 'c.ID AS loc_id', 'c.addrStreet', 'c.addrZip', 'c.addrCity', 'c.addrCountry', 'c.geoX', 'c.geoY', 'c.link AS loc_link', 'c.desc AS loc_desc'
 					))
 					->from('#__cal_events AS a')
 
