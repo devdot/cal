@@ -51,6 +51,22 @@ class CalModelLocation extends JModelAdmin {
 		return $data;
 	}
 	
+	public function save($data) {
+		//handle geoLocation
+		if(!is_numeric($data['geoX']) or !is_numeric($data['geoY'])) {
+			$data['geoX'] = null;
+			$data['geoY'] = null;
+		}
+		
+		//now hand it of to the parent
+		return parent::save($data); 
+	}
 	
-	
+	protected function prepareTable($table) {
+		//extra handling for geolocation
+		if($table->geoX == '0' && $table->geoY == '0') {
+			$table->geoX = null;
+			$table->geoY = null;
+		}
+	}
 }
