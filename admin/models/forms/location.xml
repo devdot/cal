@@ -59,6 +59,18 @@
 			size="32"
             default="DE"
 		 />
+		<field
+			name="geoAuto"
+			type="radio"
+			label="COM_CAL_FIELD_GEOAUTO_LABEL"
+			description="COM_CAL_FIELD_GEOAUTO_DESC"
+			size="16"
+			default="1"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
         <field
 			name="geoX"
 			type="text"

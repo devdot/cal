@@ -51,6 +51,7 @@ JFactory::getDocument()->addScriptDeclaration('
 					</div>
 					<div class="span6">
 						<?php echo $this->form->renderField('link'); ?>
+						<?php echo $this->form->renderField('geoAuto'); ?>
 						<?php echo $this->form->renderField('geoX'); ?>
 						<?php echo $this->form->renderField('geoY'); ?>
 					</div>
