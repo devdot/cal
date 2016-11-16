@@ -78,13 +78,35 @@ $oneDay = CalHelper::oneDay($start, $end);
 			</div>
 			<?php endif; ?>
 			<div class="cal-event-map">
-				
-				<?php if($this->item->geoLoc): ?>
+				<?php if($this->item->geoX !== null): ?>
 				<div class="hidden" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
-					<span itemprop="latitude"></span>
-					<span itemprop="longitude"></span>
+					<span itemprop="latitude"><?php echo $this->item->geoX; ?></span>
+					<span itemprop="longitude"><?php echo $this->item->geoY; ?></span>
 				</div>
-				<?php endif; ?>
+				<?php if($this->mapsUse): ?>
+				<div id="cal-event-map-map"></div>
+				<script>
+					function initMap() {
+					  var loc = {lat: <?php echo $this->item->geoX; ?> , lng: <?php echo $this->item->geoY; ?>};
+					  var map = new google.maps.Map(document.getElementById('cal-event-map-map'), {
+						zoom:14,
+						center: loc,
+						mapTypeId: 'roadmap',
+						disableDefaultUI: true,
+						zoomControl: true,
+						rotateControl: true,
+						fullscreencontrol: true
+					  });
+					  var marker = new google.maps.Marker({
+						position: loc,
+						map: map
+					  });
+					}
+				</script>
+				<script async defer
+					src="https://maps.googleapis.com/maps/api/js?key=<?php echo $this->mapsKey; ?>&callback=initMap">
+				</script>
+				<?php endif; endif; ?>
 			</div>
 		</div>
 	</div>

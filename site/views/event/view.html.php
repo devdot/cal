@@ -22,11 +22,17 @@ class CalViewEvent extends JViewLegacy {
 	public $params;
 	public $related;
 	
+	public $mapsUse;
+	public $mapsKey;
+	
 	function display($tpl = null) {
 		// Assign data to the view
 		$this->state = $this->get('State');
 		$this->item = $this->get('Item'); 
 		$this->params = $this->state->get('params');
+		
+		$this->mapsUse = JComponentHelper::getParams('com_cal')->get('maps_use');
+		$this->mapsKey = JComponentHelper::getParams('com_cal')->get('maps_key');
 		
 		if($tpl == null) //only load related events for the default view
 			$this->related = $this->get('RelatedEvents');
