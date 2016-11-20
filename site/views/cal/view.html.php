@@ -15,19 +15,26 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalViewCal extends JViewLegacy
-{
-	/**
-	 * Display the Hello World view
-	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
-	 *
-	 * @return  void
-	 */
-	function display($tpl = null)
-	{
+class CalViewCal extends JViewLegacy {
+	
+	public $state;
+	public $items;
+	public $params;
+	
+	public $start;
+	public $end;
+	
+	function display($tpl = null) {
 		// Assign data to the view
-		$this->msg = $this->get('Msg'); 
+		$this->state = $this->get('State');
+		$this->items = $this->get('Items'); 
+		$this->params = $this->state->get('params');
+		
+		$this->start = $this->get('Start');
+		$this->end = $this->get('End');
+		
+		$this->loadHelper('cal');
+		
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
