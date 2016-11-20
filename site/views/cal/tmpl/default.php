@@ -21,8 +21,8 @@ $timezone = CalHelper::getTimeZone();
 	<div class="page-header">
 		<h2><?php echo $this->escape($this->params->get('page_title')); ?></h2>
 	</div>
-	<table class="table cal-table hidden-xs hidden-sm">
-		<thead>
+	<table class="table cal-table">
+		<thead class="cal-table-hide-sm">
 			<tr>
 				<th>Sonntag</th>
 				<th>Montag</th>
@@ -45,12 +45,19 @@ $timezone = CalHelper::getTimeZone();
 			<tr>
 			<?php
 				for($j = 0; $j < 7; $j++):
+					//look up whether we should add hide-sm to this td
+					$showSm = $i < count($this->items);
+					if($showSm) {
+						$start = new JDate($this->items[$i]->start);
+						$showSm = $start->day == $current->day?true:false;
+					}
 				?>
-				<td>
-					<div class="cal-table-date<?php echo ($nextMonth)?'-month':'-day'; ?>"><?php echo $d; ?></div>
+				<td<?php echo $showSm?'':' class="cal-table-hide-sm"';?>>
+					<div class="cal-table-date cal-table-hide-lg"><?php echo CalHelper::$weekdays[$j].', '.$current->day.'.'.$current->month; ?></div>
+					<div class="cal-table-date<?php echo ($nextMonth)?'-month':'-day'; ?> cal-table-hide-sm"><?php echo $d; ?></div>
 					<?php
 					while($i < count($this->items)):
-						$start = new JDate($this->items[$i]->start);
+							$start = new JDate($this->items[$i]->start);
 						if($start->getTimestamp() >= $nextTS)
 							break;
 						//$start->setTimezone($timezone); timezone is somehow really broken
@@ -67,12 +74,12 @@ $timezone = CalHelper::getTimeZone();
 				<?php
 					if($nextMonth) {
 						$nextMonth = false;
-						$d = $current->format('d');
+						$d = $current->day;
 					}
 					$d++;
 					$current->add($interval);
 					$nextTS += 86400;
-					if($d > 28 && $current->format('d') != $d) {
+					if($d > 28 && $current->day != $d) {
 						$d = CalHelper::month($current);
 						$nextMonth = true;
 					}
