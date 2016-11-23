@@ -40,6 +40,9 @@ class CalViewEvent extends JViewLegacy {
 		$this->loadHelper('cal');
 
 		
+		$title = $this->params->get('page_title', '');
+		$this->document->setTitle($this->item->name.' - '.$title);
+		
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
