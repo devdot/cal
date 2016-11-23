@@ -26,7 +26,7 @@ abstract class CalHelper {
 	 * @return Bool
 	 */
 
-	public static $weekdays = array('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag');
+	public static $weekdays = array('Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
 	public static $months = array('', 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember');
 	
 	 public static function getTimeZone() {
@@ -45,10 +45,10 @@ abstract class CalHelper {
 	}
 	
 	public static function weekday($date) {
-		return CalHelper::$weekdays[$date->format('w')];
+		return CalHelper::$weekdays[$date->dayofweek];
 	}
 	
 	public static function month($date) {
-		return CalHelper::$months[$date->format('m')];
+		return CalHelper::$months[(int)$date->month];
 	}
 }
