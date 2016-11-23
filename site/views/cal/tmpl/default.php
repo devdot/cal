@@ -41,6 +41,7 @@ $timezone = CalHelper::getTimeZone();
 			$d = CalHelper::month($current);
 			$nextMonth = true; //flag that is true when d contains the name of the next month
 			$i = 0;
+			$today = new JDate();
 			while($current < $this->end): ?>
 			<tr>
 			<?php
@@ -51,8 +52,9 @@ $timezone = CalHelper::getTimeZone();
 						$start = new JDate($this->items[$i]->start);
 						$showSm = $start->day == $current->day?true:false;
 					}
+					$showToday = $today->day == $current->day && $today->month == $current->month && $today->year == $current->year;
 				?>
-				<td<?php echo $showSm?'':' class="cal-table-hide-sm"';?>>
+				<td class="<?php echo $showSm?'':'cal-table-hide-sm'; echo $showToday?' cal-table-today':''; ?>">
 					<div class="cal-table-date cal-table-hide-lg"><?php echo CalHelper::$weekdays[$j].', '.$current->day.'.'.$current->month; ?></div>
 					<div class="cal-table-date<?php echo ($nextMonth)?'-month':'-day'; ?> cal-table-hide-sm"><?php echo $d; ?></div>
 					<?php
