@@ -17,12 +17,21 @@ defined('_JEXEC') or die;
 class CalRouter extends JComponentRouterBase {
 	
 	protected $eventsStart;
+	protected $calMenuItems = array();
 	
 	public function __construct($app = null, $menu = null) {
 		parent::__construct($app, $menu);
 		
-		//get the first menu item that routes to com_cal and use it as hub
-		$this->eventsStart = $this->menu->getItems('component', 'com_cal', true);
+		//get all menuitems related to this component
+		$arr = $this->menu->getItems('component', 'com_cal');
+		
+		//now presort them by view (bucketsort HYPE)
+		foreach($arr as $item) {
+			$this->calMenuItems[$item->query['view']][] = $item;
+		}
+		 
+		 //get the first menu item that routes to com_cal and use it as hub
+		$this->eventsStart = $this->calMenuItems['cal'][0]; //use this one forever
 	}
 	
 	/**
@@ -83,6 +92,24 @@ class CalRouter extends JComponentRouterBase {
 
 			unset($query['id']);
 
+			return $segments;
+		}
+		
+		//check whether there is already a menu item for this
+		foreach($this->calMenuItems[$view] as $item) {
+			//if($item->query['view'] != $view)
+			//	continue;
+			if(isset($query['id']) && $item->query['id'] != $query['id'])
+				continue;
+			//might need more distinctinon in the future
+			//found the fitting one
+			unset($query['view']);
+			unset($query['id']);
+			
+			//reset menu item id
+			$query['Itemid'] = $item->id;
+			
+			//return
 			return $segments;
 		}
 		
