@@ -10,6 +10,8 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 $timezone = CalHelper::getTimeZone();
+
+$paginationDisable = !(bool)($this->state->start);
 ?>
 <div class="cal-cal">
 	<?php if ($this->params->get('show_page_heading')) : ?>
@@ -97,11 +99,11 @@ $timezone = CalHelper::getTimeZone();
 				<td colspan="7">
 					<div class="pagination-wrapper">
 						<ul class="pagination">
-							<li class="<?php echo ($this->state->start)?'':'disabled'; ?> hidden-xs">
-								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start=0'); ?>"><span class="glyphicon glyphicon-step-backward"></span></a>
+							<li class="<?php echo $paginationDisable?'disabled':''; ?> hidden-xs">
+								<a href="<?php echo $paginationDisable?'':JRoute::_('index.php?option=com_cal&view=cal&start=0'); ?>"><span class="glyphicon glyphicon-step-backward"></span></a>
 							</li>
-							<li class="<?php echo ($this->state->start)?'':'disabled'; ?>">
-								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start='.($this->state->start - 4)); ?>"><span class="glyphicon glyphicon-chevron-left"></span></a>
+							<li class="<?php echo $paginationDisable?'disabled':''; ?>">
+								<a href="<?php echo $paginationDisable?'':JRoute::_('index.php?option=com_cal&view=cal&start='.($this->state->start - 4)); ?>"><span class="glyphicon glyphicon-chevron-left"></span></a>
 							</li>
 							<li>
 								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start='.($this->state->start + 4)); ?>" class="pagenav"><span class="glyphicon glyphicon-chevron-right"></span></a>
