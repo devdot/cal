@@ -23,15 +23,15 @@ $timezone = CalHelper::getTimeZone();
 			<div class="cal-cpanel">
 				<a class="btn" onclick="Joomla.submitbutton('event.add')">
 					<span class="cal-cpanel-icon"><span class="icon icon-plus"></span></span>
-					<span class="cal-cpanel-title">Veranstaltung erstellen</span>
+					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_NEW_EVENT"); ?></span>
 				</a>
 				<a class="btn" onclick="Joomla.submitbutton('events.recurring')">
 					<span class="cal-cpanel-icon"><span class="icon icon-loop"></span></span>
-					<span class="cal-cpanel-title">Serientermine verlängern</span>
+					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_RECURRING"); ?></span>
 				</a>
 				<a class="btn" onclick="Joomla.submitbutton('archive.archive')">
 					<span class="cal-cpanel-icon"><span class="icon icon-archive"></span></span>
-					<span class="cal-cpanel-title">Termine archivieren</span>
+					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_ARCHIVE"); ?></span>
 				</a>
 			</div>
         </div>
