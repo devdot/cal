@@ -30,7 +30,8 @@ class CalModelCal extends JModelList {
 		
 		//set start date
 		//its the last sunday
-		$this->start = new JDate(strtotime('last Sunday UTC')); //probably not the most efficient way of doing this ...
+		//probably not the most efficient way of doing this ...
+		$this->start = new JDate(strtotime('last Sunday UTC', time() - 518400)); //last sunday from 6 days ago: last sunday will go one week back on sundays, now it always goes at least one week back
 		$this->end = new JDate($this->start->getTimestamp() + 3024000); //5 weeks, one week = 604800
 		
 		//hopefully this timezone stuff works ...
@@ -41,6 +42,14 @@ class CalModelCal extends JModelList {
 	public function getItems() {
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
+		
+		$start = $this->getState('start');
+		if($start > 0) {
+			//shift this->start by #start weeks
+			$interval = new DateInterval('P'.$start.'W');
+			$this->start->add($interval);
+			$this->end->add($interval);
+		}
 
 		//fetch all the events we need for now
 		$query->select(array('id', 'name', 'start', 'end'))
@@ -72,5 +81,11 @@ class CalModelCal extends JModelList {
 
 		$this->setState('filter.published',	1);
 		$this->setState('filter.access', $app->input->get('access', 1, 'int'));
+		
+		$start = $app->getUserStateFromRequest('start', 'start', 0, 'int');
+		if($start < 0)
+			$start = 0; //just be save here
+		$this->setState('start', $start);
+
 	}
 }

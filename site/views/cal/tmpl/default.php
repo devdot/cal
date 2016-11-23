@@ -92,6 +92,25 @@ $timezone = CalHelper::getTimeZone();
 			endwhile;
 			?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">
+					<div class="pagination-wrapper">
+						<ul class="pagination">
+							<li class="<?php echo ($this->state->start)?'':'disabled'; ?> hidden-xs">
+								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start=0'); ?>"><span class="glyphicon glyphicon-step-backward"></span></a>
+							</li>
+							<li class="<?php echo ($this->state->start)?'':'disabled'; ?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start='.($this->state->start - 4)); ?>"><span class="glyphicon glyphicon-chevron-left"></span></a>
+							</li>
+							<li>
+								<a href="<?php echo JRoute::_('index.php?option=com_cal&view=cal&start='.($this->state->start + 4)); ?>" class="pagenav"><span class="glyphicon glyphicon-chevron-right"></span></a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	<a href="<?php echo JRoute::_('index.php?view=events'); ?>">Listenansicht, weitere Termine</a>
 </div>
