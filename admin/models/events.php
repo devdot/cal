@@ -135,4 +135,24 @@ class CalModelEvents extends JModelList {
 		
 		return $query;
 	}
+	
+	public function getRecurringParents() {
+		//just load all the ids of recurring parents
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('id')
+				->from('#__cal_events')
+				->where('recurring_id = 0')
+				->where('recurring_schedule != ""')
+				->where('state = 1'); //we don't need to load trashed/unpublished parents
+		$db->setQuery($query);
+		$results = $db->loadObjectList();
+		
+		$return = array();
+		
+		foreach($results as $result)
+			$return[] = $result->id;
+		
+		return $return;
+	}
 }
