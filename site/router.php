@@ -113,6 +113,9 @@ class CalRouter extends JComponentRouterBase {
 			unset($query['id']);
 			unset($query['catid']);
 		}
+		elseif($view == $menuItem->query['view']) {
+			unset($query['view']);
+		}
 
 		/*
 		 * If the layout is specified and it is the same as the layout in the menu item, we
