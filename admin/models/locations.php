@@ -85,9 +85,9 @@ class CalModelLocations extends JModelList {
         
         if(is_numeric($this->getState("filter.hasGeoloc"))) {
             if($this->getState("filter.hasGeoloc") === '0')
-                $query->where("geoLoc IS NULL");
+                $query->where("geoX IS NULL");
             else
-                $query->where("geoLoc IS NOT NULL");
+                $query->where("geoX IS NOT NULL");
         }
         
         if(!empty($this->getState("filter.search"))) {

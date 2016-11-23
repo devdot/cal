@@ -15,23 +15,23 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalViewCal extends JViewLegacy {
+class CalViewEvents extends JViewLegacy {
 	
 	public $state;
 	public $items;
 	public $params;
-	
-	public $start;
-	public $end;
+	public $filterForm;
+    public $activeFilters;
 	
 	function display($tpl = null) {
 		// Assign data to the view
 		$this->state = $this->get('State');
 		$this->items = $this->get('Items'); 
 		$this->params = $this->state->get('params');
+		$this->pagination	= $this->get('Pagination');
+        $this->filterForm   = $this->get('FilterForm');
+        $this->activeFilters= $this->get('ActiveFilters');
 		
-		$this->start = $this->get('Start');
-		$this->end = $this->get('End');
 		
 		$this->loadHelper('cal');
 		

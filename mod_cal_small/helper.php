@@ -8,6 +8,7 @@ class ModCalSmallHelper {
 					->select(array('id', 'name', 'start', 'end'))
 					->from('#__cal_events')
 					->where('state = 1')
+					->where('recurring_schedule = ""')
 					->where('end > NOW()')
 					->where('access = 1') //hardcoded ...
 					->order('start ASC');

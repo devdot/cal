@@ -33,8 +33,9 @@ abstract class CalHelper {
         JHtmlSidebar::addEntry("Categories", "?option=com_categories&extension=com_cal", $submenu == 'categories');
         JHtmlSidebar::addEntry("Resources", "?option=com_cal&view=resources", $submenu == 'resources');
         JHtmlSidebar::addEntry("Archive", "?option=com_cal&view=archive", $submenu == 'archive');
-        JHtmlSidebar::addEntry("Options", "?option=com_cal&view=options", $submenu == 'options');
 	
+		if($submenu != 'categories')
+			JToolbarHelper::preferences('com_cal');
 	}
 	
 	 public static function getTimeZone() {

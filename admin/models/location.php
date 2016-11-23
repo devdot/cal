@@ -51,6 +51,35 @@ class CalModelLocation extends JModelAdmin {
 		return $data;
 	}
 	
+	public function save($data) {
+		//fetch geolocation from google
+		if($data['geoAuto'] && JComponentHelper::getParams('com_cal')->get('maps_use')) {
+			$key = JComponentHelper::getParams('com_cal')->get('maps_key');
+			$addr = $data['addrStreet'].','.$data['addrZip'].'+'.$data['addrCity'].','.$data['addrCountry'];
+			$url = 'https://maps.googleapis.com/maps/api/geocode/json?address='.str_replace(' ', '+', $addr).'&key='.$key;
+		
+			$json = file_get_contents($url);
+			$obj = json_decode($json);
+			if(isset($obj->results[0]->geometry->location)) {
+				$data['geoX'] = $obj->results[0]->geometry->location->lat;
+				$data['geoY'] = $obj->results[0]->geometry->location->lng;
+			}
+		}
+		//handle geoLocation
+		if(!is_numeric($data['geoX']) or !is_numeric($data['geoY'])) {
+			$data['geoX'] = null;
+			$data['geoY'] = null;
+		}
+		
+		//now hand it of to the parent
+		return parent::save($data); 
+	}
 	
-	
+	protected function prepareTable($table) {
+		//extra handling for geolocation
+		if($table->geoX == '0' && $table->geoY == '0') {
+			$table->geoX = null;
+			$table->geoY = null;
+		}
+	}
 }

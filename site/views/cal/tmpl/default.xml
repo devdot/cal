@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_HELLOWORLD_HELLOWORLD_VIEW_DEFAULT_TITLE">
-		<message>COM_HELLOWORLD_HELLOWORLD_VIEW_DEFAULT_DESC</message>
+	<layout title="COM_CAL_MITEM_CAL">
+		<message>COM_CAL_MITEM_CAL_DESC</message>
 	</layout>
-	<fields name="request" addfieldpath="/administrator/components/com_cal/models/fields">
-		<fieldset name="request">
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_categories/models/fields">
 			<field
-				name="id"
-				type="helloworld"
-				label="COM_HELLOWORLD_HELLOWORLD_FIELD_GREETING_LABEL"
-				description="COM_HELLOWORLD_HELLOWORLD_FIELD_GREETING_DESC"
-			/>
+			name="access"
+			type="accesslevel"
+			label="JFIELD_ACCESS_LABEL"
+			description="JFIELD_ACCESS_DESC"
+			required="true"
+			size="1"
+		/>
 		</fieldset>
 	</fields>
 </metadata>
