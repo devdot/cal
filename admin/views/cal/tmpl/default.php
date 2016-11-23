@@ -9,6 +9,7 @@
  
 // No direct access to this file
 defined('_JEXEC') or die('Restricted Access');
+JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.css');
 
 $timezone = CalHelper::getTimeZone();
 ?>
@@ -19,7 +20,20 @@ $timezone = CalHelper::getTimeZone();
     <div id="j-main-container" class="span10 j-toggle-main">
         <div class="span6">
             <h2><?php echo JText::_('COM_CAL_QUICKACCESS'); ?></h2>
-
+			<div class="cal-cpanel">
+				<a class="btn" onclick="Joomla.submitbutton('event.add')">
+					<span class="cal-cpanel-icon"><span class="icon icon-plus"></span></span>
+					<span class="cal-cpanel-title">Veranstaltung erstellen</span>
+				</a>
+				<a class="btn" onclick="Joomla.submitbutton('events.recurring')">
+					<span class="cal-cpanel-icon"><span class="icon icon-loop"></span></span>
+					<span class="cal-cpanel-title">Serientermine verlängern</span>
+				</a>
+				<a class="btn" onclick="Joomla.submitbutton('archive.archive')">
+					<span class="cal-cpanel-icon"><span class="icon icon-archive"></span></span>
+					<span class="cal-cpanel-title">Termine archivieren</span>
+				</a>
+			</div>
         </div>
         <div class="span6">
             <h2><?php echo JText::_('COM_CAL_NEW_EVENTS'); ?></h2>
@@ -86,5 +100,7 @@ $timezone = CalHelper::getTimeZone();
 			</table>
         </div>
     </div>
-    <input name="task" value="" type="hidden">
+    <input type="hidden" name="task" value="" />
+    <input type="hidden" name="boxchecked" value="0" />
+    <?php echo JHtml::_('form.token'); ?>
 </form>
