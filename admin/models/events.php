@@ -155,4 +155,40 @@ class CalModelEvents extends JModelList {
 		
 		return $return;
 	}
+	
+	//returns array of id's of all events that are old enough to get put into the archive
+	public function getArchivableEvents() {
+		//get age in days from config
+		$age = JComponentHelper::getParams('com_cal')->get('archive_age', 14);
+		$date_ = time() - $age*86400; //unix
+		$date = new JDate($date_); //put it into JDate so we don't have to care about conversion to sql
+		
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('id, recurring_schedule')
+				->from('#__cal_events')
+				->where('end < '.$db->quote($date->toSql()));
+		$db->setQuery($query);
+		$results = $db->loadObjectList();
+		
+		$return = array();
+		
+		foreach($results as $result) {
+			//check for recurring parents
+			if($result->recurring_schedule != "") {
+				$schedule = json_decode($result->recurring_schedule);
+				
+				//now check whether recurrence end is set
+				if($schedule->end != "") {
+					$stop = new JDate($schedule->end);
+					//compare unix timestamps
+					if($stop->toUnix() > $date_)
+						continue; //skip this parent, it's schedule end is not in archive range yet
+				}
+			}
+			$return[] = $result->id;
+		}
+		
+		return $return;
+	}
 }
