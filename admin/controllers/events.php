@@ -16,8 +16,15 @@ defined('_JEXEC') or die;
  */
 class CalControllerEvents extends JControllerAdmin {
 	
+	protected $token; //whether the jsession token should be checked
+	
 	public function __construct($config = array()) {
 		parent::__construct($config);
+		
+		if(isset($config['token']))
+			$this->token = (bool) $config['token'];
+		else
+			$this->token = true;
 		
 		$this->registerTask('recurring', 'recurring'); //new task for make children of an recurring event
 	}
@@ -42,7 +49,8 @@ class CalControllerEvents extends JControllerAdmin {
 	
 	public function recurring() {
 	// Check for request forgeries.
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		if($this->token)
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
 		$parents = $this->getModel('Events')->getRecurringParents();
 		
