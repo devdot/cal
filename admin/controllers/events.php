@@ -81,7 +81,7 @@ class CalControllerEvents extends JControllerAdmin {
 		}
 		else {
 			//successful
-			$this->setMessage(JText::_('COM_CAL_ITEMS_SAVED'));
+			$this->setMessage(JText::_('COM_CAL_RECURRING_EVENTS_SAVED'));
 		}
 		
 		$this->setRedirect(
