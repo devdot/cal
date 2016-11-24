@@ -615,4 +615,88 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	
+	public function moveToArchive($pks) {
+		$db = $this->getDbo();
+		
+		$event = $this->getTable();
+		$archive = $this->getTable('ArchiveEvent');
+		
+		$resources = array();
+		
+		$success = true;
+		
+		//now run though them all
+		foreach($pks as $pk) {
+		
+			if(!$event->load($pk, true)) {
+				$success = false;
+				continue;
+			}
+
+			//we don't get any data from it's recurring parent (neither fill blanks nor inherit resources)
+
+			$archive->reset();
+
+			//now save everything
+			if(!$archive->bind($event)){
+				$success = false;
+				continue;
+			}
+			if(!$archive->check()){
+				$success = false;
+				continue;
+			}
+			if(!$archive->store(true, true)){
+				$success = false;
+				continue;
+			}
+
+			//now onto resources
+			$relations = array();
+			$query = $db->getQuery(true)
+				->select('id, event_id, resource_id')
+				->from('#__cal_events_resources')
+				->where('event_id = '.$pk);
+			$db->setQuery($query);
+			try {
+				$relations = $db->loadObjectList();
+			}
+			catch (RuntimeException $e) {
+				JError::raiseWarning(500, $e->getMessage());
+				$success = false;
+				continue;
+			}
+			foreach($relations as $r)
+				$resources[] = $r;
+			
+			
+			//now delete this entry fron cal_events
+			$event->delete();
+		}
+		
+		//check whether we need to care about resources
+		if(!count($resources))
+			return $success;
+		
+		//now take care of resources
+		$query = $db->getQuery(true)
+			->insert('#__cal_archive_resources')
+			->columns('id, resource_id, event_id');
+		$del = array();
+		
+		foreach($resources as $r) {
+			$query->values($r->id.','.$r->event_id.','.$r->resource_id);
+			$del[] = 'id='.$r->id;
+		}
+		
+		$query2 = $db->getQuery(true)
+				->delete('#__cal_events_resources');
+		$query2->where($del, 'OR');
+		
+		$db->setQuery($query);
+		$db->execute();
+		
+		return $success;
+	}
+	
 }

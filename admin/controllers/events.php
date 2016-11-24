@@ -27,6 +27,8 @@ class CalControllerEvents extends JControllerAdmin {
 			$this->token = true;
 		
 		$this->registerTask('recurring', 'recurring'); //new task for make children of an recurring event
+		$this->unregisterTask('archive');
+		$this->registerTask('archive', 'archive'); //new task for transfering old events to the archive
 	}
 
 	
@@ -89,5 +91,39 @@ class CalControllerEvents extends JControllerAdmin {
 		);
 
 		return $returnCode;
+	}
+	
+	public function archive() {
+		// Check for request forgeries.
+		if($this->token)
+			JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		
+		$model = $this->getModel('Events');
+		$eventModel = $this->getModel('Event');
+		
+		$pks = $model->getArchivableEvents();
+		
+		
+		
+		//now move them all
+		//
+		if(!count($pks)) {
+			$this->setMessage(JText::_('COM_CAL_ARCHIVE_NO_NEW'));
+		}
+		elseif(!$eventModel->moveToArchive($pks)) {
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
+		}
+		else {
+			$this->setMessage(JText::plural('COM_CAL_ARCHIVE_EVENTS_SAVED', count($pks)));
+		}
+
+		$this->setRedirect(
+			JRoute::_(
+				'index.php?option=com_cal&view=archive', false
+			)
+		);
+		return true;
+		
+		
 	}
 }
