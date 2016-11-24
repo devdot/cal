@@ -60,7 +60,9 @@ CREATE TABLE IF NOT EXISTS `#__cal_locations` (
   `addrZip` varchar(5) DEFAULT NULL,
   `addrCity` varchar(64) NOT NULL,
   `addrCountry` varchar(64) NOT NULL,
-  `geoLoc` point DEFAULT NULL,
+  `geoAuto` tinyint(1) NOT NULL DEFAULT '1',
+  `geoX` double DEFAULT NULL,
+  `geoY` double DEFAULT NULL,
   `link` varchar(256) NOT NULL,
   `desc` text NOT NULL,
   `published` bit(1) NOT NULL DEFAULT b'1'
