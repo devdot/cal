@@ -29,7 +29,7 @@ $timezone = CalHelper::getTimeZone();
 					<span class="cal-cpanel-icon"><span class="icon icon-loop"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_RECURRING"); ?></span>
 				</a>
-				<a class="btn" onclick="Joomla.submitbutton('archive.archive')">
+				<a class="btn" onclick="Joomla.submitbutton('events.archive')">
 					<span class="cal-cpanel-icon"><span class="icon icon-archive"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_ARCHIVE"); ?></span>
 				</a>
