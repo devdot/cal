@@ -185,6 +185,8 @@ class CalModelEvents extends JModelList {
 					if($stop->toUnix() > $date_)
 						continue; //skip this parent, it's schedule end is not in archive range yet
 				}
+				else
+					continue;
 			}
 			$return[] = $result->id;
 		}
