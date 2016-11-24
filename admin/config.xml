@@ -13,6 +13,14 @@
 			default="150"
 		>
 		</field>
+		<field
+			name="archive_age"
+			type="int"
+			label="COM_CAL_CONFIG_GENERAL_ARCHIVE_AGE_LABEL"
+			description="COM_CAL_CONFIG_GENERAL_ARCHIVE_AGE_DESC"
+			default="14"
+		>
+		</field>
 	</fieldset>
 	<fieldset
 		name="maps"
