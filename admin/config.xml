@@ -39,4 +39,29 @@
 		>
 		</field>
 	</fieldset>
+	<fieldset
+		name="cron"
+		label="COM_CAL_CONFIG_CRON_LABEL"
+		description="COM_CAL_CONFIG_CRON_DESC"
+	>
+		<field
+			name="cron_use"
+			type="radio"
+			label="COM_CAL_CONFIG_CRON_USE_LABEL"
+			description="COM_CAL_CONFIG_CRON_USE_DESC"
+			default="0"
+			class="btn-group btn-group-yesno"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="cron_key"
+			type="text"
+			label="COM_CAL_CONFIG_CRON_KEY_LABEL"
+			description="COM_CAL_CONFIG_CRON_KEY_DESC"
+			default=""
+		>
+		</field>
+	</fieldset>
 </config>
