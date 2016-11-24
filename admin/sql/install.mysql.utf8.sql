@@ -84,6 +84,22 @@ ALTER TABLE `#__cal_events_resources`
   
   ALTER TABLE `#__cal_events_resources`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+
+--
+-- Table structure for table `#__cal_archive_resources`
+-- same as cal_archive,
+
+CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
+  `id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `#__cal_archive_resources`
+  ADD PRIMARY KEY (`id`), ADD KEY `event_id` (`event_id`), ADD KEY `resource_id` (`resource_id`);
+  
+  ALTER TABLE `#__cal_archive_resources`
+  MODIFY `id` int(11) NOT NULL;
   
 --
 -- Table structure for table `#__cal_locations`
