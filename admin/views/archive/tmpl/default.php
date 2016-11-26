@@ -83,11 +83,10 @@ $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter
 						</td>
 						<td class="hidden-phone">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'events.');
+								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'archive.');
 									if($recParent): ?>
-								<a class="btn btn-micro" href="javascript: void(0);" onclick="return listItemTask('cb0','event.recurring')"><span class="icon-loop"></span></a>
 								<?php endif;
-									JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'events');
+									JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'archive');
 									echo JHtml::_('actionsdropdown.render', $this->escape($item->name));
 								?>
 							</div>
@@ -95,15 +94,15 @@ $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter
 						<td class="has-context">
 							<div class="pull-left break-word">
 								<?php if ($item->checked_out) : ?>
-									<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'events.', true); ?>
+									<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'archive.', true); ?>
 								<?php endif; ?>
 								<?php if(!$recParent): ?>
-									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
+									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=archiveevent.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
 									<?php if($item->recurring_id): ?>
-									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->recurring_id); ?>"><span class="icon-loop"></span></a>
+									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=archiveevent.edit&id=' . (int) $item->recurring_id); ?>"><span class="icon-loop"></span></a>
 									<?php endif; ?>
 								<?php else: ?>
-									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=event.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?> <span class="icon-loop"></span></a>
+									<a href="<?php echo JRoute::_('index.php?option=com_cal&task=archiveevent.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?> <span class="icon-loop"></span></a>
 								<?php endif; ?>
 								<span class="small break-word">
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
