@@ -91,7 +91,12 @@ class CalRouter extends JComponentRouterBase {
 			}
 
 			unset($query['id']);
-
+			
+			//return
+			if($query['format'] == 'ics' && count($segments) > 0) {
+				unset($query['format']);
+				$segments[count($segments) - 1] .= '.ics';
+			}
 			return $segments;
 		}
 		
@@ -110,6 +115,10 @@ class CalRouter extends JComponentRouterBase {
 			$query['Itemid'] = $item->id;
 			
 			//return
+			if($query['format'] == 'ics' && count($segments) > 0) {
+				unset($query['format']);
+				$segments[count($segments) - 1] .= '.ics';
+			}
 			return $segments;
 		}
 		
@@ -167,6 +176,11 @@ class CalRouter extends JComponentRouterBase {
 			$segments[$i] = str_replace(':', '-', $segments[$i]);
 		}
 		
+		//return
+		if($query['format'] == 'ics' && count($segments) > 0) {
+			unset($query['format']);
+			$segments[count($segments) - 1] .= '.ics';
+		}
 		return $segments;
 	}
 
@@ -190,6 +204,12 @@ class CalRouter extends JComponentRouterBase {
 		// Get the active menu item.
 		$item = $this->menu->getActive();
 		//$db = JFactory::getDbo();
+		
+		//check last segment for format
+		if(substr($segments[$total - 1], -4) == '.ics') {
+			$vars['format'] = 'ics';
+			$segments[$total - 1] = substr($segments[$total - 1], 0, -4);
+		}
 
 
 		if($item == $this->eventsStart && $total == 1) {
