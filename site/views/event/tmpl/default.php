@@ -28,6 +28,16 @@ $oneDay = CalHelper::oneDay($start, $end);
 	<div class="page-header">
 		<h2 itemprop="name"><?php echo $this->escape($this->item->name); ?></h2>
 	</div>
+	<div class="cal-event-icons">
+		<div class="btn-group pull-right">
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <span class="icon-cog"></span><span class="caret"></span> </a>
+			<?php // Note the actions class is deprecated. Use dropdown-menu instead. ?>
+			<ul class="dropdown-menu">
+				<li><a href="<?php echo JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$this->item->id);?>">iCal / Outlook</a></li>
+			</ul>
+		</div>
+
+	</div>
 	<div class="cal-event-body row">
 		<div class="cal-event-left col-md-6">
 			<h3>Details</h3>
