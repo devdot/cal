@@ -52,17 +52,40 @@ abstract class IcsHelper {
 		echo "END:VCALENDAR";
 	}
 	
+	public static function getLocationString($event) {
+		$str = $event->addrStreet;
+		if(!empty($str))
+			$str .= ', ';
+		$str .= $event->addrZip;
+		if(!empty($str))
+			$str .= ' ';
+		$str .= $event->addrCity;
+		if(!empty($str))
+			$str = $event->loc_name.' ('.$str.')';
+		elseif(!empty($event->geoX))
+			$str = $event->loc_name.' ('.$event->geoX.', '.$event->geoY.')';
+		else
+			$str = $event->loc_name;
+		return self::escapeString($str);
+	}
+	
+	public static function getDescriptionString($event) {
+		$str = $event->introtext.$event->fulltext;
+		return self::escapeString(($str)); //ther might be issues with lines longer that 75 in ics
+	}
+	
 	public static function event($event) {
 		$config = JFactory::getConfig();
 		
 		echo "BEGIN:VEVENT\n";
 		echo 'SUMMARY:'.self::escapeString($event->name)."\n";
 		echo 'UID:'.$event->id."\n";
-		echo 'DSTART:'.self::dateSqlToCal($event->start)."\n";
-		echo 'DEND:'.self::dateSqlToCal($event->end)."\n";
-		echo 'LOCATION:'.self::escapeString($event->loc_name)."\n";
+		echo 'DTSTART:'.self::dateSqlToCal($event->start)."\n";
+		echo 'DTEND:'.self::dateSqlToCal($event->end)."\n";
+		echo 'LOCATION:'.self::getLocationString($event)."\n";
 		echo 'ORGANIZER;CN='.$config->get('sitename').':MAILTO:'.$config->get('mailfrom')."\n";
 		echo 'URL:'.JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$event->id, true, -1)."\n";
+		echo 'X-ALT-DESC;FMTTYPE=text/html:'.self::getDescriptionString($event)."\n"; //only put in the html description, we don't provide extra normal description
 		echo "END:VEVENT\n";
 		
 	}
