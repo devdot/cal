@@ -93,7 +93,7 @@ class CalRouter extends JComponentRouterBase {
 			unset($query['id']);
 			
 			//return
-			if($query['format'] == 'ics' && count($segments) > 0) {
+			if(isset($query['format']) && $query['format'] == 'ics' && count($segments) > 0) {
 				unset($query['format']);
 				$segments[count($segments) - 1] .= '.ics';
 			}
@@ -115,7 +115,7 @@ class CalRouter extends JComponentRouterBase {
 			$query['Itemid'] = $item->id;
 			
 			//return
-			if($query['format'] == 'ics' && count($segments) > 0) {
+			if(isset($query['format']) && $query['format'] == 'ics' && count($segments) > 0) {
 				unset($query['format']);
 				$segments[count($segments) - 1] .= '.ics';
 			}
