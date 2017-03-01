@@ -140,7 +140,7 @@ class CalRouter extends JComponentRouterBase {
 					->where('id=' . (int) $query['id']);
 				$db->setQuery($dbQuery);
 				$alias = $db->loadResult();
-				$query['id'] = $query['id'] . ':' . $alias;
+				$query['id'] = $alias . ':' . $query['id'];
 
 			}
 			
@@ -197,9 +197,9 @@ class CalRouter extends JComponentRouterBase {
 		$total = count($segments);
 		$vars = array();
 
-		for ($i = 0; $i < $total; $i++) {
+		/*for ($i = 0; $i < $total; $i++) {
 			$segments[$i] = preg_replace('/-/', ':', $segments[$i], 1);
-		}
+		}*/ // we don't need this anymore (but keep it in case we do and I'm stupid)
 
 		// Get the active menu item.
 		$item = $this->menu->getActive();
@@ -215,7 +215,7 @@ class CalRouter extends JComponentRouterBase {
 		if($item == $this->eventsStart && $total == 1) {
 			//just a simple event that's routed over eventsStart
 			$vars['view'] = 'event';
-			$vars['id'] = (int) $segments[0];
+			$vars['id'] = (int) array_pop(explode('-', $segments[0])); //this field is {alias}-{id}, but the alias very likely contains '-' so we need the last element
 			
 			return $vars;
 		}
