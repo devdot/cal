@@ -31,11 +31,11 @@ defined('_JEXEC') or die;?>
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
-					<td><?php echo $start->format("d.m.");?></td>
+					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
-					<td><?php echo $start->format('H:i').' &ndash; ';
-						echo $oneDay?'':$end->format('d.m. ');
-						echo $end->format('H:i') ?></td>
+					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
+						echo $oneDay?'':JHTML::date($end, 'd.m. ');
+						echo JHTML::date($end, 'H:i') ?></td>
 				</tr>	
 				<?php endforeach;
 					for($i = count($events['prev']); $i < 5; $i++): //fill missing rows ?>
@@ -56,11 +56,11 @@ defined('_JEXEC') or die;?>
 						$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
-					<td><?php echo $start->format("d.m.");?></td>
+					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
-					<td><?php echo $start->format('H:i').' &ndash; ';
-						echo $oneDay?'':$end->format('d.m. ');
-						echo $end->format('H:i') ?></td>
+					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
+						echo $oneDay?'':JHTML::date($end, 'd.m. ');
+						echo JHTML::date($end, 'H:i') ?></td>
 				</tr>	
 				<?php endforeach; ?>
 			</table>
@@ -74,11 +74,11 @@ defined('_JEXEC') or die;?>
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
-					<td><?php echo $start->format("d.m.");?></td>
+					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
-					<td><?php echo $start->format('H:i').' &ndash; ';
-						echo $oneDay?'':$end->format('d.m. ');
-						echo $end->format('H:i') ?></td>
+					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
+						echo $oneDay?'':JHTML::date($end, 'd.m. ');
+						echo JHTML::date($end, 'H:i') ?></td>
 				</tr>	
 				<?php endforeach; 
 					for($i = count($events['next']); $i < 5; $i++): //fill missing rows ?>

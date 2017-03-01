@@ -69,11 +69,11 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td>
-						<?php echo CalHelper::weekday($start).', '.$start->format("d.m.Y");?>
+						<?php echo CalHelper::weekday($start).', '.JHTML::date($start, "d.m.Y");?>
 						<?php if($oneDay): 
-								echo '<br>'.$start->format('H:i').' &ndash; '.$end->format('H:i'); 
+								echo '<br>'.JHTML::date($start, 'H:i').' &ndash; '.JHTML::date($end, 'H:i'); 
 							else:
-								echo $start->format('H:i').' &ndash;<br>'.CalHelper::weekday($end).', '.$end->format("d.m.Y H:i");
+								echo JHTML::date($start, 'H:i').' &ndash;<br>'.CalHelper::weekday($end).', '.JHTML::date($end, "d.m.Y H:i");
 						endif; ?>
 					</td>
 					<td><?php echo $event->name; ?></td>

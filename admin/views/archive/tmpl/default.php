@@ -17,8 +17,6 @@ JHtml::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 
-$timezone = CalHelper::getTimeZone();
-
 $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter is 1 (show recurring parents), we have to handle some things differently
 ?>
 <form id="adminForm" action="?option=com_cal&view=archive" method="post" name="adminForm">
@@ -118,15 +116,13 @@ $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter
 						<td>
 							<?php 
 							$date = new JDate($item->start);
-							$date->setTimezone($timezone);
-							echo $date->format('Y-m-d H:i'); 
+							echo JHTML::date($date, 'Y-m-d H:i'); 
 							?>
 						</td>
 						<td>
 							<?php 
 							$date = new JDate($item->end);
-							$date->setTimezone($timezone);
-							echo $date->format('Y-m-d H:i'); 
+							echo JHTML::date($date, 'Y-m-d H:i'); 
 							?>
 						</td>
 						<td>

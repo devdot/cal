@@ -11,12 +11,9 @@
 defined('_JEXEC') or die('Restricted access');
 $headline = $this->params->get('show_page_heading')?$this->params->get('page_heading'):$this->params->get('page_title');
 
-$timezone = CalHelper::getTimeZone();
 		
 $start = new JDate($this->item->start);
-$start->setTimezone($timezone);
 $end = new JDate($this->item->end);
-$end->setTimezone($timezone);
 
 $oneDay = CalHelper::oneDay($start, $end);
 
@@ -42,21 +39,21 @@ $oneDay = CalHelper::oneDay($start, $end);
 				<?php endif; ?>
 				<?php if($oneDay): ?>
 				<div class="cal-event-date">
-					<?php echo CalHelper::weekday($start).', '.$start->format('d.m.Y'); ?>
+					<?php echo CalHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?>
 				</div>
 				<?php endif; ?>
 				<div class="cal-event-start">
 					<?php if(!$oneDay): ?>
-					<span class="cal-event-start-date"><?php echo CalHelper::weekday($start).', '.$start->format('d.m.Y'); ?></span>
+					<span class="cal-event-start-date"><?php echo CalHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?></span>
 					<?php endif; ?>
-					<time class="cal-event-start-time"><?php echo $start->format("H:i") ?></time>
+					<time class="cal-event-start-time"><?php echo JHTML::date($start, "H:i") ?></time>
 					<span class="hidden" itemprop="startDate"><?php echo $start->toISO8601(); ?></span>
 				</div>
 				<div class="cal-event-end">
 					<?php if(!$oneDay): ?>
-					<span class="cal-event-end-date"><?php echo CalHelper::weekday($end).', '.$end->format('d.m.Y'); ?></span>
+					<span class="cal-event-end-date"><?php echo CalHelper::weekday($end).', '.JHTML::date($end, 'd.m.Y'); ?></span>
 					<?php endif; ?>
-					<time class="cal-event-end-time"><?php echo $end->format("H:i") ?></time>
+					<time class="cal-event-end-time"><?php echo JHTML::date($end, "H:i") ?></time>
 					<span class="hidden" itemprop="endDate"><?php echo $end->toISO8601(); ?></span>
 				</div>
 			</div>
@@ -121,10 +118,10 @@ $oneDay = CalHelper::oneDay($start, $end);
 					$oneDay = CalHelper::oneDay($start, $end);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
-					<td><?php echo $start->format("d.m.");?></td>
-					<td><?php echo $start->format('H:i').' &ndash; ';
-						echo $oneDay?'':$end->format('d.m. ');
-						echo $end->format('H:i') ?></td>
+					<td><?php echo JHTML::date($start, "d.m.");?></td>
+					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
+						echo $oneDay?'':JHTML::date($end, 'd.m. ');
+						echo JHTML::date($end, 'H:i') ?></td>
 					<td><?php echo $event->name; ?></td>
 				</tr>	
 				<?php endforeach; ?>

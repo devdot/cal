@@ -11,7 +11,6 @@
 defined('_JEXEC') or die('Restricted Access');
 JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.css');
 
-$timezone = CalHelper::getTimeZone();
 ?>
 <form id="adminForm" action="?option=com_cal&view=event" method="post" name="adminForm">
     <div id="j-sidebar-container" class="span2">
@@ -78,8 +77,7 @@ $timezone = CalHelper::getTimeZone();
 						<td>
 							<?php 
 							$date = new JDate($item->start);
-							$date->setTimezone($timezone);
-							echo $date->format('Y-m-d H:i'); 
+							echo JHTML::date($date, 'Y-m-d H:i'); 
 							?>
 						</td>
 						<td>

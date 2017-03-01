@@ -9,7 +9,6 @@
  
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-$timezone = CalHelper::getTimeZone();
 
 $paginationDisable = !(bool)($this->state->start);
 ?>
@@ -67,7 +66,7 @@ $paginationDisable = !(bool)($this->state->start);
 						//$start->setTimezone($timezone); timezone is somehow really broken
 					?>
 					<a class="cal-table-event" href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$this->items[$i]->id) ?>">
-						<span class="cal-table-event-time"><?php echo $start->format("H:i"); ?></span>
+						<span class="cal-table-event-time"><?php echo JHTML::date($start, "H:i"); ?></span>
 						<span class="cal-table-event-name"><?php echo $this->items[$i]->name; ?></span>
 					</a>
 					<?php
