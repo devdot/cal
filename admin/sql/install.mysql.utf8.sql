@@ -144,3 +144,41 @@ ALTER TABLE `#__cal_resources`
 
 ALTER TABLE `#__cal_resources`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `#__cal_archive` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `start` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `end` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
+  `introtext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fulltext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` tinyint(3) NOT NULL DEFAULT '0',
+  `catid` int(10) unsigned NOT NULL DEFAULT '0',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `checked_out` int(10) unsigned NOT NULL DEFAULT '0',
+  `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `metakey` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `metadesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access` int(10) unsigned NOT NULL DEFAULT '0',
+  `location_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE `#__cal_archive`
+  ADD PRIMARY KEY (`id`);
+
+CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
+  `id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `#__cal_archive_resources`
+  ADD PRIMARY KEY (`id`), ADD KEY `event_id` (`event_id`), ADD KEY `resource_id` (`resource_id`);
+
