@@ -101,25 +101,27 @@ class CalRouter extends JComponentRouterBase {
 		}
 		
 		//check whether there is already a menu item for this
-		foreach($this->calMenuItems[$view] as $item) {
-			//if($item->query['view'] != $view)
-			//	continue;
-			if(isset($query['id']) && $item->query['id'] != $query['id'])
-				continue;
-			//might need more distinctinon in the future
-			//found the fitting one
-			unset($query['view']);
-			unset($query['id']);
-			
-			//reset menu item id
-			$query['Itemid'] = $item->id;
-			
-			//return
-			if(isset($query['format']) && $query['format'] == 'ics' && count($segments) > 0) {
-				unset($query['format']);
-				$segments[count($segments) - 1] .= '.ics';
+		if(isset($this->calMenuItems[$view])) {
+			foreach($this->calMenuItems[$view] as $item) {
+				//if($item->query['view'] != $view)
+				//	continue;
+				if(isset($query['id']) && $item->query['id'] != $query['id'])
+					continue;
+				//might need more distinctinon in the future
+				//found the fitting one
+				unset($query['view']);
+				unset($query['id']);
+
+				//reset menu item id
+				$query['Itemid'] = $item->id;
+
+				//return
+				if(isset($query['format']) && $query['format'] == 'ics' && count($segments) > 0) {
+					unset($query['format']);
+					$segments[count($segments) - 1] .= '.ics';
+				}
+				return $segments;
 			}
-			return $segments;
 		}
 		
 		if ($view == 'event') {
