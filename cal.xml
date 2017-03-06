@@ -41,6 +41,8 @@
 		<filename>cal.php</filename>
 		<filename>controller.php</filename>
 		<filename>router.php</filename>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
 		<folder>views</folder>
 		<folder>models</folder>
         <folder>css</folder>
