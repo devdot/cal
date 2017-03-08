@@ -7,7 +7,7 @@
 	<authorUrl>http://thomasschaller.eu</authorUrl>
 	<copyright>Copyright Information</copyright>
 	<license>License Info</license>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
     <description>Module for Cal that shows a small calendar</description>
 	<files>
         <filename>mod_cal_small.xml</filename>
