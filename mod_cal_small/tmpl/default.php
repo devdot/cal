@@ -4,9 +4,19 @@
 defined('_JEXEC') or die;
 
 JFactory::getDocument()->addScript('modules/mod_cal_small/js/mod_cal_small.js');
+
+$tag = $params->get('module_tag');
+$htag = $params->get('header_tag');
+
+$class = 'mod-cal-small';
+if($params->get('bootstrap_size')) {
+	$class .= ' col-sm-'.$params->get('bootstrap_size');
+}
 ?>
-<div class="mod-cal-small">
-	<h2 class="mod-cal-small-headline">Nächste Veranstaltungen</h2>
+<<?php echo $tag; ?> class="<?php echo $class; ?>">
+	<?php if($module->showtitle) : ?>
+	<<?php echo $htag; ?> class="mod-cal-small-headline <?php echo $params->get('style'); ?>"><?php echo $module->title; ?></<?php echo $htag; ?>>
+	<?php endif; ?>
 	<div class="mod-cal-small-outer">
 		<div class="mod-cal-small-prev" onclick="mod_cal_small_prev()">
 			<span class="glyphicon glyphicon-chevron-left"></span>
@@ -110,7 +120,7 @@ JFactory::getDocument()->addScript('modules/mod_cal_small/js/mod_cal_small.js');
 			<span class="glyphicon glyphicon-chevron-right"></span>
 		</div>
 	</div>
-</div>
+</<?php echo $tag; ?> >
 <script>
 	mod_cal_small();
 	mod_cal_small_update();
