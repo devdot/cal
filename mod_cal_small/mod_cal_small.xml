@@ -16,6 +16,8 @@
         <filename>helper.php</filename>
         <filename>tmpl/default.php</filename>
         <filename>tmpl/index.html</filename>
+		<filename>js/mod_cal_small.js</filename>
+		<filename>js/index.html</filename>
     </files>
     <config>
     </config>
