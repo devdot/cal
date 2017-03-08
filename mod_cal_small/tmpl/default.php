@@ -13,9 +13,9 @@ defined('_JEXEC') or die;?>
 			<table class="table table-hover">
 				<?php
 				for($i = 0; $i < 5; $i++): ?>
-				<tr class="empty">
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=cal'); ?>" role="link">
 					<td></td>
-					<td><?php echo $i==2?'weitere Termine LINK':'&nbsp;'; ?></td>
+					<td><?php echo $i==2?'Zum Kalender':'&nbsp;'; ?></td>
 					<td></td>
 				</tr>	
 				<?php endfor; ?>
@@ -30,7 +30,7 @@ defined('_JEXEC') or die;?>
 					//check if this event is one day long or across multiple days
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>" role="link">
 					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
@@ -55,7 +55,7 @@ defined('_JEXEC') or die;?>
 						//check if this event is one day long or across multiple days
 						$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>" role="link">
 					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
@@ -73,7 +73,7 @@ defined('_JEXEC') or die;?>
 					//check if this event is one day long or across multiple days
 					$oneDay = ($start->day == $end->day && $start->month == $end->month);
 				?>
-				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>" role="link">
 					<td><?php echo JHTML::date($start, "d.m.");?></td>
 					<td><?php echo $event->name; ?></td>
 					<td><?php echo JHTML::date($start, 'H:i').' &ndash; ';
@@ -94,9 +94,9 @@ defined('_JEXEC') or die;?>
 			<table class="table table-hover">
 				<?php
 				for($i = 0; $i < 5; $i++): ?>
-				<tr class="empty">
+				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=cal'); ?>" role="link">
 					<td></td>
-					<td><?php echo $i==2?'weitere Termine LINK ENDE':'&nbsp;'; ?></td>
+					<td><?php echo $i==2?'Zum Kalender':'&nbsp;'; ?></td>
 					<td></td>
 				</tr>	
 				<?php endfor; ?>
