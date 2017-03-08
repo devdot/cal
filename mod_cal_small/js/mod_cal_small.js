@@ -11,7 +11,7 @@ function mod_cal_small_next() {
 		return;
 
 	h = jQuery('.mod-cal-small-active').height();
-	jQuery('.mod-cal-small-inner').scrollTop(jQuery('.mod-cal-small-inner').scrollTop() + h);
+	jQuery('.mod-cal-small-inner').animate({scrollTop: jQuery('.mod-cal-small-inner').scrollTop() + h}, 500);
 
 	old = jQuery('.mod-cal-small-active');
 	old.next().addClass('mod-cal-small-active');
@@ -25,7 +25,7 @@ function mod_cal_small_prev() {
 		return;
 
 	h = jQuery('.mod-cal-small-active').height();
-	jQuery('.mod-cal-small-inner').scrollTop(jQuery('.mod-cal-small-inner').scrollTop() - h);
+	jQuery('.mod-cal-small-inner').animate({scrollTop: jQuery('.mod-cal-small-inner').scrollTop() - h}, 500);
 
 	old = jQuery('.mod-cal-small-active');
 	old.prev().addClass('mod-cal-small-active');
