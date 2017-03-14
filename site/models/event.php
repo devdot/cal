@@ -138,7 +138,7 @@ class CalModelEvent extends JModelForm
 				
 				$query->select(array("a.id", "a.name", 'a.catid', 'a.alias', 'a.location_id', 'a.access',
 					'a.start', 'a.end', 'a.recurring_id',
-					'a.introtext', 'a.fulltext', 'a.metakey', 'a.metadesc', 'a.link',
+					'a.introtext', 'a.fulltext', 'a.metakey', 'a.metadesc', 'a.link', 'a.images',
 					'b.title AS category_title', 'b.alias AS category_alias', 'b.access AS category_access',
 					'c.name AS loc_name', 'c.ID AS loc_id', 'c.addrStreet', 'c.addrZip', 'c.addrCity', 'c.addrCountry', 'c.geoX', 'c.geoY', 'c.link AS loc_link', 'c.desc AS loc_desc'
 					))
@@ -158,6 +158,11 @@ class CalModelEvent extends JModelForm
 					JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
 				}
 				
+				//Convert the images field to an array for data
+				$registry = new Registry;
+				$registry->loadString($data->images);
+				$data->images = $registry->toArray();
+				
 				// Compute access permissions.
 				if ($access = $this->getState('filter.access')) {
 					// If the access filter has been set, we already know this user can view.
@@ -172,6 +177,8 @@ class CalModelEvent extends JModelForm
 						JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
 					}
 				}
+				
+				
 				
 				if($isParent) {
 					$data = CalModelEvent::recurringHelper($data, $child);
@@ -225,6 +232,29 @@ class CalModelEvent extends JModelForm
 			$child->metadesc = $parent->metadesc;
 		if(!$child->link)
 			$child->link = $parent->link;
+		
+		//images could be an empty array, prefill it
+		if(count($child->images) == 0)
+			$child->images = array('image_intro' => '',
+				'image_fulltext' => '');
+		if(count($parent->images) == 0) 
+			$parent->images = array('image_intro' => '',
+				'image_intro_alt' => '',
+				'image_intro_caption' => '',
+				'image_fulltext' => '',
+				'image_fulltext_alt' => '',
+				'image_fulltext_caption' => '');
+	
+		if(!$child->images['image_intro']) { //only check the image, copy associated data as well
+			$child->images['image_intro'] = $parent->images['image_intro'];
+			$child->images['image_intro_alt'] = $parent->images['image_intro_alt'];
+			$child->images['image_intro_caption'] = $parent->images['image_intro_caption'];
+		}
+		if(!$child->images['image_fulltext']) { //the same for fulltext image
+			$child->images['image_fulltext'] = $parent->images['image_fulltext'];
+			$child->images['image_fulltext_alt'] = $parent->images['image_fulltext_alt'];
+			$child->images['image_fulltext_caption'] = $parent->images['image_fulltext_caption'];
+		}
 		
 		return $child;
 	}
