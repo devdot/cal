@@ -220,17 +220,15 @@ class JFormFieldResources extends JFormFieldList
 				function cal_resources_show() {
 					str = "";
 					r = [];
-					for(i in cal_pResources) {
-						res = cal_pResources[i];
+					cal_pResources.forEach(function(res) {
 						str += "<tr><td>"+res[1]+"</td><td>"+res[2]+"</td>";
 						str += "<td></tr>";
-					}
-					for(i in cal_resources) {
-						res = cal_resources[i];
+					});
+					cal_resources.forEach(function(res) {
 						str += "<tr><td>"+res[1]+"</td><td>"+res[2]+"</td>";
 						str += "<td><a href=\"#\"><span class=\"icon-delete\" onclick=\"cal_resources_delete("+i+");\"></span></a></td></tr>";
 						r[i] = res[0];
-					}
+					});
 					document.getElementById("cal_resources_table").innerHTML = str;
 					document.getElementById("cal_resources_input").value = JSON.stringify(r);
 				}
