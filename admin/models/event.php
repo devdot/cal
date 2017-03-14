@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\Registry\Registry;
+
 /**
  * Item Model for an Event.
  *
@@ -29,6 +31,12 @@ class CalModelEvent extends JModelAdmin {
 			//two options: introtext and fulltext or fulltext alone
 			//introtext alone can't exists (technically you can still just put a &nbsp; there...)
 			$item->articletext = trim($item->fulltext) != '' ? $item->introtext . "<hr id=\"system-readmore\" />" . $item->fulltext : $item->introtext;
+			
+			//from com_content
+			// Convert the images field to an array.
+			$registry = new Registry;
+			$registry->loadString($item->images);
+			$item->images = $registry->toArray();
 		}
 		return $item;
 	}
@@ -102,6 +110,14 @@ class CalModelEvent extends JModelAdmin {
 		if(empty($data['alias'])) {
 			//create an alias for the lazy user
 			$data['alias'] = JFilterOutput::stringURLSafe($data['name']);
+		}
+		
+		//convert images back to string for db
+		if (isset($data['images']) && is_array($data['images'])) {
+			$registry = new Registry;
+			$registry->loadArray($data['images']);
+
+			$data['images'] = (string) $registry;
 		}
 		
 		//split articletext into intro and fulltext

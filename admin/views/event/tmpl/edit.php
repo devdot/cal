@@ -125,6 +125,17 @@ JFactory::getDocument()->addScriptDeclaration('
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 		
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'images', JText::_('COM_CAL_EDIT_IMAGES')); ?>
+		<div class="row-fluid form-horizontal-desktop">
+			<div class="span6">
+				<?php echo $this->form->renderField('images'); ?>
+				<?php foreach ($this->form->getGroup('images') as $field) : ?>
+					<?php echo $field->renderField(); ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_CAL_FIELDSET_PUBLISHING')); ?>
 			<div class="row-fluid form-horizontal-desktop">
 				<div class="span6">
