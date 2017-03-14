@@ -87,7 +87,9 @@
 		 />
         <field
 			name="link"
-			type="text"
+			type="url"
+            filter="url"
+            validate="url"
 			label="COM_CAL_FIELD_LINK_LABEL"
 			description="COM_CAL_FIELD_LINK_DESC"
 			size="16"
