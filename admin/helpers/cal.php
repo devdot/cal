@@ -29,6 +29,7 @@ abstract class CalHelper {
 	public static function addSubmenu($submenu) {
 		JHtmlSidebar::addEntry("Overview", "?option=com_cal", $submenu == 'cal');
         JHtmlSidebar::addEntry("Events", "?option=com_cal&view=events", $submenu == 'events');
+		JHtmlSidebar::addEntry("ChurchTools", "?option=com_cal&view=ct", $submenu == 'ct');
         JHtmlSidebar::addEntry("Locations", "?option=com_cal&view=locations", $submenu == 'locations');
         JHtmlSidebar::addEntry("Categories", "?option=com_categories&extension=com_cal", $submenu == 'categories');
         JHtmlSidebar::addEntry("Resources", "?option=com_cal&view=resources", $submenu == 'resources');

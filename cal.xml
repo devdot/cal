@@ -53,6 +53,7 @@
 		<menu link='index.php?option=com_cal'>COM_CAL_MENU</menu>
 		<submenu>
 			<menu link='option=com_cal&amp;view=events'>COM_CAL_MENU_EVENTS</menu>
+			<menu link='option=com_cal&amp;view=ct'>COM_CAL_MENU_CT</menu>
 			<menu link='option=com_cal&amp;view=locations'>COM_CAL_MENU_LOCATIONS</menu>
 			<menu link='option=com_cal&amp;view=resources'>COM_CAL_MENU_RESOURCES</menu>
 			<menu link='option=com_categories&amp;extension=com_cal'>COM_CAL_MENU_CATEGORIES</menu>
