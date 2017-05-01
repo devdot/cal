@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class CalControllerLocations extends JControllerAdmin {
+class CalControllerCT extends JControllerAdmin {
 	
 	/**
 	 * Proxy for getModel.
