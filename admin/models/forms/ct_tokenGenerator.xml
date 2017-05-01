@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+	<fieldset>
+
+		<field
+			name="url"
+			type="URL"
+			label="COM_CAL_CONFIG_CT_URL_LABEL"
+			description="COM_CAL_CONFIG_CT_URL_DESC"
+			default=""
+			size="32"
+			class="input-xxlarge"
+			required="true"
+		>
+		</field>
+		<field
+			name="email"
+			type="text"
+			label="COM_CAL_FIELD_EMAIL_LABEL"
+			description="COM_CAL_FIELD_EMAIL_DESC"
+			size="32"
+			required="true"
+		 />
+        <field
+			name="password"
+			type="password"
+			label="COM_CAL_FIELD_PASSWORD_LABEL"
+			description="COM_CAL_FIELD_PASSWORD_DESC"
+			size="32"
+			required="true"
+		 />
+	</fieldset>
+</form>
