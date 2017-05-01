@@ -31,7 +31,10 @@ class CalHelperCT {
 	}
 	
 	
-	public function __construct() {
+	public function __construct($doNothing = false) {
+		if($doNothing) //for manual usage
+			return;
+		
 		//save url
 		$url = JComponentHelper::getParams('com_cal')->get('ct_url');
 		if(empty($url)) {
@@ -43,6 +46,11 @@ class CalHelperCT {
 		
 		//login with the configured user
 		$this->login(JComponentHelper::getParams('com_cal')->get('ct_id'), JComponentHelper::getParams('com_cal')->get('ct_token'));
+	}
+	
+	public function setUrl($url) {
+		//shouldn't be used except for configuration
+		$this->url = $url;
 	}
 	
 	public function query($module, $func, $params, $saveCookies = false, $ignoreLogin = false) {
