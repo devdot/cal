@@ -31,7 +31,11 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
 			</div>
         </div>
         <div class="span6">
-            
+            <?php if($this->ct->isLoggedIn()): ?>
+			Login Status: OK<br>
+			<?php else: ?>
+			Login Status: Not logged in!
+			<?php endif; ?>
         </div>
     </div>
     <input type="hidden" name="task" value="" />

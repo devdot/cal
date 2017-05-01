@@ -48,6 +48,10 @@ class CalHelperCT {
 		$this->login(JComponentHelper::getParams('com_cal')->get('ct_id'), JComponentHelper::getParams('com_cal')->get('ct_token'));
 	}
 	
+	public function isLoggedIn() {
+		return $this->loginStatus;
+	}
+	
 	public function setUrl($url) {
 		//shouldn't be used except for configuration
 		$this->url = $url;
