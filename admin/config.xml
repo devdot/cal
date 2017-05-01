@@ -23,6 +23,36 @@
 		</field>
 	</fieldset>
 	<fieldset
+		name="ct"
+		label="COM_CAL_CONFIG_CT_LABEL"
+		description="COM_CAL_CONFIG_CT_DESC"
+	>
+		<field
+			name="ct_url"
+			type="URL"
+			label="COM_CAL_CONFIG_CT_URL_LABEL"
+			description="COM_CAL_CONFIG_CT_URL_DESC"
+			default=""
+		>
+		</field>
+		<field
+			name="ct_id"
+			type="int"
+			label="COM_CAL_CONFIG_CT_ID_LABEL"
+			description="COM_CAL_CONFIG_CT_ID_DESC"
+			default=""
+		>
+		</field>
+		<field
+			name="ct_token"
+			type="text"
+			label="COM_CAL_CONFIG_CT_TOKEN_LABEL"
+			description="COM_CAL_CONFIG_CT_TOKEN_DESC"
+			default=""
+		>
+		</field>
+	</fieldset>
+	<fieldset
 		name="maps"
 		label="COM_CAL_CONFIG_MAPS_LABEL"
 		description="COM_CAL_CONFIG_MAPS_DESC"
