@@ -108,7 +108,7 @@ class CalHelperCT {
 			return;
 		
 		//send the query to ct and enable cookie saving
-		$result = $this->query('login', 'loginWithToken', array('id' => $id, 'token', $token), true, true);
+		$result = $this->query('login', 'loginWithToken', array('id' => $id, 'token' => $token), true, true);
 		
 		if($result->status == 'success') {
 			//successfully logged in, remember that
