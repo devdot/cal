@@ -70,12 +70,13 @@ class CalModelCT_Import extends JModelList {
         //the system takes care of limits, also putting the query together
         
         //if the filter is inactive, it's state is ''
-        if(is_numeric($this->getState("filter.state"))) {
-            if($this->getState("filter.state") === '0')
-                $query->where("state = 0");
-            else
-                $query->where("state = 1");
-        }
+        if(is_numeric($this->getState('filter.state'))) {
+			$state = (int) $this->getState('filter.state');
+			$query->where('state = '.$state);
+		}
+		else {
+			$query->where('state >= 0');
+		}
         
         if(!empty($this->getState("filter.search"))) {
             $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($this->getState("filter.search")), true) . '%'));
