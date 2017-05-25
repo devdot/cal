@@ -69,7 +69,7 @@ class CalModelEvent extends JModelAdmin {
 		$app = JFactory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('com_cal.edit.resource.data', array());
+		$data = $app->getUserState('com_cal.edit.event.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();
