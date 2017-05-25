@@ -31,7 +31,6 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
             required="true"
-            onchange="cal_resources_reload()"
 		/>
         <field
 			name="end"
@@ -42,7 +41,6 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
             required="true"
-            onchange="cal_resources_reload()"
 		/>
         
         <field
@@ -68,20 +66,6 @@
 			label="COM_CAL_LOCATION"
 			description="COM_CAL_FIELD_LOCATION_DESC"
 			required="true"
-			default=""
-		/>
-        <field
-			name="resources_selector"
-			type="resourceedit"
-			label="COM_CAL_RESOURCE"
-			description="COM_CAL_RESOURCE_DESC"
-			default=""
-		/>
-        <field
-			name="resources"
-			type="resources"
-			label="COM_CAL_RESOURCE"
-			description="COM_CAL_RESOURCE_DESC"
 			default=""
 		/>
         <field
