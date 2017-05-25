@@ -86,9 +86,6 @@ class CalModelEvent extends JModelAdmin {
 	}
 	
 	public function save($data) {
-		//save many-to-many relation of resources
-		$resources = json_decode($data['resources']);
-		
 		//TODO: make things cleaner
 		//should use a table for loading the existing record
 		//also variables $isParent and $isChild for recurrance handling
@@ -188,26 +185,6 @@ class CalModelEvent extends JModelAdmin {
 					$data['metadesc'] = $parent->metadesc;
 				if(empty($data['link']))
 					$data['link'] = $parent->link;
-				
-				
-				//now copy parent's resources
-				$query = $db->getQuery(true)
-					->select('resource_id')
-					->from('#__cal_events_resources')
-					->where('event_id = '.$parent->id);
-				$db->setQuery($query);
-				try {
-					$relations = $db->loadObjectList();
-				}
-				catch (RuntimeException $e) {
-					JError::raiseWarning(500, $e->getMessage());
-					return false;
-				}
-				foreach($relations as $row) {
-					$resource = (int) $row->resource_id;
-					if(!in_array($resource, $resources))
-							$resources[] = $resource;
-				}
 			}
 		}
 		
@@ -259,63 +236,6 @@ class CalModelEvent extends JModelAdmin {
 			//now call for rescheduling of our children
 			//must be after saving to parent so this function will actually work
 			$this->recurring((int) $data['id']);
-		}
-		
-		if($data['id'] != 0) { //its a new entry, no need to check existing relations
-			//first load the current relations
-			//we need to check which are new and which we need to delete or keep
-			$relations = array();
-			$query = $db->getQuery(true)
-				->select('id, resource_id')
-				->from('#__cal_events_resources')
-				->where('event_id = '.$data['id']);
-			$db->setQuery($query);
-			try {
-				$relations = $db->loadObjectList();
-			}
-			catch (RuntimeException $e) {
-				JError::raiseWarning(500, $e->getMessage());
-				return false;
-			}
-
-			$add = array(); //resource id
-			$keep = array(); //resource id
-			$remove = array(); //relation id
-			foreach($relations as $relation) { //check for each existing relation whether to keep it
-				if(in_array((int) $relation->resource_id, $resources))
-					$keep[] = $relation->resource_id;
-				else
-					$remove[] = (int) $relation->id;
-			}
-			foreach($resources as $resource) { //check which resources need to be added
-				if(!in_array($resource, $keep))
-						$add[] = $resource;
-			}
-		}
-		else {
-			$add = $resources; //add all
-			$remove = array(); //and remove none (because this is a new entry)
-		}
-
-		$event_id = (int) $this->getItem()->get('id');
-
-		//now work it
-		foreach($add as $resource_id) {
-			//first add them all
-			$query = $db->getQuery(true)
-			->insert('#__cal_events_resources')
-			->columns('resource_id, event_id')
-			->values($resource_id.','.$event_id);
-			$db->setQuery($query);
-			$db->execute();
-		}
-		foreach($remove as $relation_id) {
-			//and now delete it all
-			$query = $db->getQuery(true)
-			->delete('#__cal_events_resources')
-			->where('id = '.$relation_id);
-			$db->setQuery($query);
-			$db->execute();
 		}
 		
 		return true;
@@ -372,25 +292,7 @@ class CalModelEvent extends JModelAdmin {
 			return false;
 		}
 		
-		if(!empty($pks)) {
-			//now onto resources: delete all associated resources
-			$query = $db->getQuery(true)
-				->delete('#__cal_events_resources');
-			$arr = array();
-			foreach($pks as $pk) {
-				$arr[] = 'event_id='.$pk; //just delete 'em all
-			}
-			$query->where(implode(" OR ", $arr)); //making it this way ensures good functionality
-			$db->setQuery($query);
-			try {
-				$db->execute();
-				return true;
-			}
-			catch (RuntimeException $e) {
-				JError::raiseWarning(500, $e->getMessage());
-				return false;
-			}
-		}
+		return true;
 	}
 	
 	public function recurring($id) {
@@ -637,8 +539,6 @@ class CalModelEvent extends JModelAdmin {
 		$event = $this->getTable();
 		$archive = $this->getTable('ArchiveEvent');
 		
-		$resources = array();
-		
 		$success = true;
 		
 		//now run though them all
@@ -649,7 +549,7 @@ class CalModelEvent extends JModelAdmin {
 				continue;
 			}
 
-			//we don't get any data from it's recurring parent (neither fill blanks nor inherit resources)
+			//we don't get any data from it's recurring parent (neither fill blanks)
 
 			$archive->reset();
 
@@ -666,51 +566,13 @@ class CalModelEvent extends JModelAdmin {
 				$success = false;
 				continue;
 			}
-
-			//now onto resources
-			$relations = array();
-			$query = $db->getQuery(true)
-				->select('id, event_id, resource_id')
-				->from('#__cal_events_resources')
-				->where('event_id = '.$pk);
-			$db->setQuery($query);
-			try {
-				$relations = $db->loadObjectList();
-			}
-			catch (RuntimeException $e) {
-				JError::raiseWarning(500, $e->getMessage());
-				$success = false;
-				continue;
-			}
-			foreach($relations as $r)
-				$resources[] = $r;
+			
 			
 			
 			//now delete this entry fron cal_events
 			$event->delete();
 		}
 		
-		//check whether we need to care about resources
-		if(!count($resources))
-			return $success;
-		
-		//now take care of resources
-		$query = $db->getQuery(true)
-			->insert('#__cal_archive_resources')
-			->columns('id, resource_id, event_id');
-		$del = array();
-		
-		foreach($resources as $r) {
-			$query->values($r->id.','.$r->event_id.','.$r->resource_id);
-			$del[] = 'id='.$r->id;
-		}
-		
-		$query2 = $db->getQuery(true)
-				->delete('#__cal_events_resources');
-		$query2->where($del, 'OR');
-		
-		$db->setQuery($query);
-		$db->execute();
 		
 		return $success;
 	}
