@@ -24,6 +24,10 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
 					<span class="cal-cpanel-icon"><span class="icon icon-upload"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT"); ?></span>
 				</a>
+				<a class="btn" href="?option=com_cal&view=ct_import">
+					<span class="cal-cpanel-icon"><span class="icon icon-book"></span></span>
+					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT_RULES"); ?></span>
+				</a>
 				<a class="btn" href="?option=com_cal&view=ct_tokenGenerator">
 					<span class="cal-cpanel-icon"><span class="icon icon-wand"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_TOKEN_GENERATOR"); ?></span>
