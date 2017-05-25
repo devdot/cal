@@ -41,7 +41,7 @@ class CalControllerCT_Import extends JControllerAdmin {
 	 *
 	 * @since   1.6
 	 */
-	public function getModel($name = 'CT_Import_Rule', $prefix = 'CalModel', $config = array('ignore_request' => true)) {
+	public function getModel($name = 'CT_ImportRule', $prefix = 'CalModel', $config = array('ignore_request' => true)) {
 		//Joomla routing will use this function to proxy my model (CalModelLocation)
 		//for task locations.publish it will call CalModelLocation::publish();
 		return parent::getModel($name, $prefix, $config);
