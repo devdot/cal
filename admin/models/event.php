@@ -551,6 +551,13 @@ class CalModelEvent extends JModelAdmin {
 
 			//we don't get any data from it's recurring parent (neither fill blanks)
 
+			
+			//check if already in archive
+			if($archive->load($pk, true)) {
+				//that's bad, but we just delete it
+				$archive->delete($pk);
+			}
+			
 			$archive->reset();
 
 			//now save everything
