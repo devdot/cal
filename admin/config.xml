@@ -51,6 +51,14 @@
 			default=""
 		>
 		</field>
+		<field
+			name="ct_categories"
+			type="text"
+			label="COM_CAL_CONFIG_CT_CATEGORIES_LABEL"
+			description="COM_CAL_CONFIG_CT_CATEGORIES_DESC"
+			default=""
+		>
+		</field>
 	</fieldset>
 	<fieldset
 		name="maps"
