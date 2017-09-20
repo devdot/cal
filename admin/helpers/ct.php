@@ -156,7 +156,7 @@ class CalHelperCT {
 		foreach($cats as $cat) {
 			$category = $perCat->$cat;
 			foreach($category as $obj) {
-				$event = array('id' => $obj->id, 'title' => $obj->bezeichnung, 'start' => $obj->startdate, 'end' => $obj->enddate, 'category_id' => $obj->category_id);
+				$event = array('id' => $obj->id, 'title' => $obj->bezeichnung, 'start' => $obj->startdate, 'end' => $obj->enddate, 'category_id' => $obj->category_id, 'subid' => false);
 				
 				//now check if there are associated events
 				if(!isset($obj->csevents)) {
