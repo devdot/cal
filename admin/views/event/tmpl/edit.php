@@ -64,6 +64,10 @@ JFactory::getDocument()->addScriptDeclaration('
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 
 	<div class="form-horizontal">
+		<?php if($this->item->ct_id !== null):?>
+			<img src="components/com_cal/img/ct.png" style="height: 32px">
+		<?php endif;?>
+		
 		<?php if($this->item->id == 0): 
 			echo $this->form->renderField('make_recurring');
 		elseif($isChild):

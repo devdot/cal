@@ -108,6 +108,9 @@ $recParent = ((int) $this->state->get('filter.recurring')) == 1; //if the filter
 									<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
 								</span>
 								<div class="small">
+									<?php if($item->ct_id !== null): ?>
+										<img src="components/com_cal/img/ct.png" style="height: 13px">
+									<?php endif;?>
 									<?php echo JText::_('JCATEGORY') . ": "; ?>
 									<a href="<?php echo JRoute::_('index.php?option=com_categories&extension=com_cal&task=category.edit&id=' . (int) $item->catid); ?>">
 										<?php echo $this->escape($item->cat_name); ?>

@@ -78,7 +78,7 @@ class CalModelEvents extends JModelList {
         
         //only need those columns
         $query->select(array("a.id", "a.name", "a.state", 'a.catid', 'a.alias', 'a.location_id',
-			'a.checked_out', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id',
+			'a.checked_out', 'a.checked_out_time', 'a.start', 'a.end', 'a.recurring_id', 'a.ct_id',
 			'c.name AS location_name',
 			'e.name AS user_name, a.created_by',
 			'f.name AS editor',
