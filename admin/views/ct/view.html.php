@@ -39,7 +39,6 @@ class CalViewCT extends JViewLegacy {
         $this->state        = $this->get('State');
 		
         JToolbarHelper::title('Calendar / ChurchTools', 'calendar');
-        JToolbarHelper::addNew('event.add');
         
         CalHelper::addSubmenu('ct');
         
