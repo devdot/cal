@@ -126,4 +126,88 @@ class CalHelperCT {
 		//we failed :(
 		return false;
 	}
+	
+	public function getAllEvents() {
+		$catstring = JComponentHelper::getParams('com_cal')->get('ct_categories');
+		
+		//make it into an array
+		$cats = explode(',', $catstring);
+		$badConfig = false;
+		foreach($cats as $key => $cat) {
+			$cats[$key] = trim($cat);
+			if(!is_numeric($cat)) {
+				$badConfig = true;
+				continue;
+			}
+			$cats[$key] = (int) $cat;
+		}
+		
+		if($catstring === null || $badConfig) {
+			JFactory::getApplication()->enqueueMessage('ChurchTools API category IDs are not correctly configurated.', 'warning');
+			return array();
+		}
+		
+		//now we get all events per getCalPerCategory
+		$perCat = $this->query('churchcal', 'getCalPerCategory', array('category_ids' => $cats))->data;
+		
+		$events = array();
+		
+		//now process all this mess
+		foreach($cats as $cat) {
+			$category = $perCat->$cat;
+			foreach($category as $obj) {
+				$event = array('id' => $obj->id, 'title' => $obj->bezeichnung, 'start' => $obj->startdate, 'end' => $obj->enddate, 'category_id' => $obj->category_id);
+				
+				//now check if there are associated events
+				if(!isset($obj->csevents)) {
+					//there are none, just put in the event and finish with all of this
+					//TODO filter for old events
+					$events[] = $event;
+					continue;
+				}
+				
+				foreach($obj->csevents as $cs) {
+					//overwrite data from this subevent
+					$subevent = $event;
+					$subevent['subid'] = $cs->id;
+					$subevent['start'] = $cs->startdate;
+					if(isset($cs->enddate))
+						$subevent['end'] = $cs->enddate;
+					else {
+						//add onto it
+						//TODO (we need Dates to be more than a string)
+						$subevent['end'] = null;
+					}
+					
+					//check exceptions
+					if(isset($obj->exceptions->$subevent['subid'])) {
+						$except = $obj->exceptions->$subevent['subid'];
+						if(isset($except->except_date_start)) {
+							$subevent['start'] = $except->except_date_start;
+						}
+						if(isset($except->except_date_end)) {
+							$subevent['end'] = $except->except_date_end;
+						}
+						elseif(isset($except->except_date_start)) {
+							//no end but custom start - add onto it
+							//TODO (we need Dates to be more than a string)
+							$subevent['end'] = null;
+						}
+						
+						//now check for delete
+						if($subevent['start'] === $subevent['end']) {
+							//we just skip this event, it's been broken of recurrance
+							continue;
+						}
+					}
+					
+					//TODO filter for old events
+					$events[] = $subevent;
+				}
+			}
+			
+		}
+		
+		return $events;
+	}
 }
