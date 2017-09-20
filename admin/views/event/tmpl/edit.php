@@ -147,6 +147,9 @@ JFactory::getDocument()->addScriptDeclaration('
 				<div class="span6">
 					<?php echo $this->form->renderField('metakey');
 						echo $this->form->renderField('metadesc');?>
+					<?php echo $this->form->renderField('ct_id');
+					echo $this->form->renderField('ct_subid');
+					echo $this->form->renderField('ct_modified'); ?>
 				</div>
 			</div>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>

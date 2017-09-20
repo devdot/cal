@@ -245,6 +245,38 @@
 			cols="30"
 		/>
         </fieldset>
+		
+		<field
+			name="ct_id"
+			type="text"
+			label="COM_CAL_FIELD_CT_ID"
+			description="COM_CAL_FIELD_CT_ID_DESC"
+			default="0"
+			class="readonly"
+			size="10"
+			readonly="true"
+		/>
+		<field
+			name="ct_subid"
+			type="text"
+			label="COM_CAL_FIELD_CT_SUBID"
+			description="COM_CAL_FIELD_CT_SUBID_DESC"
+			default="0"
+			class="readonly"
+			size="10"
+			readonly="true"
+		/>
+		<field
+			name="ct_modified"
+			type="calendar"
+			label="COM_CAL_FIELD_CT_MODIFIED_LABEL"
+			description="COM_CAL_FIELD_CT_MODIFIED_DESC"
+			class="readonly"
+			size="22"
+			readonly="true"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+		/>
 	</fieldset>
 	<fields name="images" label="COM_CAL_FIELD_IMAGE_OPTIONS">
 		<field

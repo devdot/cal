@@ -14,3 +14,9 @@ ALTER TABLE `#__cal_ct_import`
 
 ALTER TABLE `#__cal_ct_import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+-- Modifications to event tables
+
+ALTER TABLE `#__cal_events` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATE NULL DEFAULT NULL ;
+ALTER TABLE `#__cal_archive` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATE NULL DEFAULT NULL ;
