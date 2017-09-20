@@ -50,6 +50,7 @@ class CalViewCT_Import extends JViewLegacy {
         JToolbarHelper::publish('ct_import.publish');
         JToolbarHelper::unpublish('ct_import.unpublish');
         JToolbarHelper::trash('ct_import.trash');
+		JToolbarHelper::back();
         
 		if ($this->state->get('filter.state') == -2){
 			JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'ct_import.delete', 'JTOOLBAR_EMPTY_TRASH');
