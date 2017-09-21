@@ -219,4 +219,14 @@ class CalHelperCT {
 		
 		return $events;
 	}
+	
+	public static function dateToJDate($str) {
+		//converts a given date from CT timeszone (always local) into UTC JDate
+		$tz = new DateTimeZone(JComponentHelper::getParams('com_cal')->get('ct_timezone'));
+
+		$date = new JDate($str, $tz);
+		
+		// now make a new JDate from it's unix stamp
+		return new JDate($date->toUnix());
+	}
 }
