@@ -59,6 +59,14 @@
 			default=""
 		>
 		</field>
+		<field
+			name="ct_timezone"
+			type="timezone"
+			label="COM_CAL_CONFIG_CT_TIMEZONE_LABEL"
+			description="COM_CAL_CONFIG_CT_TIMEZONE_DESC"
+			default="Europe/Berlin"
+		>
+		</field>
 	</fieldset>
 	<fieldset
 		name="maps"
