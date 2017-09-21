@@ -156,7 +156,16 @@ class CalHelperCT {
 		foreach($cats as $cat) {
 			$category = $perCat->$cat;
 			foreach($category as $obj) {
-				$event = array('id' => $obj->id, 'title' => $obj->bezeichnung, 'start' => $obj->startdate, 'end' => $obj->enddate, 'category_id' => $obj->category_id, 'subid' => false);
+				$event = new stdClass();
+				$event->id = $obj->id;
+				$event->subid = false;
+				$event->name = $obj->bezeichnung;
+				$event->start = self::dateToJDate($obj->startdate);
+				$event->end = self::dateToJDate($obj->enddate);
+				$event->modified = self::dateToJDate($obj->modified_date);
+				$event->category_id = $obj->category_id;
+				
+				$duration = $event->end->toUnix() - $event->start->toUnix();
 				
 				//now check if there are associated events
 				if(!isset($obj->csevents)) {
@@ -168,35 +177,35 @@ class CalHelperCT {
 				
 				foreach($obj->csevents as $cs) {
 					//overwrite data from this subevent
-					$subevent = $event;
-					$subevent['subid'] = $cs->id;
-					$subevent['start'] = $cs->startdate;
+					$subevent = clone $event;
+					$subevent->subid = $cs->id;
+					$subevent->start = self::dateToJDate($cs->startdate);
 					if(isset($cs->enddate))
-						$subevent['end'] = $cs->enddate;
+						$subevent->end = self::dateToJDate($cs->enddate);
 					else {
 						//add onto it
-						//TODO (we need Dates to be more than a string)
-						$subevent['end'] = null;
+						$subevent->end = new JDate($subevent->start->toUnix() + $duration);
 					}
 					
-					//check exceptions
-					if(isset($obj->exceptions->$subevent['subid'])) {
-						$except = $obj->exceptions->$subevent['subid'];
+					//check ct event exceptions
+					$subid = $subevent->subid;
+					if(isset($obj->exceptions->$subid)) {
+						$except = $obj->exceptions->$subid;
 						if(isset($except->except_date_start)) {
-							$subevent['start'] = $except->except_date_start;
+							$subevent->start = new JDate($except->except_date_start);
 						}
 						if(isset($except->except_date_end)) {
-							$subevent['end'] = $except->except_date_end;
+							$subevent->end = new JDate($except->except_date_end);
 						}
 						elseif(isset($except->except_date_start)) {
 							//no end but custom start - add onto it
-							//TODO (we need Dates to be more than a string)
-							$subevent['end'] = null;
+							$subevent->end = new JDate($subevent->start->toUnix() + $duration);
 						}
 						
 						//now check for delete
-						if($subevent['start'] === $subevent['end']) {
+						if($subevent->start->toUnix() === $subevent->end->toUnix()) {
 							//we just skip this event, it's been broken of recurrance
+							//we might let this in an set a flag? let the user interpret?
 							continue;
 						}
 					}
