@@ -169,9 +169,60 @@ class CalHelperCT {
 				
 				//now check if there are associated events
 				if(!isset($obj->csevents)) {
-					//there are none, just put in the event and finish with all of this
-					//TODO filter for old events
-					$events[] = $event;
+					if($obj->repeat_id != 7) {
+						//there are none, just put in the event and finish with all of this
+						//TODO filter for old events
+						$events[] = $event;
+					}
+					else {
+						//we have to recurr the events ourselves (nice job, ChurchTools)
+						//for now only support repeat_id 7 (weekly) (have to change that above!)
+						
+						$until = self::dateToJDate($obj->repeat_until)->toUnix();
+						//use component wide forecast parameter
+						$forecast = time() + 3600*24*JComponentHelper::getParams('com_cal')->get('forecast', 150);
+						
+						//timezone for intervals
+						$tz = new DateTimeZone(JComponentHelper::getParams('com_cal')->get('ct_timezone'));
+						$utc = new DateTimeZone("UTC");
+	
+						//cap the forecast if necessary
+						if($until < $forecast)
+							$forecast = $until;
+
+						//weekly
+						$interval = new DateInterval('P1W');
+						
+						$subevent = clone $event;
+						$subevent->subid = 1;
+						
+						//add the given event
+						$events[] = $subevent;
+						
+						$next = clone $subevent;
+						$next->subid++;
+						$next->start = clone $subevent->start;
+						$next->end = clone $subevent->end;
+						$next->start->add($interval);
+						$next->end->add($interval);
+						
+						
+						
+						while($next->start->toUnix() <= $forecast) {
+							$events[] = clone $next;
+							$next->subid++;
+							$next->start = clone $next->start;
+							$next->end = clone $next->end;
+							//we have to add intervals in the correct timezone for correct DST transformation
+							$next->start->setTimezone($tz);
+							$next->start->add($interval);
+							$next->start->setTimezone($utc);
+							$next->end->setTimezone($tz);
+							$next->end->add($interval);
+							$next->end->setTimezone($utc);
+						}
+					}
+					
 					continue;
 				}
 				
