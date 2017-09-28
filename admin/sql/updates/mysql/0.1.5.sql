@@ -18,5 +18,5 @@ ALTER TABLE `#__cal_ct_import`
 
 -- Modifications to event tables
 
-ALTER TABLE `#__cal_events` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATE NULL DEFAULT NULL ;
-ALTER TABLE `#__cal_archive` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATE NULL DEFAULT NULL ;
+ALTER TABLE `#__cal_events` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATETIME NULL DEFAULT NULL ;
+ALTER TABLE `#__cal_archive` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATETIME NULL DEFAULT NULL ;
