@@ -16,6 +16,11 @@ defined('_JEXEC') or die;
  */
 class CalControllerCT extends JControllerLegacy {
 	
+	public function __construct($config = array()) {
+		parent::__construct($config);
+		$this->registerTask('import', 'import'); //task for auto import
+	}
+	
 	/**
 	 * Proxy for getModel.
 	 *
@@ -31,5 +36,29 @@ class CalControllerCT extends JControllerLegacy {
 		//Joomla routing will use this function to proxy my model (CalModelLocation)
 		//for task locations.publish it will call CalModelLocation::publish();
 		return parent::getModel($name, $prefix, $config);
+	}
+	
+	public function import() {
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		
+		//dump it to the model
+		$model = $this->getModel();
+		$res = $model->import();
+		
+		if (!$res) {
+			// Redirect back to the edit screen.
+			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
+			$this->setMessage($this->getError(), 'error');
+
+			$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct', false));
+
+			return false;
+		}
+		else {
+			//successful
+			$this->setMessage(JText::_('COM_CAL_ITEMS_SAVED'));
+		}
+		
+		$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct', false));
 	}
 }
