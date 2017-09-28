@@ -21,7 +21,7 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
             <h2><?php echo JText::_('COM_CAL_QUICKACCESS'); ?></h2>
 			<div class="cal-cpanel">
 				<a class="btn" onclick="Joomla.submitbutton('ct.import')">
-					<span class="cal-cpanel-icon"><span class="icon icon-upload"></span></span>
+					<span class="cal-cpanel-icon"><span class="icon icon-download"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT"); ?></span>
 				</a>
 				<a class="btn" href="?option=com_cal&view=ct_import">
