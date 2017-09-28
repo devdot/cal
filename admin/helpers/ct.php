@@ -130,6 +130,9 @@ class CalHelperCT {
 	public function getAllEvents() {
 		$catstring = JComponentHelper::getParams('com_cal')->get('ct_categories');
 		
+		//unixtime for end cutoff (don't consider events that are over too long)
+		$endCutoff = time();
+		
 		//make it into an array
 		$cats = explode(',', $catstring);
 		$badConfig = false;
@@ -171,8 +174,9 @@ class CalHelperCT {
 				if(!isset($obj->csevents)) {
 					if($obj->repeat_id != 7) {
 						//there are none, just put in the event and finish with all of this
-						//TODO filter for old events
-						$events[] = $event;
+						//check if it's not too old
+						if($event->end->toUnix() >= $endCutoff)
+							$events[] = $event;
 					}
 					else {
 						//we have to recurr the events ourselves (nice job, ChurchTools)
@@ -196,8 +200,9 @@ class CalHelperCT {
 						$subevent = clone $event;
 						$subevent->subid = 1;
 						
-						//add the given event
-						$events[] = $subevent;
+						//add the given event if it's not too old
+						if($subevent->end->toUnix() >= $endCutoff)
+							$events[] = $subevent;
 						
 						$next = clone $subevent;
 						$next->subid++;
@@ -208,7 +213,11 @@ class CalHelperCT {
 						
 						
 						while($next->start->toUnix() <= $forecast) {
-							$events[] = clone $next;
+							//don't import when to old
+							if($next->end->toUnix() >= $endCutoff)
+								$events[] = clone $next;
+							
+							//move on
 							$next->subid++;
 							$next->start = clone $next->start;
 							$next->end = clone $next->end;
@@ -260,8 +269,9 @@ class CalHelperCT {
 						}
 					}
 					
-					//TODO filter for old events
-					$events[] = $subevent;
+					//check age
+					if($subevent->end->toUnix() >= $endCutoff)
+						$events[] = $subevent;
 				}
 			}
 			
