@@ -207,7 +207,6 @@ class CalHelperCT {
 						$next->end->add($interval);
 						
 						
-						
 						while($next->start->toUnix() <= $forecast) {
 							$events[] = clone $next;
 							$next->subid++;
@@ -268,6 +267,10 @@ class CalHelperCT {
 			
 		}
 		
+		//now we got all events.
+		//sort them after start date
+		usort($events, 'self::compareEventStart');
+		
 		return $events;
 	}
 	
@@ -279,5 +282,10 @@ class CalHelperCT {
 		
 		// now make a new JDate from it's unix stamp
 		return new JDate($date->toUnix());
+	}
+	
+	//returns true when first element is bigger (later) than the second, otherwise false
+	private static function compareEventStart($a, $b) {
+		return $a->start->toUnix() > $b->start->toUnix();
 	}
 }
