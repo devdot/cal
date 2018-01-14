@@ -33,6 +33,31 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_ARCHIVE"); ?></span>
 				</a>
 			</div>
+			
+			
+			<div>
+				<table>
+					<tr>
+						<th colspan="2"><?php echo JText::_("COM_CAL_BUILDINFO_TITLE");?></th>
+					</tr>
+					<tr>
+						<td><?php echo JText::_("COM_CAL_BUILDINFO_VERSION");?></td>
+						<td><?php echo $this->buildInfo->version ?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_("COM_CAL_BUILDINFO_GIT");?></td>
+						<td><a href="https://github.com/devdot/com_cal/commit/<?php echo $this->buildInfo->git ?>"><?php echo $this->buildInfo->gitshort ?></a></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_("COM_CAL_BUILDINFO_DATE");?></td>
+						<td><?php echo $this->buildInfo->date ?></td>
+					</tr>
+					<tr>
+						<td><?php echo JText::_("COM_CAL_BUILDINFO_BUILTON");?></td>
+						<td><?php echo date('Y-m-d H:i', (int) $this->buildInfo->timestamp) ?></td>
+					</tr>
+				</table>
+			</div>
         </div>
         <div class="span6">
             <h2><?php echo JText::_('COM_CAL_NEW_EVENTS'); ?></h2>

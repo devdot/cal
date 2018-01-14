@@ -39,5 +39,12 @@ class CalModelCal extends JModelList {
 
 		return $query;
 	}
+	
+	public function getBuildInfo() {
+		// just fetch the build xml file
+		$xml = simplexml_load_file(JPATH_COMPONENT.'/build.xml');
+		
+		return $xml;
+	}
  
 }

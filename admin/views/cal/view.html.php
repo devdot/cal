@@ -20,6 +20,8 @@ class CalViewCal extends JViewLegacy {
     protected $sidebar;
     public $state;
     public $items;
+	
+	public $buildInfo;
     
 	/**
 	 * Display the Resources View
@@ -33,6 +35,7 @@ class CalViewCal extends JViewLegacy {
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
         $this->state        = $this->get('State');
+		$this->buildInfo    = $this->get('BuildInfo');
 		
         JToolbarHelper::title('Calendar', 'calendar');
         JToolbarHelper::addNew('event.add');
