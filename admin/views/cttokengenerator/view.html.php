@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalViewCT_TokenGenerator extends JViewLegacy {
+class CalViewCtTokenGenerator extends JViewLegacy {
     
     protected $sidebar;
     public $state;

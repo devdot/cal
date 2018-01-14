@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.6
  */
-class CalModelCT_ImportRule extends JModelAdmin {
+class CalModelCtImportRule extends JModelAdmin {
 	public $typeAlias = 'com_cal.ct_importRule';
 	
 	/**

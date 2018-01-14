@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class CalControllerCT extends JControllerLegacy {
+class CalControllerCt extends JControllerLegacy {
 	
 	public function __construct($config = array()) {
 		parent::__construct($config);

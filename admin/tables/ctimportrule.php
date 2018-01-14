@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.0
  */
-class CalTableCT_ImportRule extends JTable {
+class CalTableCtImportRule extends JTable {
 	
 	public function __construct(&$db) {
 		parent::__construct('#__cal_ct_import', 'id', $db); //table, primary key and database object

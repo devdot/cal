@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  * 
  * @since  1.6
  */
-class CalControllerCT_ImportRule extends JControllerForm {
+class CalControllerCtImportRule extends JControllerForm {
 	function __construct($config = array()) {
 		//we aren't following the naming schema, so that why we got to rename here
 		//the default constructor would set this to ct_importRules and we don't want that

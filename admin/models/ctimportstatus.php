@@ -17,7 +17,7 @@ JLoader::register('CalHelperCT', JPATH_COMPONENT . '/helpers/ct.php');
  *
  * @since  0.0.1
  */
-class CalModelCT_ImportStatus extends JModelList {
+class CalModelCtImportStatus extends JModelList {
 	/**
 	 * @var array messages
 	 */

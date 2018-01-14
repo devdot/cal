@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.6
  */
-class CalControllerCT_ImportStatus extends JControllerAdmin {
+class CalControllerCtImportStatus extends JControllerAdmin {
 	
 	protected $token; //whether the jsession token should be checked
 	

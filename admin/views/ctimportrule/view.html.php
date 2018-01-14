@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalViewCT_ImportRule extends JViewLegacy {
+class CalViewCtImportRule extends JViewLegacy {
     
     protected $form;
 	protected $item;

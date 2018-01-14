@@ -17,7 +17,7 @@ JLoader::register('CalHelperCT', JPATH_COMPONENT . '/helpers/ct.php');
  *
  * @since  0.0.1
  */
-class CalViewCT_ImportStatus extends JViewLegacy {
+class CalViewCtImportStatus extends JViewLegacy {
     
     protected $sidebar;
    

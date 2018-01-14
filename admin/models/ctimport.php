@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class CalModelCT_Import extends JModelList {
+class CalModelCtImport extends JModelList {
 	/**
 	 * @var array messages
 	 */

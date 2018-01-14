@@ -16,7 +16,7 @@ use Joomla\Registry\Registry;
  *
  * @since  1.6
  */
-class CalModelCT_TokenGenerator extends JModelForm {
+class CalModelCtTokenGenerator extends JModelForm {
 	//public $typeAlias = 'com_cal.ct_tokenGenerator';
 	
 	public function getForm($data = array(), $loadData = true) {
