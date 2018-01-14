@@ -15,7 +15,7 @@ $headline = $this->params->get('show_page_heading')?$this->params->get('page_hea
 $start = new JDate($this->item->start);
 $end = new JDate($this->item->end);
 
-$oneDay = CalHelper::oneDay($start, $end);
+$oneDay = CalSiteHelper::oneDay($start, $end);
 
 ?>
 <div class="cal-event" itemscope itemtype="https://schema.org/Event">
@@ -49,19 +49,19 @@ $oneDay = CalHelper::oneDay($start, $end);
 				<?php endif; ?>
 				<?php if($oneDay): ?>
 				<div class="cal-event-date">
-					<?php echo CalHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?>
+					<?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?>
 				</div>
 				<?php endif; ?>
 				<div class="cal-event-start">
 					<?php if(!$oneDay): ?>
-					<span class="cal-event-start-date"><?php echo CalHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?></span>
+					<span class="cal-event-start-date"><?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?></span>
 					<?php endif; ?>
 					<time class="cal-event-start-time"><?php echo JHTML::date($start, "H:i") ?></time>
 					<span class="hidden" itemprop="startDate"><?php echo $start->toISO8601(); ?></span>
 				</div>
 				<div class="cal-event-end">
 					<?php if(!$oneDay): ?>
-					<span class="cal-event-end-date"><?php echo CalHelper::weekday($end).', '.JHTML::date($end, 'd.m.Y'); ?></span>
+					<span class="cal-event-end-date"><?php echo CalSiteHelper::weekday($end).', '.JHTML::date($end, 'd.m.Y'); ?></span>
 					<?php endif; ?>
 					<time class="cal-event-end-time"><?php echo JHTML::date($end, "H:i") ?></time>
 					<span class="hidden" itemprop="endDate"><?php echo $end->toISO8601(); ?></span>
@@ -125,7 +125,7 @@ $oneDay = CalHelper::oneDay($start, $end);
 					$start = new JDate($event->start);
 					$end =   new JDate($event->end);
 					//check if this event is one day long or across multiple days
-					$oneDay = CalHelper::oneDay($start, $end);
+					$oneDay = CalSiteHelper::oneDay($start, $end);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td><?php echo JHTML::date($start, "d.m.");?></td>

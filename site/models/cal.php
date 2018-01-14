@@ -25,7 +25,7 @@ class CalModelCal extends JModelList {
 		
 		// get timezone
 		JLoader::import('cal', JPATH_COMPONENT.'/helpers/');
-		$tz = CalHelper::getTimeZone();
+		$tz = CalSiteHelper::getTimeZone();
 	
 		
 		//set start date

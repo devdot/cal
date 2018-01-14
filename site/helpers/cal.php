@@ -19,7 +19,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since   1.6
  */
-abstract class CalHelper {
+abstract class CalSiteHelper {
 	/**
 	 * Configure the Linkbar.
 	 *
@@ -45,10 +45,10 @@ abstract class CalHelper {
 	}
 	
 	public static function weekday($date) {
-		return CalHelper::$weekdays[$date->dayofweek];
+		return CalSiteHelper::$weekdays[$date->dayofweek];
 	}
 	
 	public static function month($date) {
-		return CalHelper::$months[(int)$date->month];
+		return CalSiteHelper::$months[(int)$date->month];
 	}
 }

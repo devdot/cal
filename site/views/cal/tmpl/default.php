@@ -39,7 +39,7 @@ $paginationDisable = !(bool)($this->state->start);
 			$interval = new DateInterval('P1D');
 			$current = clone $this->start;
 			$nextTS = $current->getTimestamp() + 86400; //next day
-			$d = CalHelper::month($current);
+			$d = CalSiteHelper::month($current);
 			$nextMonth = true; //flag that is true when d contains the name of the next month
 			$i = 0;
 			$today = new JDate();
@@ -56,7 +56,7 @@ $paginationDisable = !(bool)($this->state->start);
 					$showToday = $today->day == $current->day && $today->month == $current->month && $today->year == $current->year;
 				?>
 				<td class="<?php echo $showSm?'':'cal-table-hide-sm'; echo $showToday?' cal-table-today':''; ?>">
-					<div class="cal-table-date cal-table-hide-lg"><?php echo CalHelper::$weekdays[$j].', '.$current->day.'.'.$current->month; ?></div>
+					<div class="cal-table-date cal-table-hide-lg"><?php echo CalSiteHelper::$weekdays[$j].', '.$current->day.'.'.$current->month; ?></div>
 					<div class="cal-table-date<?php echo ($nextMonth)?'-month':'-day'; ?> cal-table-hide-sm"><?php echo $d; ?></div>
 					<?php
 					while($i < count($this->items)):
@@ -83,7 +83,7 @@ $paginationDisable = !(bool)($this->state->start);
 					$current->add($interval);
 					$nextTS += 86400;
 					if($d > 28 && $current->day != $d) {
-						$d = CalHelper::month($current);
+						$d = CalSiteHelper::month($current);
 						$nextMonth = true;
 					}
 				endfor;

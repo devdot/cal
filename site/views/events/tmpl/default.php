@@ -65,15 +65,15 @@ defined('_JEXEC') or die('Restricted access');
 					$start = new JDate($event->start);
 					$end =   new JDate($event->end);
 					//check if this event is one day long or across multiple days
-					$oneDay = CalHelper::oneDay($start, $end);
+					$oneDay = CalSiteHelper::oneDay($start, $end);
 				?>
 				<tr class='clickable-row' data-href="<?php echo JRoute::_('index.php?option=com_cal&view=event&id='.$event->id); ?>">
 					<td>
-						<?php echo CalHelper::weekday($start).', '.JHTML::date($start, "d.m.Y");?>
+						<?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, "d.m.Y");?>
 						<?php if($oneDay): 
 								echo '<br>'.JHTML::date($start, 'H:i').' &ndash; '.JHTML::date($end, 'H:i'); 
 							else:
-								echo JHTML::date($start, 'H:i').' &ndash;<br>'.CalHelper::weekday($end).', '.JHTML::date($end, "d.m.Y H:i");
+								echo JHTML::date($start, 'H:i').' &ndash;<br>'.CalSiteHelper::weekday($end).', '.JHTML::date($end, "d.m.Y H:i");
 						endif; ?>
 					</td>
 					<td><?php echo $event->name; ?></td>
