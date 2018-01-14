@@ -17,8 +17,8 @@ defined('_JEXEC') or die;
 class CalControllerCtImportRule extends JControllerForm {
 	function __construct($config = array()) {
 		//we aren't following the naming schema, so that why we got to rename here
-		//the default constructor would set this to ct_importRules and we don't want that
-		$this->view_list = 'ct_import';
+		//the default constructor would set this to ctimportrules and we don't want that
+		$this->view_list = 'ctimport';
 		
 		parent::__construct($config);
 	}

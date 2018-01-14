@@ -11,7 +11,7 @@
 defined('_JEXEC') or die('Restricted Access');
 
 ?>
-<form id="adminForm" action="?option=com_cal&view=ct_importStatus" method="post" name="adminForm">
+<form id="adminForm" action="?option=com_cal&view=ctimportstatus" method="post" name="adminForm">
     <div id="j-sidebar-container" class="span2">
         <?php echo $this->sidebar; ?>
     </div>

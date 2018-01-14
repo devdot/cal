@@ -13,7 +13,7 @@ defined('_JEXEC') or die('Restricted Access');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
-<form id="adminForm" action="?option=com_cal&view=ct_import" method="post" name="adminForm">
+<form id="adminForm" action="?option=com_cal&view=ctimport" method="post" name="adminForm">
     <div id="j-sidebar-container" class="span2">
         <?php echo $this->sidebar; ?>
     </div>
@@ -60,14 +60,14 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 						<td class="hidden-phone">
 							<div class="btn-group">
-								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'ct_import.');
-									JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'ct_import');
+								<?php echo JHtml::_('jgrid.published', $item->state, $i, 'ctimport.');
+									JHtml::_('actionsdropdown.' . ((int) $item->state === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'ctimport');
 									echo JHtml::_('actionsdropdown.render', $this->escape($item->name));
 								?>
 							</div>
 						</td>
                         <td class="hidden-phone">
-                            <a href="<?php echo JRoute::_('index.php?option=com_cal&task=ct_importRule.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
+                            <a href="<?php echo JRoute::_('index.php?option=com_cal&task=ctimportrule.edit&id=' . (int) $item->id); ?>"><?php echo $item->name; ?></a>
 						</td>
 						<td class="hidden-phone">
 							<?php echo $item->id; ?>

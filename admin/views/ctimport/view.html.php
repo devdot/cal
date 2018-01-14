@@ -45,15 +45,15 @@ class CalViewCtImport extends JViewLegacy {
 		
         JToolbarHelper::title('Calendar / ChurchTools Import Rules', 'calendar');
         
-		JToolbarHelper::addNew('ct_importRule.add');
-        JToolbarHelper::editList('ct_importRule.edit');
-        JToolbarHelper::publish('ct_import.publish');
-        JToolbarHelper::unpublish('ct_import.unpublish');
-        JToolbarHelper::trash('ct_import.trash');
+		JToolbarHelper::addNew('ctimportrule.add');
+        JToolbarHelper::editList('ctimportrule.edit');
+        JToolbarHelper::publish('ctimport.publish');
+        JToolbarHelper::unpublish('ctimport.unpublish');
+        JToolbarHelper::trash('ctimport.trash');
 		JToolbarHelper::back();
         
 		if ($this->state->get('filter.state') == -2){
-			JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'ct_import.delete', 'JTOOLBAR_EMPTY_TRASH');
+			JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'ctimport.delete', 'JTOOLBAR_EMPTY_TRASH');
 		}
 		
         CalHelper::addSubmenu('ct');

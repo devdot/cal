@@ -36,7 +36,7 @@ class CalViewCtTokenGenerator extends JViewLegacy {
 		$this->form			= $this->get('Form');
 		
         JToolbarHelper::title('Calendar / ChurchTools', 'calendar');
-		JToolbarHelper::apply('ct_tokenGenerator.apply');
+		JToolbarHelper::apply('cttokengenerator.apply');
         JToolbarHelper::back();
         
         CalHelper::addSubmenu('ct');

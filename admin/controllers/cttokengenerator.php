@@ -34,7 +34,7 @@ class CalControllerCtTokenGenerator extends JControllerLegacy {
 	 *
 	 * @since   1.6
 	 */
-	public function getModel($name = 'CT_TokenGenerator', $prefix = 'CalModel', $config = array('ignore_request' => true)) {
+	public function getModel($name = 'CtTokenGenerator', $prefix = 'CalModel', $config = array('ignore_request' => true)) {
 		//Joomla routing will use this function to proxy my model (CalModelLocation)
 		//for task locations.publish it will call CalModelLocation::publish();
 		return parent::getModel($name, $prefix, $config);
@@ -63,18 +63,18 @@ class CalControllerCtTokenGenerator extends JControllerLegacy {
 		// Attempt to save the data.
 		if (!$model->save($validData)) {
 			// Save the data in the session.
-			$app->setUserState('com_cal.edit.ct_tokenGenerator.data', $validData);
+			$app->setUserState('com_cal.edit.cttokengenerator.data', $validData);
 
 			// Redirect back to the edit screen.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
 
-			$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct_tokenGenerator', false));
+			$this->setRedirect(JRoute::_('index.php?option=com_cal&view=cttokengenerator', false));
 
 			return false;
 		}
 		
-		$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct_tokenGenerator', false));
+		$this->setRedirect(JRoute::_('index.php?option=com_cal&view=cttokengenerator', false));
 		
 		return true;
 	}

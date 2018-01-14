@@ -40,7 +40,7 @@ class CalViewCtImportStatus extends JViewLegacy {
 		
         JToolbarHelper::title('Calendar / ChurchTools Import Status', 'calendar');
         
-		JToolbarHelper::custom('ct_importStatus.import', 'download', 'COM_CAL_TASK_IMPORT', 'COM_CAL_TASK_IMPORT');
+		JToolbarHelper::custom('ctimportstatus.import', 'download', 'COM_CAL_TASK_IMPORT', 'COM_CAL_TASK_IMPORT');
 		JToolbarHelper::back();
 		
         CalHelper::addSubmenu('ct');

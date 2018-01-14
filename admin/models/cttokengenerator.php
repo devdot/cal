@@ -17,11 +17,11 @@ use Joomla\Registry\Registry;
  * @since  1.6
  */
 class CalModelCtTokenGenerator extends JModelForm {
-	//public $typeAlias = 'com_cal.ct_tokenGenerator';
+	//public $typeAlias = 'com_cal.cttokengenerator';
 	
 	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
-		$form = $this->loadForm('com_cal.ct_tokenGenerator', 'ct_tokenGenerator', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_cal.cttokengenerator', 'cttokengenerator', array('control' => 'jform', 'load_data' => $loadData));
 		
 		if (empty($form)) {
 			return false; //return false if loading the form has failed
@@ -34,7 +34,7 @@ class CalModelCtTokenGenerator extends JModelForm {
 	protected function loadFormData() {
 		$app = JFactory::getApplication();
 
-		$data = $app->getUserState('com_cal.edit.ct_tokenGenerator.data', array());
+		$data = $app->getUserState('com_cal.edit.cttokengenerator.data', array());
 		
 		return $data;
 	}

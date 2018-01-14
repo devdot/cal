@@ -49,15 +49,15 @@ class CalViewCtImportRule extends JViewLegacy {
 		JToolbarHelper::title('Calendar / ChurchTools Import Rule', 'calendar');
 		
 		//toolbar elements
-		JToolbarHelper::apply('ct_importRule.apply');
-		JToolbarHelper::save('ct_importRule.save');
-		JToolbarHelper::save2new('ct_importRule.save2new');
+		JToolbarHelper::apply('ctimportrule.apply');
+		JToolbarHelper::save('ctimportrule.save');
+		JToolbarHelper::save2new('ctimportrule.save2new');
 		
 		//this isn't a new item, otherwise the id wouldn't be 0
 		if($this->item->id != 0) {
-			JToolbarHelper::save2copy('ct_importRule.save2copy');
+			JToolbarHelper::save2copy('ctimportrule.save2copy');
 		}
-		JToolbarHelper::cancel('ct_importRule.cancel');
+		JToolbarHelper::cancel('ctimportrule.cancel');
 		
 		// Display the template
 		parent::display($tpl);

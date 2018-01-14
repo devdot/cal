@@ -47,7 +47,7 @@ class CalControllerCtImportStatus extends JControllerAdmin {
 		}
 		
 		//dump it to the model
-		$model = $this->getModel('CT_ImportStatus', 'CalModel');
+		$model = $this->getModel('CtImportStatus', 'CalModel');
 		$res = $model->import($keys);
 		
 		if (!$res) {

@@ -15,10 +15,10 @@ JHtml::_('formbehavior.chosen', 'select');
 
 JFactory::getDocument()->addScriptDeclaration('
 	Joomla.submitbutton = function(task) {
-		if (task == "ct_importRule.cancel" || document.formvalidator.isValid(document.getElementById("cal-ct-importRule-form"))) {
+		if (task == "ctimportrule.cancel" || document.formvalidator.isValid(document.getElementById("cal-ct-importRule-form"))) {
 			Joomla.submitform(task, document.getElementById("cal-ct-importRule-form"));
 
-			if (task !== "ct_importRule.apply") {
+			if (task !== "ctimportrule.apply") {
 				window.parent.jQuery("#cal-ct-importRule-form' . $this->item->id . 'Modal").modal("hide");
 			}
 		}
@@ -26,7 +26,7 @@ JFactory::getDocument()->addScriptDeclaration('
 ');
 ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_cal&view=ct_importRule&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" class="form-validate" id="cal-ct-importRule-form">
+<form action="<?php echo JRoute::_('index.php?option=com_cal&view=ctimportrule&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" class="form-validate" id="cal-ct-importRule-form">
 
 	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
 

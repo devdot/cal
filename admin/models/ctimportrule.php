@@ -17,7 +17,7 @@ use Joomla\Registry\Registry;
  * @since  1.6
  */
 class CalModelCtImportRule extends JModelAdmin {
-	public $typeAlias = 'com_cal.ct_importRule';
+	public $typeAlias = 'com_cal.ctimportrule';
 	
 	/**
 	 * Method to get a single record.
@@ -39,7 +39,7 @@ class CalModelCtImportRule extends JModelAdmin {
 	
 	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
-		$form = $this->loadForm('com_cal.ct_importRule', 'ct_importRule', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_cal.ctimportrule', 'ctimportrule', array('control' => 'jform', 'load_data' => $loadData));
 		
 		if (empty($form)) {
 			return false; //return false if loading the form has failed
@@ -48,7 +48,7 @@ class CalModelCtImportRule extends JModelAdmin {
 		return $form;
 	}
 	
-	public function getTable($type = 'CT_ImportRule', $prefix = 'CalTable', $config = array()) {
+	public function getTable($type = 'CtImportRule', $prefix = 'CalTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);//proxy loading the table
 	}
 	
@@ -56,7 +56,7 @@ class CalModelCtImportRule extends JModelAdmin {
 		$app = JFactory::getApplication();
 
 		// Check the session for previously entered form data.
-		$data = $app->getUserState('com_cal.edit.ct_importRule.data', array());
+		$data = $app->getUserState('com_cal.edit.ctimportrule.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();

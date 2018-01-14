@@ -24,15 +24,15 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
 					<span class="cal-cpanel-icon"><span class="icon icon-download"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT"); ?></span>
 				</a>
-				<a class="btn" href="?option=com_cal&view=ct_import">
+				<a class="btn" href="?option=com_cal&view=ctimport">
 					<span class="cal-cpanel-icon"><span class="icon icon-book"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT_RULES"); ?></span>
 				</a>
-				<a class="btn" href="?option=com_cal&view=ct_importStatus">
+				<a class="btn" href="?option=com_cal&view=ctimportstatus">
 					<span class="cal-cpanel-icon"><span class="icon icon-list"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT_STATUS"); ?></span>
 				</a>
-				<a class="btn" href="?option=com_cal&view=ct_tokenGenerator">
+				<a class="btn" href="?option=com_cal&view=cttokengenerator">
 					<span class="cal-cpanel-icon"><span class="icon icon-wand"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_TOKEN_GENERATOR"); ?></span>
 				</a>
