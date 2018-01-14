@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component"
-           version="3.7.0"
-           method="upgrade">
-	<name>COM_CAL</name>
-	<creationDate>August 2016</creationDate>
-	<author>Thomas Schaller</author>
-	<authorEmail>mail@thomasschaller.eu</authorEmail>
-	<authorUrl>http://thomasschaller.eu</authorUrl>
-	<copyright>Copyright Info</copyright>
-	<license>License Info</license>
-	<version>0.3.0</version>
-	<description>COM_CAL_DESCRIPTION</description>
-	<update>
-		<schemas>
-			<schemapath type="mysql">sql/updates/mysql</schemapath>
-		</schemas>
-	</update>
-	<install>
-		<sql>
-			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
-		</sql>
-	</install>
-	<uninstall>
-		<sql>
-			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
-		</sql>
-	</uninstall>
-	<files folder="site">
-		<filename>index.html</filename>
-		<filename>cal.php</filename>
-		<filename>controller.php</filename>
-		<filename>router.php</filename>
-		<folder>controllers</folder>
-		<folder>helpers</folder>
-		<folder>views</folder>
-		<folder>models</folder>
-        <folder>css</folder>
-        <folder>img</folder>
-	</files>
-	<administration>
-		<menu link='index.php?option=com_cal'>COM_CAL_MENU</menu>
-		<submenu>
-			<menu link='option=com_cal&amp;view=events'>COM_CAL_MENU_EVENTS</menu>
-			<menu link='option=com_cal&amp;view=ct'>COM_CAL_MENU_CT</menu>
-			<menu link='option=com_cal&amp;view=locations'>COM_CAL_MENU_LOCATIONS</menu>
-			<menu link='option=com_categories&amp;extension=com_cal'>COM_CAL_MENU_CATEGORIES</menu>
-			<menu link='option=com_cal&amp;view=archive'>COM_CAL_MENU_ARCHIVE</menu>
-		</submenu>
-		<files folder="admin">
-			<filename>index.html</filename>
-			<filename>config.xml</filename>
-			<filename>cal.php</filename>
-			<filename>controller.php</filename>
-            <filename>access.xml</filename>
-            
-			<folder>sql</folder>
-			<folder>views</folder>
-			<folder>models</folder>
-			<folder>tables</folder>
-			<folder>css</folder>
-			<folder>img</folder>
-			<folder>helpers</folder>
-			<folder>controllers</folder>
-			<folder>language</folder>
-		</files>
-        <languages folder="admin/language">
-            <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>                        
-            <language tag="en-GB">en-GB/en-GB.com_cal.sys.ini</language>		
-        </languages>
-	</administration>
+<extension type="component" version="3.8.0" method="upgrade">
+  <name>COM_CAL</name>
+  <creationDate>2018-01-14</creationDate>
+  <author>Thomas Schaller</author>
+  <authorEmail>mail@thomasschaller.eu</authorEmail>
+  <authorUrl>http://thomasschaller.eu</authorUrl>
+  <copyright>Copyright Info</copyright>
+  <license>License Info</license>
+  <version>0.4.0</version>
+  <description>COM_CAL_DESCRIPTION</description>
+  <update>
+    <schemas>
+      <schemapath type="mysql">sql/updates/mysql</schemapath>
+    </schemas>
+  </update>
+  <install>
+    <sql>
+      <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+    </sql>
+  </install>
+  <uninstall>
+    <sql>
+      <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+    </sql>
+  </uninstall>
+  <files folder="site">
+    <filename>index.html</filename>
+    <filename>cal.php</filename>
+    <filename>controller.php</filename>
+    <filename>router.php</filename>
+    <folder>controllers</folder>
+    <folder>helpers</folder>
+    <folder>views</folder>
+    <folder>models</folder>
+    <folder>css</folder>
+    <folder>img</folder>
+  </files>
+  <administration>
+    <menu link="index.php?option=com_cal">COM_CAL_MENU</menu>
+    <submenu>
+      <menu link="option=com_cal&amp;view=events">COM_CAL_MENU_EVENTS</menu>
+      <menu link="option=com_cal&amp;view=ct">COM_CAL_MENU_CT</menu>
+      <menu link="option=com_cal&amp;view=locations">COM_CAL_MENU_LOCATIONS</menu>
+      <menu link="option=com_categories&amp;extension=com_cal">COM_CAL_MENU_CATEGORIES</menu>
+      <menu link="option=com_cal&amp;view=archive">COM_CAL_MENU_ARCHIVE</menu>
+    </submenu>
+    <files folder="admin">
+      <filename>index.html</filename>
+      <filename>config.xml</filename>
+      <filename>build.xml</filename>
+      <filename>cal.php</filename>
+      <filename>controller.php</filename>
+      <filename>access.xml</filename>
+      <folder>sql</folder>
+      <folder>views</folder>
+      <folder>models</folder>
+      <folder>tables</folder>
+      <folder>css</folder>
+      <folder>img</folder>
+      <folder>helpers</folder>
+      <folder>controllers</folder>
+      <folder>language</folder>
+    </files>
+    <languages folder="admin/language">
+      <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>
+      <language tag="en-GB">en-GB/en-GB.com_cal.sys.ini</language>
+    </languages>
+  </administration>
 </extension>
