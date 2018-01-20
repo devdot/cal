@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `#__cal_events` (
   `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `images` TEXT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -59,44 +60,13 @@ CREATE TABLE IF NOT EXISTS `#__cal_archive` (
   `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `images` TEXT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE `#__cal_archive`
   MODIFY `id` int(10) unsigned NOT NULL;
-  
---
--- Table structure for table `#__cal_events_resources`
---
 
-CREATE TABLE IF NOT EXISTS `#__cal_events_resources` (
-  `id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `event_id` (`event_id`),
-  KEY `resource_id` (`resource_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-  
-  ALTER TABLE `#__cal_events_resources`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
-
---
--- Table structure for table `#__cal_archive_resources`
--- same as cal_archive,
-
-CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
-  `id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `event_id` (`event_id`),
-  KEY `resource_id` (`resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-  
-  ALTER TABLE `#__cal_archive_resources`
-  MODIFY `id` int(11) NOT NULL;
-  
 --
 -- Table structure for table `#__cal_locations`
 --
@@ -119,23 +89,6 @@ CREATE TABLE IF NOT EXISTS `#__cal_locations` (
 
 ALTER TABLE `#__cal_locations`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
-  
---
--- Table structure for table `#__cal_resources`
---
-
-CREATE TABLE IF NOT EXISTS `#__cal_resources` (
-  `id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  `catid` int(11) NOT NULL DEFAULT '0',
-  `type` tinyint(4) NOT NULL DEFAULT '0',
-  `type_id` int(11) DEFAULT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_resources`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `#__cal_archive` (
   `id` int(10) unsigned NOT NULL,
@@ -163,12 +116,23 @@ CREATE TABLE IF NOT EXISTS `#__cal_archive` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
-  `id` int(11) NOT NULL,
-  `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `event_id` (`event_id`),
-  KEY `resource_id` (`resource_id`)
+--
+-- Table structure for table `#__cal_ct_import`
+--
 
+CREATE TABLE IF NOT EXISTS `#__cal_ct_import` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `state` tinyint(3) NOT NULL DEFAULT '0',
+  `rules` text,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `#__cal_ct_import`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+-- Modifications to event tables
+
+ALTER TABLE `#__cal_events` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATETIME NULL DEFAULT NULL ;
+ALTER TABLE `#__cal_archive` ADD `ct_id` INT NULL DEFAULT NULL , ADD `ct_subid` INT NULL DEFAULT NULL , ADD `ct_modified` DATETIME NULL DEFAULT NULL ;
