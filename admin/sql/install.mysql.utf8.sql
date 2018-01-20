@@ -24,11 +24,9 @@ CREATE TABLE IF NOT EXISTS `#__cal_events` (
   `location_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `#__cal_events`
-  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `#__cal_events`
   MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
@@ -60,11 +58,9 @@ CREATE TABLE IF NOT EXISTS `#__cal_archive` (
   `location_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `#__cal_archive`
-  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `#__cal_archive`
   MODIFY `id` int(10) unsigned NOT NULL;
@@ -76,11 +72,11 @@ ALTER TABLE `#__cal_archive`
 CREATE TABLE IF NOT EXISTS `#__cal_events_resources` (
   `id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL
+  `resource_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `resource_id` (`resource_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_events_resources`
-  ADD PRIMARY KEY (`id`), ADD KEY `event_id` (`event_id`), ADD KEY `resource_id` (`resource_id`);
   
   ALTER TABLE `#__cal_events_resources`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
@@ -92,11 +88,11 @@ ALTER TABLE `#__cal_events_resources`
 CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
   `id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL
+  `resource_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `resource_id` (`resource_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_archive_resources`
-  ADD PRIMARY KEY (`id`), ADD KEY `event_id` (`event_id`), ADD KEY `resource_id` (`resource_id`);
   
   ALTER TABLE `#__cal_archive_resources`
   MODIFY `id` int(11) NOT NULL;
@@ -117,11 +113,9 @@ CREATE TABLE IF NOT EXISTS `#__cal_locations` (
   `geoY` double DEFAULT NULL,
   `link` varchar(256) NOT NULL,
   `desc` text NOT NULL,
-  `published` bit(1) NOT NULL DEFAULT b'1'
+  `published` bit(1) NOT NULL DEFAULT b'1',
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_locations`
-  ADD PRIMARY KEY (`ID`);
 
 ALTER TABLE `#__cal_locations`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
@@ -136,11 +130,9 @@ CREATE TABLE IF NOT EXISTS `#__cal_resources` (
   `catid` int(11) NOT NULL DEFAULT '0',
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `type_id` int(11) DEFAULT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_resources`
-  ADD PRIMARY KEY (`id`);
 
 ALTER TABLE `#__cal_resources`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
@@ -167,18 +159,16 @@ CREATE TABLE IF NOT EXISTS `#__cal_archive` (
   `location_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_id` int(10) unsigned NOT NULL DEFAULT '0',
   `recurring_schedule` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE `#__cal_archive`
-  ADD PRIMARY KEY (`id`);
 
 CREATE TABLE IF NOT EXISTS `#__cal_archive_resources` (
   `id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `resource_id` int(11) NOT NULL
+  `resource_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_id` (`event_id`),
+  KEY `resource_id` (`resource_id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-ALTER TABLE `#__cal_archive_resources`
-  ADD PRIMARY KEY (`id`), ADD KEY `event_id` (`event_id`), ADD KEY `resource_id` (`resource_id`);
-
