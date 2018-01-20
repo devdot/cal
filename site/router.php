@@ -217,7 +217,8 @@ class CalRouter extends JComponentRouterBase {
 		if($item == $this->eventsStart && $total == 1) {
 			//just a simple event that's routed over eventsStart
 			$vars['view'] = 'event';
-			$vars['id'] = (int) array_pop(explode('-', $segments[0])); //this field is {alias}-{id}, but the alias very likely contains '-' so we need the last element
+			$expl = explode('-', $segments[0]);
+			$vars['id'] = (int) array_pop($expl); //this field is {alias}-{id}, but the alias very likely contains '-' so we need the last element
 			
 			return $vars;
 		}
