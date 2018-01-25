@@ -61,8 +61,8 @@ $oneDay = CalSiteHelper::oneDay($start, $end);
 			<a href="<?php echo $this->item->link; ?>" class="cal-event-link btn btn-default" itemprop="url">
 					Weitere Informationen
 			</a>
-			<a href="<?php echo JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$this->item->id);?>" class="cal-event-ical btn btn-default">iCal / Outlook</a>
 			<?php endif; ?>
+			<a href="<?php echo JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$this->item->id);?>" class="cal-event-ical btn btn-default">iCal / Outlook</a>
 		</div>
 		<div class="cal-event-right col-md-6" itemprop="location" itemscope itemtype="http://schema.org/Place">
 			<h3><span class="glyphicon glyphicon-map-marker"></span> <span itemprop="name"><?php echo $this->item->loc_name; ?></span></h3>
