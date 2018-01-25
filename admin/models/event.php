@@ -117,6 +117,13 @@ class CalModelEvent extends JModelAdmin {
 			$data['images'] = (string) $registry;
 		}
 		
+		// check for quasi-null ct statements (they get set due to filters)
+		if (isset($data['ct_id']) && isset($data['ct_subid']) && $data['ct_id'] == 0 && $data['ct_subid'] == 0) {
+			$data['ct_id'] = NULL;
+			$data['ct_subid'] = NULL;
+			$data['ct_modified'] = NULL;
+		}
+		
 		//split articletext into intro and fulltext
 		$text = explode("<hr id=\"system-readmore\" />", $data['articletext'], 2); //only split once (in two elements)
 		if(count($text) == 2) {
