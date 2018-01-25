@@ -313,8 +313,19 @@ class CalModelEvent extends JModelAdmin {
 		//how long events will be forecast
 		$forecast = time() + 3600*24*JComponentHelper::getParams('com_cal')->get('forecast', 150);
 		
-		$start	= new JDate($parent->start);
-		$end	= new JDate($parent->end);
+		// we have to set the server's timezone here, so that addInterval works with daylight saving time
+		$tz = new DateTimeZone(JFactory::getConfig()->get('offset'));
+		$start	= new JDate($parent->start, $tz);
+		$end	= new JDate($parent->end, $tz);
+		
+		// now the time is offset, add it back up
+		//  (the input is actually in utc but assumed to be the server timezone, therefore add the missing minutes)
+		$off = new DateInterval("PT".$tz->getOffset($start).'S');
+		$start->add($off);
+		$off = new DateInterval("PT".$tz->getOffset($end).'S');
+		$end->add($off);
+		unset($off);
+		
 		$start_ = $start->toUnix();
 		$end_	= $end->toUnix();
 		$duration = $end_ - $start_;
