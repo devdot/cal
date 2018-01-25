@@ -68,9 +68,11 @@ $oneDay = CalSiteHelper::oneDay($start, $end);
 			<h3><span class="glyphicon glyphicon-map-marker"></span> <span itemprop="name"><?php echo $this->item->loc_name; ?></span></h3>
 			<div class="cal-event-loc" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 				<?php if($this->item->addrStreet): ?><div class="cal-event-loc-street" itemprop="streetAddress"><?php echo $this->item->addrStreet; ?></div><?php endif; ?>
+				<div class="cal-event-loc-detail">
 				<?php if($this->item->addrZip): ?><div class="cal-event-loc-zip" itemprop="postalCode"><?php echo $this->item->addrZip; ?></div><?php endif; ?>
 				<?php if($this->item->addrCity): ?><div class="cal-event-loc-city" itemprop="addressLocality"><?php echo $this->item->addrCity; ?></div><?php endif; ?>
 				<?php if($this->item->addrCountry): ?><div class="cal-event-loc-country" itemprop="addressCountry"><?php echo $this->item->addrCountry; ?></div><?php endif; ?>
+				</div>
 			</div>
 			<?php if($this->item->loc_link): ?>
 			<div class="cal-event-loc-link">
