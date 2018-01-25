@@ -369,7 +369,14 @@ class CalModelEvent extends JModelAdmin {
 			return false;
 		}
 		if(!empty($ret)) {
-			$latest = new JDate($ret[0]->start);
+			// we are not using start, so create a new one (same timezone stuff as start)
+			
+			$latest = new JDate($ret[0]->start, $tz);
+			
+			$off = new DateInterval("PT".$tz->getOffset($latest).'S');
+			$latest->add($off);
+			unset($off);
+			
 			$latest_ = $latest->toUnix();
 		}
 		else {
