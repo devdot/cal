@@ -39,9 +39,17 @@ class CalViewEvent extends JViewLegacy {
 		
 		$this->loadHelper('cal');
 
-		
+		// set the title more fitting to the content
 		$title = $this->params->get('page_title', '');
-		$this->document->setTitle($this->item->name.' - '.$title);
+		$this->document->setTitle($this->item->name.' / '.$title);
+		
+		
+		// check for custom meta data and insert
+		if(!empty($this->item->metakey))
+			$this->document->setMetaData('keywords', $this->item->metakey);
+		if(!empty($this->item->metadesc))
+			$this->document->setMetaData('description', $this->item->metadesc);
+		
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
