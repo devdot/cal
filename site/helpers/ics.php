@@ -29,12 +29,11 @@ abstract class IcsHelper {
 	}
 	
 	public static function dateToCal($timestamp) {
-		return date('Ymd\THis\Z', $timestamp);
+		return JHTML::date($timestamp,'Ymd\THis\Z', 'UTC');
 	}
 	
 	public static function dateSqlToCal($sql) {
-		$date = new JDate($sql);
-		return $date->format('Ymd\THis\Z');
+		return  JHTML::date($sql,'Ymd\THis\Z', 'UTC');
 	}
 
 	public static function escapeString($string) {
