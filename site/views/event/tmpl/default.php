@@ -28,41 +28,28 @@ $oneDay = CalSiteHelper::oneDay($start, $end);
 	<div class="page-header">
 		<h2 itemprop="name"><?php echo $this->escape($this->item->name); ?></h2>
 	</div>
-	<div class="cal-event-icons">
-		<div class="btn-group pull-right">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> <span class="icon-cog"></span><span class="caret"></span> </a>
-			<?php // Note the actions class is deprecated. Use dropdown-menu instead. ?>
-			<ul class="dropdown-menu">
-				<li><a href="<?php echo JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$this->item->id);?>">iCal / Outlook</a></li>
-			</ul>
-		</div>
-
-	</div>
 	<div class="cal-event-body row">
 		<div class="cal-event-left col-md-6">
-			<h3>Details</h3>
+			<h3><span class="glyphicon glyphicon-info-sign"></span> Details</h3>
 			<div class="cal-event-dates">
-				<?php if($this->item->link): ?>
-				<a href="<?php echo $this->item->link; ?>" class="cal-event-link btn" itemprop="url">
-					Zur Veranstaltung
-				</a>
-				<?php endif; ?>
 				<?php if($oneDay): ?>
 				<div class="cal-event-date">
 					<?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?>
 				</div>
 				<?php endif; ?>
-				<div class="cal-event-start">
-					<?php if(!$oneDay): ?>
-					<span class="cal-event-start-date"><?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?></span>
-					<?php endif; ?>
-					<time class="cal-event-start-time"><?php echo JHTML::date($start, "H:i") ?></time>
+				<?php if(!$oneDay): ?>
+				<div class="cal-event-start">	
+					<span class="cal-event-start-date">Beginn: <?php echo CalSiteHelper::weekday($start).', '.JHTML::date($start, 'd.m.Y'); ?></span>
+				<?php else: ?>
+				<div class="cal-event-times">
+				<?php endif; ?>
+					<time class="cal-event-start-time"><?php echo JHTML::date($start, "H:i") ?></time> – 
 					<span class="hidden" itemprop="startDate"><?php echo $start->toISO8601(); ?></span>
+				<?php if(!$oneDay): ?>
 				</div>
-				<div class="cal-event-end">
-					<?php if(!$oneDay): ?>
-					<span class="cal-event-end-date"><?php echo CalSiteHelper::weekday($end).', '.JHTML::date($end, 'd.m.Y'); ?></span>
-					<?php endif; ?>
+				<div class="cal-event-end">	
+					<span class="cal-event-end-date">Ende: <?php echo CalSiteHelper::weekday($end).', '.JHTML::date($end, 'd.m.Y'); ?></span>
+				<?php endif; ?>
 					<time class="cal-event-end-time"><?php echo JHTML::date($end, "H:i") ?></time>
 					<span class="hidden" itemprop="endDate"><?php echo $end->toISO8601(); ?></span>
 				</div>
@@ -70,9 +57,15 @@ $oneDay = CalSiteHelper::oneDay($start, $end);
 			<div class="cal-event-desc" itemprop="description">
 				<?php echo $this->item->introtext.$this->item->fulltext; ?>
 			</div>
+			<?php if($this->item->link): ?>
+			<a href="<?php echo $this->item->link; ?>" class="cal-event-link btn btn-default" itemprop="url">
+					Weitere Informationen
+			</a>
+			<a href="<?php echo JRoute::_('index.php?option=com_cal&view=event&format=ics&id='.$this->item->id);?>" class="cal-event-ical btn btn-default">iCal / Outlook</a>
+			<?php endif; ?>
 		</div>
 		<div class="cal-event-right col-md-6" itemprop="location" itemscope itemtype="http://schema.org/Place">
-			<h3 itemprop="name"><?php echo $this->item->loc_name; ?></h3>
+			<h3><span class="glyphicon glyphicon-map-marker"></span> <span itemprop="name"><?php echo $this->item->loc_name; ?></span></h3>
 			<div class="cal-event-loc" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 				<?php if($this->item->addrStreet): ?><div class="cal-event-loc-street" itemprop="streetAddress"><?php echo $this->item->addrStreet; ?></div><?php endif; ?>
 				<?php if($this->item->addrZip): ?><div class="cal-event-loc-zip" itemprop="postalCode"><?php echo $this->item->addrZip; ?></div><?php endif; ?>
@@ -81,7 +74,7 @@ $oneDay = CalSiteHelper::oneDay($start, $end);
 			</div>
 			<?php if($this->item->loc_link): ?>
 			<div class="cal-event-loc-link">
-				<a itemprop="url" class="btn" href='<?php echo $this->item->loc_link; ?>' target="_new">Mehr zu <?php echo $this->item->loc_name; ?></a>
+				<a itemprop="url" class="btn btn-default" href='<?php echo $this->item->loc_link; ?>' target="_new">Mehr zu <?php echo $this->item->loc_name; ?></a>
 			</div>
 			<?php endif; ?>
 			<div class="cal-event-map">
