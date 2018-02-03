@@ -36,6 +36,10 @@
     <folder>css</folder>
     <folder>img</folder>
   </files>
+  <languages folder="site/language">
+    <language tag="en-GB">en-GB/en-GB.com_cal.ini</language>
+    <language tag="de-DE">de-DE/de-DE.com_cal.ini</language>
+  </languages>
   <administration>
     <menu link="index.php?option=com_cal">COM_CAL_MENU</menu>
     <submenu>
