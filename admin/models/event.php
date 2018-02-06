@@ -229,7 +229,8 @@ class CalModelEvent extends JModelAdmin {
 				->set('catid='.(int) $data['catid'])
 				->set('access='.(int) $data['access'])
 				->set('state='.(int) $data['state'])
-				->where('recurring_id='.(int) $data['id']);
+				->where('recurring_id='.(int) $data['id'])
+				->where('state != -2');
 			$db->setQuery($query);
 			$db->execute();
 		}
