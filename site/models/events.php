@@ -54,14 +54,31 @@ class CalModelEvents extends JModelList {
 		$query = $db->getQuery(true);
 		//$user = JFactory::getUser();
         
-        //only need those columns
-		$query->select(array('a.id', 'a.name', 'a.start', 'a.end',
-					'b.title AS cat_name', 'a.catid'))
+		// get the current input to check to format feed
+		$input = JFactory::getApplication()->input;
+		$isFeed = $input->get('format') == 'feed';
+		
+        //only need those columns (if it is not a feed)
+		$sel = array('a.id', 'a.name', 'a.start', 'a.end',
+					'b.title AS cat_name', 'a.catid');
+		
+		// append some more columns for the feed
+		if($isFeed)
+			$sel = array_merge($sel, array('a.created', 'c.name AS location_name', 'a.recurring_id', 
+				'a.introtext', 'a.fulltext', 'd.introtext AS parent_introtext', 'd.fulltext AS parent_fulltext'));
+		
+		$query->select($sel)
 				->from('#__cal_events AS a')
-				->where('state = 1')
-				->where('recurring_schedule = ""')
-				->where('end > NOW()')
+				->where('a.state = 1')
+				->where('a.recurring_schedule = ""')
+				->where('a.end > NOW()')
 				->leftJoin('#__categories AS b ON b.id = a.catid');
+		
+		// join with location as well if it's a feed
+		if($isFeed) {
+			$query->leftJoin('#__cal_locations AS c ON a.location_id = c.id');
+			$query->leftJoin('#__cal_events AS d ON a.recurring_id = d.id');
+		}
 		
 		//allow filter for category
 		if(is_numeric($this->getState('filter.catid'))) {
@@ -70,6 +87,7 @@ class CalModelEvents extends JModelList {
 		}
 		
         //the system takes care of limits, also putting the query together
+		$query->limit(0);
 		
         if(!empty($this->getState("filter.search"))) {
             $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($this->getState("filter.search")), true) . '%'));
