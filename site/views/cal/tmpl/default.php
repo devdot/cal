@@ -43,17 +43,25 @@ $paginationDisable = !(bool)($this->state->start);
 			$nextMonth = true; //flag that is true when d contains the name of the next month
 			$i = 0;
 			$today = new JDate();
+			// hide-sm all until we reach the current day
+			$inPast = true;
 			while($current < $this->end): ?>
 			<tr>
 			<?php
 				for($j = 0; $j < 7; $j++):
+					// check if we reached the day that is today
+					$showToday = $today->day == $current->day && $today->month == $current->month && $today->year == $current->year;
+					
+					// we reached today so we set the past flag to false
+					if($showToday)
+						$inPast = false;
+					
 					//look up whether we should add hide-sm to this td
-					$showSm = $i < count($this->items);
+					$showSm = !$inPast && $i < count($this->items);
 					if($showSm) {
 						$start = new JDate($this->items[$i]->start);
 						$showSm = $start->day == $current->day?true:false;
 					}
-					$showToday = $today->day == $current->day && $today->month == $current->month && $today->year == $current->year;
 				?>
 				<td class="<?php echo $showSm?'':'cal-table-hide-sm'; echo $showToday?' cal-table-today':''; ?>">
 					<div class="cal-table-date cal-table-hide-lg"><?php echo CalSiteHelper::$weekdays[$j].', '.$current->day.'.'.$current->month; ?></div>
