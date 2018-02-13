@@ -64,7 +64,7 @@ class CalModelEvents extends JModelList {
 		
 		// append some more columns for the feed
 		if(!$isHtml)
-			$sel = array_merge($sel, array('a.created', 'c.name AS location_name', 'a.recurring_id', 
+			$sel = array_merge($sel, array('a.created', 'c.name AS location_name', 'c.addrCity AS city', 'a.recurring_id', 
 				'a.introtext', 'a.fulltext', 'd.introtext AS parent_introtext', 'd.fulltext AS parent_fulltext'));
 		
 		$query->select($sel)
