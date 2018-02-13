@@ -49,6 +49,9 @@ class CalViewEvents extends JViewLegacy
 			// Strip html from feed item title
 			$title = $this->escape($item->name);
 			$title = JHTML::date($item->start, "d.m.Y H:i").'Uhr: '.html_entity_decode($title, ENT_COMPAT, 'UTF-8');
+			
+			$cat = $this->escape($item->cat_name);
+			$loc = $this->escape($item->location_name);
 
 			// URL link to article	
 			$link   = JRoute::_('index.php?option=com_cal&view=event&id='.$item->id);
@@ -62,7 +65,7 @@ class CalViewEvents extends JViewLegacy
 			
 			$desc .= '<p>Datum: '.JHTML::date($item->start, "d.m.Y").'<br>';
 			$desc .= 'Zeit: '.JHTML::date($item->start, "H:i").'<br>';
-			$desc .= 'Veranstaltungsort: '.$item->location_name.'<br>';
+			$desc .= 'Veranstaltungsort: '.$loc.'<br>';
 			$desc .= 'Kategorie: '.$item->cat_name.'</p>';
 			
 			$date = date('r', strtotime($item->created));
@@ -73,7 +76,7 @@ class CalViewEvents extends JViewLegacy
 			$feeditem->link        = $link;
 			$feeditem->description = $desc;
 			$feeditem->date        = $date;
-			$feeditem->category    = $item->cat_name;
+			$feeditem->category    = $cat;
 			//$feeditem->author      = $author;
 
 			// We don't have the author email so we have to use site in both cases.
