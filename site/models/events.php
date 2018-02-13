@@ -56,14 +56,14 @@ class CalModelEvents extends JModelList {
         
 		// get the current input to check to format feed
 		$input = JFactory::getApplication()->input;
-		$isFeed = $input->get('format') == 'feed';
+		$isHtml = $input->get('format') == 'html';
 		
         //only need those columns (if it is not a feed)
 		$sel = array('a.id', 'a.name', 'a.start', 'a.end',
 					'b.title AS cat_name', 'a.catid');
 		
 		// append some more columns for the feed
-		if($isFeed)
+		if(!$isHtml)
 			$sel = array_merge($sel, array('a.created', 'c.name AS location_name', 'a.recurring_id', 
 				'a.introtext', 'a.fulltext', 'd.introtext AS parent_introtext', 'd.fulltext AS parent_fulltext'));
 		
@@ -75,7 +75,7 @@ class CalModelEvents extends JModelList {
 				->leftJoin('#__categories AS b ON b.id = a.catid');
 		
 		// join with location as well if it's a feed
-		if($isFeed) {
+		if(!$isHtml) {
 			$query->leftJoin('#__cal_locations AS c ON a.location_id = c.id');
 			$query->leftJoin('#__cal_events AS d ON a.recurring_id = d.id');
 		}
