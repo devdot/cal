@@ -32,6 +32,10 @@ JFactory::getDocument()->addStyleSheet(JURI::base().'components/com_cal/css/cal.
 					<span class="cal-cpanel-icon"><span class="icon icon-archive"></span></span>
 					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_ARCHIVE"); ?></span>
 				</a>
+				<a class="btn" onclick="Joomla.submitbutton('ct.import')">
+					<span class="cal-cpanel-icon"><span class="icon icon-download"></span></span>
+					<span class="cal-cpanel-title"><?php echo JText::_("COM_CAL_CPANEL_CT_IMPORT"); ?></span>
+				</a>
 			</div>
 			
 			
