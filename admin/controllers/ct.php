@@ -45,7 +45,8 @@ class CalControllerCt extends JControllerLegacy {
 		$model = $this->getModel();
 		$res = $model->import();
 		
-		if (!$res) {
+		// -1 is failure
+		if ($res == -1) {
 			// Redirect back to the edit screen.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
@@ -54,9 +55,13 @@ class CalControllerCt extends JControllerLegacy {
 
 			return false;
 		}
+		elseif($res == 0) {
+			// no new imports
+			$this->setMessage(JText::_('COM_CAL_CT_IMPORT_NO_NEW'));
+		}
 		else {
 			//successful
-			$this->setMessage(JText::_('COM_CAL_ITEMS_SAVED'));
+			$this->setMessage(JText::sprintf('COM_CAL_CT_N_IMPORTED', $res));
 		}
 		
 		$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct', false));

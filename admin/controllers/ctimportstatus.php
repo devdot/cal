@@ -50,7 +50,7 @@ class CalControllerCtImportStatus extends JControllerAdmin {
 		$model = $this->getModel('CtImportStatus', 'CalModel');
 		$res = $model->import($keys);
 		
-		if (!$res) {
+		if ($res == -1) {
 			// Redirect back to the edit screen.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
@@ -59,10 +59,16 @@ class CalControllerCtImportStatus extends JControllerAdmin {
 
 			return false;
 		}
+		elseif($res == 0) {
+			// no new imports
+			$this->setMessage(JText::_('COM_CAL_CT_IMPORT_NO_NEW'));
+		}
 		else {
 			//successful
-			$this->setMessage(JText::_('COM_CAL_ITEMS_SAVED'));
+			$this->setMessage(JText::sprintf('COM_CAL_CT_N_IMPORTED', $res));
 		}
+		
+		$this->setRedirect(JRoute::_('index.php?option=com_cal&view=ct', false));
 		
 		$this->setRedirect(JRoute::_('index.php?option=' . $this->option . '&view=' . $this->view_list, false));
 		

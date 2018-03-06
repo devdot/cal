@@ -39,7 +39,7 @@ class CalModelCt extends JModelLegacy {
 		}
 		catch (RuntimeException $e) {
 			JError::raiseWarning(500, $e->getMessage());
-			return false;
+			return -1;
 		}
 		
 		//safe our rules as objects (are stored as json)
@@ -54,6 +54,8 @@ class CalModelCt extends JModelLegacy {
 		
 		//event table for checking if it's already here
 		$eventTable = $this->getTable('Event', 'CalTable');
+		
+		$counter = 0;
 		
 		foreach($events as $event) {
 			//go through each event and apply all rules one by one (first rule gets it)
@@ -72,12 +74,15 @@ class CalModelCt extends JModelLegacy {
 			
 			foreach ($rules as $rule) {
 				//only apply the first rule that's applicable
-				if($this->applyRule($event, $rule))
-						break;
+				if($this->applyRule($event, $rule)) {
+					// rule has been applied
+					$counter++;
+					break;
+				}
 			}
 		}
 		
-		return true;
+		return $counter;
 	}
 	
 	private function applyRule($event, $rule) {

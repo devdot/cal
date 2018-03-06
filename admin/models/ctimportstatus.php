@@ -126,6 +126,7 @@ class CalModelCtImportStatus extends JModelList {
 	
 	public function import($keys) {
 		$success = true;
+		$counter = 0;
 		
 		//get the ct events
 		$ct = CalHelperCT::getInstance();
@@ -208,7 +209,9 @@ class CalModelCtImportStatus extends JModelList {
 				//we had a fail
 				$success = false;
 			}
+			$counter++;
 		}
-		return $success;
+		
+		return $success ? $counter  : -1;
 	}
 }
