@@ -58,30 +58,30 @@ class CalControllerEvents extends JControllerAdmin {
 		
 		$model = $this->getModel(); //Event model
 		
-		//0 failed, 1 ok, 2 no new
-		$returnCode = 1;
+		// count the total generated children
+		$generated = 0;
+		$success = true;
 		foreach($parents as $id) {
 			//let the model do its work
 			$res = $model->recurring($id);
-			if(!$res) {
-				$returnCode = 0;
+			if($res === -1) {
+				$success = false;
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			}
-			if($returnCode && $res == 2)
-				$returnCode == 2;
+			else
+				$generated += $res;
 		}
 		
-		if (!$returnCode) {
+		if (!$success) {
 			// Redirect back
 			$this->setMessage($this->getError(), 'error');
 		}
-		elseif($res === 2) {
+		elseif($generated === 0) {
 			$this->setMessage(JText::_('COM_CAL_RECURRING_NO_NEW'));
-			//2 is return code for no new items
 		}
 		else {
 			//successful
-			$this->setMessage(JText::_('COM_CAL_RECURRING_EVENTS_SAVED'));
+			$this->setMessage(JText::sprintf('COM_CAL_N_RECURRING_EVENTS_GENERATED', $generated));
 		}
 		
 		$this->setRedirect(

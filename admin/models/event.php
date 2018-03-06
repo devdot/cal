@@ -314,7 +314,7 @@ class CalModelEvent extends JModelAdmin {
 		
 		if((int) $parent->recurring_id != 0 || empty($parent->recurring_schedule)) {
 			JError::raiseWarning(500, 'COM_CAL_ERROR_RECURRING_IS_NO_PARENT');
-			return false;
+			return -1;
 		}
 		$schedule = json_decode($parent->recurring_schedule);
 				
@@ -367,7 +367,7 @@ class CalModelEvent extends JModelAdmin {
 		}
 		catch (RuntimeException $e) {
 			JError::raiseWarning(500, $e->getMessage());
-			return false;
+			return -1;
 		}
 		if(!empty($ret)) {
 			// we are not using start, so create a new one (same timezone stuff as start)
@@ -390,7 +390,7 @@ class CalModelEvent extends JModelAdmin {
 		if($forecast - $latest_ < 0 && empty($dates)) {
 			//the event is beyond forecast date in the future
 			//or has been forecast long enough
-			return 2;
+			return 0;
 		}
 		if($schedule->type < 3) {
 			switch($schedule->type) {
@@ -440,7 +440,7 @@ class CalModelEvent extends JModelAdmin {
 		
 		if(empty($dates)) {
 			//no new dates to add
-			return 2;
+			return 0;
 		}
 		
 		$query = $db->getQuery(true);
@@ -471,7 +471,7 @@ class CalModelEvent extends JModelAdmin {
 		}
 		$db->setQuery($query);
 		$db->execute();
-		return true;
+		return count($dates);
 	}
 	
 		

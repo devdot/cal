@@ -37,7 +37,7 @@ class CalControllerEvent extends JControllerForm {
 
 		// Attempt to save the data.
 		$res = $model->recurring($id);
-		if (!$res) {
+		if ($res === -1) {
 			// Redirect back to the edit screen.
 			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
 			$this->setMessage($this->getError(), 'error');
@@ -51,13 +51,13 @@ class CalControllerEvent extends JControllerForm {
 
 			return false;
 		}
-		elseif($res === 2) {
+		elseif($res === 0) {
 			$this->setMessage(JText::_('COM_CAL_RECURRING_NO_NEW'));
 			//2 is return code for no new items
 		}
 		else {
 			//successful
-			$this->setMessage(JText::_('COM_CAL_ITEMS_SAVED'));
+			$this->setMessage(JText::sprintf('COM_CAL_N_RECURRING_EVENTS_GENERATED', $res));
 		}
 		
 		$this->setRedirect(
