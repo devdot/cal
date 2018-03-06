@@ -66,6 +66,9 @@ class CalModelCt extends JModelLegacy {
 			//skip if we already got it ...
 			if($eventTable->load(array('ct_id' => $event->id, 'ct_subid' => $event->subid)))
 				continue;
+			// for weird reasons we have to do it manually (should be covered above)
+			if($event->subid == NULL && $eventTable->load(array('ct_id' => $event->id)))
+				continue;
 			
 			foreach ($rules as $rule) {
 				//only apply the first rule that's applicable
@@ -149,6 +152,7 @@ class CalModelCt extends JModelLegacy {
 		if(!$table->check()){
 			return false;
 		}
+		// may fail because of duplicate alias
 		if(!$table->store()) {
 			return false;
 		}
