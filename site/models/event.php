@@ -104,7 +104,8 @@ class CalModelEvent extends JModelForm
 					$res = $db->loadObject();
 					
 					if (empty($res)) {
-						JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
+						// not found, look in archive
+						$this->checkArchive($pk);
 					}
 
 					//now check the items recurring status
@@ -155,7 +156,7 @@ class CalModelEvent extends JModelForm
 				$data = $db->loadObject();
 				
 				if (empty($data)) {
-					JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
+					$this->checkArchive($pk);
 				}
 				
 				//Convert the images field to an array for data
@@ -203,6 +204,29 @@ class CalModelEvent extends JModelForm
 		
 
 		return $this->_item[$pk];
+	}
+	
+	private function checkArchive($pk) {
+		// this function is only called when the event wasn't found in the event table
+		// it's at least a 404
+		
+		$db = $this->getDbo();
+		
+		// build a query for checking
+		$query = $db->getQuery(true);
+		$query->select(array('name'))
+				->from('#__cal_archive')
+				->where('id = '.$pk);
+		$db->setQuery($query);
+		$res = $db->loadObject();
+
+		// now check the result
+		if (!empty($res)) {
+			JError::raiseError(410, JText::_('COM_CAL_ERROR_EVENT_ARCHIVED'));
+		}
+		
+		// it's not in events or archive, so it's just not found!
+		JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
 	}
 	
 	public function getForm($data = array(), $loadData = true) {
