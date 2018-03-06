@@ -46,6 +46,10 @@ class CalRouter extends JComponentRouterBase {
 	public function build(&$query) {
 		$segments = array();
 		
+		// the html format is assumed
+		if(isset($query['format']) && $query['format'] == 'html')
+			unset($query['format']);
+		
 		// Unset limitstart=0 since it's pointless
 		if (isset($query['limitstart']) && $query['limitstart'] == 0) {
 			unset($query['limitstart']);
@@ -206,6 +210,9 @@ class CalRouter extends JComponentRouterBase {
 		// Get the active menu item.
 		$item = $this->menu->getActive();
 		//$db = JFactory::getDbo();
+		
+		// assume html format
+		$vars['format'] = 'html';
 		
 		//check last segment for format
 		if(substr($segments[$total - 1], -4) == '.ics') {
