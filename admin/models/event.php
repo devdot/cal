@@ -268,7 +268,7 @@ class CalModelEvent extends JModelAdmin {
 			}
 			if((int) $ret[0]->recurring_id != 0) {
 				//we can't delete children
-				JError::raiseWarning(500, 'COM_CAL_ERROR_RECURRING_CHILD');
+				JError::raiseWarning(500, JText::_('COM_CAL_ERROR_TRASH_RECURRING_CHILD'));
 				continue;
 			}
 			
