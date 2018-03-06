@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
 	<fieldset
+		addfieldpath="/administrator/components/com_cal/models/fields"
 		name="general"
 		label="COM_CAL_CONFIG_GENERAL_LABEL"
 		description="COM_CAL_CONFIG_GENERAL_DESC"
@@ -19,6 +20,14 @@
 			label="COM_CAL_CONFIG_GENERAL_ARCHIVE_AGE_LABEL"
 			description="COM_CAL_CONFIG_GENERAL_ARCHIVE_AGE_DESC"
 			default="14"
+		>
+		</field>
+		<field
+			name="location_default"
+			type="locationedit"
+			label="COM_CAL_CONFIG_GENERAL_DEFAULT_LOCATION"
+			description="COM_CAL_CONFIG_GENERAL_DEFAULT_LOCATION_DESC"
+			
 		>
 		</field>
 	</fieldset>

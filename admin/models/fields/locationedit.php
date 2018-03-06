@@ -63,8 +63,16 @@ class JFormFieldLocationEdit extends JFormFieldList
 			JError::raiseWarning(500, $e->getMessage());
 		}
 
+		// get the default ID from settings
+		$defaultId = JComponentHelper::getParams('com_cal')->get('location_default', 1);
+		$default = null;
+		
+		if($this->default == '')
+			$this->default = $defaultId;
+
+		
 		// Pad the option text with spaces using depth level as a multiplier.
-		foreach ($options as $option) {
+		foreach ($options as $key => $option) {
 			//adding some nice contextual information
 			$str = $option->addrStreet;
 			if(!empty($str) and !empty($option->addrCity))
@@ -73,9 +81,22 @@ class JFormFieldLocationEdit extends JFormFieldList
 				$str .= $option->addrCity;
 			if(!empty($str))
 				$option->text .= ' ('.$str.')';
+			
+			// check for the default id
+			if($option->value == $defaultId) {
+				// and save that object
+				$default = $option;
+				
+				// remove it from the list for now
+				unset($options[$key]);
+			}
 		}
-
-
+		
+		// check if we found the default location
+		if($default != null) {
+			// and move it to the top
+			array_unshift($options, $default);
+		}
 		
 
 		// Merge any additional options in the XML definition.
