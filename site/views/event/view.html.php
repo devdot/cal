@@ -24,6 +24,7 @@ class CalViewEvent extends JViewLegacy {
 	
 	public $mapsUse;
 	public $mapsKey;
+	public $category;
 	
 	function display($tpl = null) {
 		// Assign data to the view
@@ -33,6 +34,7 @@ class CalViewEvent extends JViewLegacy {
 		
 		$this->mapsUse = JComponentHelper::getParams('com_cal')->get('maps_use');
 		$this->mapsKey = JComponentHelper::getParams('com_cal')->get('maps_key');
+		$this->category = JCategories::getInstance('Cal')->get($this->item->catid);
 		
 		if($tpl == null) //only load related events for the default view
 			$this->related = $this->get('RelatedEvents');

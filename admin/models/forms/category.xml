@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="params">
+        <fieldset name="basic" label="COM_CAL_CATEGORIES_PANEL">
+            <field
+				name="link"
+				type="radio"
+				default="0"
+				label="COM_CAL_CATEGORIES_LINK_CATEGORY_LABEL"
+				description="COM_CAL_CATEGORIES_LINK_CATEGORY_DESC"
+				class="btn-group btn-group-yesno"
+			>
+				<option value="1">JYES</option>
+				<option value="0">JNO</option>
+            </field>
+        </fieldset>
+    </fields>
+</form>
