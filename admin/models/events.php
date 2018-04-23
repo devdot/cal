@@ -58,6 +58,8 @@ class CalModelEvents extends JModelList {
         $this->setState('filter.recurring', $rec);
 		$catid = $app->getUserStateFromRequest($this->context . 'filter.catid', 'filter_type', '', 'string');
         $this->setState('filter.catid', $catid);
+		$ct = $app->getUserStateFromRequest($this->context . 'filter.ct', 'filter_type', '', 'string');
+        $this->setState('filter.ct', $ct);
 		$access = $app->getUserStateFromRequest($this->context . 'filter.access', 'filter_type', '', 'string');
         $this->setState('filter.access', $access);
         
@@ -112,6 +114,13 @@ class CalModelEvents extends JModelList {
 		if(is_numeric($this->getState('filter.catid'))) {
 			$catid = (int) $this->getState('filter.catid');
 			$query->where('a.catid = '.$catid);
+		}
+		
+		if(is_numeric($this->getState('filter.ct'))) {
+			if($this->getState('filter.ct') == 1)
+				$query->where('a.ct_id IS NOT NULL');
+			else
+				$query->where('a.ct_id IS NULL');
 		}
 		
 		if(is_numeric($this->getState('filter.access'))) {

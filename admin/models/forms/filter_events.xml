@@ -50,6 +50,18 @@
 		</field>
 
 		<field
+            name="ct"
+            type="list"
+            label="COM_CAL_FILTER_CT_LABEL"
+            description="COM_CAL_FILTER_CT_DESC"
+            onchange="this.form.submit();"
+            >
+            <option value="">COM_CAL_SELECT_CT</option>
+            <option value="1">COM_CAL_SELECT_CT_YES</option>
+            <option value="0">COM_CAL_SELECT_CT_NO</option>
+        </field>
+		
+		<field
 			name="access"
 			type="accesslevel"
 			label="JOPTION_FILTER_ACCESS"
