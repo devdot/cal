@@ -15,7 +15,7 @@
             name="state"
             type="list"
             label="JOPTION_SELECT_PUBLISHED"
-            description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
+            description="COM_CAL_FILTER_STATE_DESC"
             onchange="this.form.submit();"
             >
             <option value="">JOPTION_SELECT_PUBLISHED</option>
@@ -27,8 +27,8 @@
         <field
             name="recurring"
             type="list"
-            label="JOPTION_SELECT_RECURRING"
-            description="COM_CAL_FILTER_RESOURCE_TYPE_DESC"
+            label="COM_CAL_FILTER_RECURRING_LABEL"
+            description="COM_CAL_FILTER_RECURRING_DESC"
             onchange="this.form.submit();"
             >
             <option value="">COM_CAL_SELECT_RECURRING</option>
