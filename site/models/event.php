@@ -306,7 +306,7 @@ class CalModelEvent extends JModelForm
 		
 		$n = 0; //not static
 		
-		$evemts = array();
+		$events = array();
 		
 		//the common part of the query
 		$mQuery = $db->getQuery(true);
