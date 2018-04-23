@@ -158,6 +158,32 @@ class CalRouter extends JComponentRouterBase {
 		elseif($view == $menuItem->query['view']) {
 			unset($query['view']);
 		}
+		elseif($view == 'category') {
+			// shorten link for categories
+			
+			$menuItem = $this->eventsStart;
+			$query['Itemid'] = $this->eventsStart->id;
+			
+			unset($query['view']);
+			
+			// same as for events
+			if (strpos($query['id'], ':') === false) {
+				$db = JFactory::getDbo();
+				$dbQuery = $db->getQuery(true)
+					->select('alias')
+					->from('#__categories')
+					->where('id=' . (int) $query['id']);
+				$db->setQuery($dbQuery);
+				$alias = $db->loadResult();
+				$query['id'] = 'c/'.$alias . ':' . $query['id']; // WARNING: hardcoded identifier for category
+
+			}
+			
+			$segments[] = $query['id'];
+
+			unset($query['id']);
+			unset($query['catid']);
+		}
 
 		/*
 		 * If the layout is specified and it is the same as the layout in the menu item, we
@@ -219,8 +245,19 @@ class CalRouter extends JComponentRouterBase {
 			$vars['format'] = 'ics';
 			$segments[$total - 1] = substr($segments[$total - 1], 0, -4);
 		}
-
-
+		
+		// check for category
+		if($item == $this->eventsStart && $segments[0] == 'c' && $total == 2) {
+			// this is a category
+			$vars['view'] = 'category';
+			
+			$expl = explode('-', $segments[1]);
+			$vars['id'] = (int) array_pop($expl); //this field is {alias}-{id}, but the alias very likely contains '-' so we need the last element
+			
+			return $vars;
+		}
+		
+		// now just check for event
 		if($item == $this->eventsStart && $total == 1) {
 			//just a simple event that's routed over eventsStart
 			$vars['view'] = 'event';
