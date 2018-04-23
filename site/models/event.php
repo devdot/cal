@@ -18,7 +18,7 @@ use Joomla\Registry\Registry;
  * @subpackage  com_cal
  * @since       1.5
  */
-class CalModelEvent extends JModelForm
+class CalModelEvent extends JModelItem
 {
 	/**
 	 * The name of the view for a single item
@@ -227,21 +227,6 @@ class CalModelEvent extends JModelForm
 		
 		// it's not in events or archive, so it's just not found!
 		JError::raiseError(404, JText::_('COM_CAL_ERROR_EVENT_NOT_FOUND'));
-	}
-	
-	public function getForm($data = array(), $loadData = true) {
-		// Get the form. copy pasta!!
-		$form = $this->loadForm('com_cal.event', 'event', array('control' => 'jform', 'load_data' => true));
-
-		if (empty($form)) {
-			return false;
-		}
-
-		$id = $this->getState('event.id');
-		$params = $this->getState('params');
-		$event = $this->_item[$id];
-
-		return $form;
 	}
 	
 	public static function recurringHelper($parent, $child) {
