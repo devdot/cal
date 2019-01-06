@@ -299,6 +299,7 @@ class CalModelEvent extends JModelItem
 				->from('#__cal_events')
 				->where('start > NOW()')
 				->where('recurring_schedule = ""')
+				->where('state = 1') // make sure it only shows published events
 				->where('access = 1') //hardcoded access level
 				->where('id != '.$item->id) //also works when pk isParent because their item->id get overwritten by swapping in recurringHelper's params
 				->order('start ASC');
