@@ -1,5 +1,4 @@
+.vscode/
 admin/cal.xml
 /nbproject/
-/build/
-*.bat
 *.zip
